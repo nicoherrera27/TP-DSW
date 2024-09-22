@@ -1,0 +1,91 @@
+:host {
+  display: block;
+}
+
+header {
+  transition: background-color 0.3s ease;
+}
+
+nav {
+  transition: padding 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+a {
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+  transform: translateY(-2px);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.logo::before {
+  content: '🐾';
+  margin-right: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.nav-links a {
+  position: relative;
+  padding-bottom: 2px;
+  padding-right: 0.5rem;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .nav-links {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .nav-links.open {
+    max-height: 500px;
+  }
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.menu-button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
