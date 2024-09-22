@@ -1,0 +1,14 @@
+<h1>Zonas: </h1>
+
+<ul>
+  <li *ngFor="let zone of zoneService.zones; let i = index">
+    <h2>{{ i + 1 }}</h2>
+    <h2>{{ zone.name }}</h2>
+    <ul>
+      <li *ngFor="let shelter of zone.shelters">
+        <h3>Refugios:</h3>
+        {{ shelter.name }} - {{ shelter.address }}
+      </li>
+    </ul>
+  </li>
+</ul>
