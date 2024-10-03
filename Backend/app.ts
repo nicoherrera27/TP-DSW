@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: 'http://localhost:4200',  // Permitir solicitudes desde el frontend de Angular
+  origin: 'http://localhost:4200/',  // Permitir solicitudes desde el frontend de Angular
   methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Métodos permitidos
   allowedHeaders: ['Content-Type', 'Authorization']  // Cabeceras permitidas
 }));
