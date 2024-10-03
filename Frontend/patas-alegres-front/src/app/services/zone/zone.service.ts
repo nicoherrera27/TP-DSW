@@ -29,4 +29,8 @@ export class ZoneService {
   updateZone(zone: Zone){
     return this.http.put<{message: string, data: Zone}>(`${this.API_URL}/${zone.id}`, zone);
   }
+
+  deleteZone(id: number){
+    return this.http.delete<{message: string, data: Zone}>(`${this.API_URL}/${id}`);
+  }
 }

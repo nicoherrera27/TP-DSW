@@ -28,4 +28,16 @@ export class ZoneComponent {
       }
     })
   }
+
+  deleteZone(id: number){
+    this.zoneService.deleteZone(id).subscribe({
+      next: (response) => {
+       console.log(response);
+       this.getZones();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
 }

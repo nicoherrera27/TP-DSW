@@ -2,15 +2,22 @@
 
 <ul>
   <li *ngFor="let zone of zoneService.zones; let i = index">
-    <a [routerLink]="zone.id.toString()">
-      <h2>{{ zone.name }}</h2>
-    </a>
-    <ul>
-      <li *ngFor="let shelter of zone.shelters">
-        <h3>Refugios:</h3>
-        {{ shelter.name }} - {{ shelter.address }}
-      </li>
-    </ul>
+    <div class="d-flex flex-row align-self-center">
+      <div>
+        <a [routerLink]="zone.id.toString()">
+          <h2>{{ zone.name }}</h2>
+        </a>
+        <ul>
+          <li *ngFor="let shelter of zone.shelters">
+            <h3>Refugios:</h3>
+            {{ shelter.name }} - {{ shelter.address }}
+          </li>
+        </ul>
+      </div>
+      <div class="p-3">
+        <button class="btn btn-danger" (click)="deleteZone(zone.id)">Eliminar zona</button>
+      </div>
+    </div>
   </li>
 </ul>
 
