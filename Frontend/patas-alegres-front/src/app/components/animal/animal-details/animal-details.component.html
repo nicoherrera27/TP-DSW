@@ -1,0 +1,7 @@
+@if (selesctedAnimal) {
+  <h2>{{ selesctedAnimal.name }}</h2>
+  <h2>{{ selesctedAnimal.birth_date }}</h2>
+  <h2>{{ selesctedAnimal.breed.name }}</h2> 
+} @else {
+  <h2>No existe ningun animal con ese id</h2>
+}
