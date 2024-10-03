@@ -1,0 +1,14 @@
+<div>
+  <p>ID: {{ selectedZone.id }}</p>
+  <p>Name: {{ selectedZone.name }}</p>
+  <p>UpdatedAt: {{ selectedZone.updatedAt }}</p>
+  <p>CreatedAt: {{ selectedZone.createdAt }}</p>
+
+  <h3>Refugios:</h3>
+  <ul>
+    <li *ngFor="let shelter of selectedZone.shelters">
+      <p>{{ shelter.name }} - {{ shelter.address }}</p>
+    </li>
+  </ul>
+</div>
+

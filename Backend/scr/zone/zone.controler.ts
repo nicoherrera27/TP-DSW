@@ -16,8 +16,12 @@ async function findAll( req: Request, res: Response ){
 async function findOne( req: Request, res: Response ){
   try{
     const id = Number.parseInt(req.params.id);
-    const zone = await em.find(Zone, { id: id }, {populate:['shelters']});
-    res.status(200).json({ message: 'zone data: ', data: zone });
+    const zone = await em.findOne(Zone, { id: id }, {populate:['shelters']});
+    if (!zone) {
+      return res.status(404).json({ message: 'zone not found' });
+    }
+
+    res.status(200).json({ data: zone });
   }catch (error: any){
     res.status(500).json({ message: error.message });
   }

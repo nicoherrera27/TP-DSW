@@ -1,0 +1,9 @@
+<h2>Crear Zona</h2>
+<form [formGroup]="zoneForm" (submit)="postZone()">
+  <fieldset>
+    <label for="name">Nombre:</label><br>
+    <input type="text" id="zone-name" name="name" formControlName="name">
+    <br><br>
+  </fieldset>
+  <button>Crear zona</button>
+</form>
