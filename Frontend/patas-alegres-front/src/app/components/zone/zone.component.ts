@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { ZoneService } from '../../services/zone/zone.service.js';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ZoneFormComponent } from "./zone-form/zone-form/zone-form.component";
 
 @Component({
   selector: 'app-zone',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, ZoneFormComponent],
   templateUrl: './zone.component.html',
   styleUrl: './zone.component.css'
 })

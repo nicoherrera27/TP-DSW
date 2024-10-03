@@ -2,8 +2,9 @@
 
 <ul>
   <li *ngFor="let zone of zoneService.zones; let i = index">
-    <h2>{{ i + 1 }}</h2>
-    <h2>{{ zone.name }}</h2>
+    <a [routerLink]="zone.id.toString()">
+      <h2>{{ zone.name }}</h2>
+    </a>
     <ul>
       <li *ngFor="let shelter of zone.shelters">
         <h3>Refugios:</h3>
@@ -12,3 +13,5 @@
     </ul>
   </li>
 </ul>
+
+<app-zone-form></app-zone-form>
