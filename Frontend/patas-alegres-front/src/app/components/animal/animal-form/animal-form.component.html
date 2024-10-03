@@ -1,0 +1,28 @@
+
+
+<form [formGroup]="animalForm" (submit)="postAnimal()">
+  <fieldset>
+    <label for="name">Nombre: </label>
+    <input type="text" id="animal-name" formControlName="name">
+    @if (name.invalid && name.touched) {
+    <p class="error">El nombre es obligatorio</p>
+    }
+  </fieldset>
+  <fieldset>
+    <label for="birthDate">fecha de nacimento: </label>
+    <input type="text" id="animal-birthDate" formControlName="birth_date">
+  </fieldset>
+  <fieldset>
+    <label for="breed">Raza: </label>
+    <input type="text" id="animal-breed" formControlName="breed">
+
+  </fieldset>
+  <fieldset>
+    <label for="rescueClass">Rescate: </label>
+    <input type="text" id="animal-rescueClass" formControlName="rescueClass">
+  </fieldset>
+
+  <button [disabled]="animalForm.invalid">crear animal
+  </button>
+</form>
+

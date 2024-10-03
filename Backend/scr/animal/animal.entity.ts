@@ -10,9 +10,6 @@ export class Animal extends BaseEntity {
   name!: string
 
   @Property()
-  rescue_date!: Date
-
-  @Property()
   birth_date!: Date
 
   @ManyToOne(() => Breed, {nullable: false})

@@ -7,8 +7,7 @@ POST http://localhost:3000/api/animal
 Content-Type: application/json
 
 {
-    "name": "marta", 
-    "rescue_date": "2023-10-20",
+    "name": "simon", 
     "birth_date": "2020-10-10",
     "breed": "1",
     "rescueClass": "2"
@@ -18,7 +17,7 @@ Content-Type: application/json
 ###ID
  @id = {{createAnimal.response.body.data.id}}
 ### obtener un animal 
-GET http://localhost:3000/api/animal/{{{id}}}
+GET http://localhost:3000/api/animal/{{id}}
 
 
 ### modificar un animal (PUT)
@@ -27,7 +26,6 @@ Content-Type: application/json
 
 {
     "name": "freya", 
-    "rescue_date": "2004203",
     "birth_date": "25122013",
     "breed": "1"
 }
@@ -38,3 +36,5 @@ Content-Type: application/json
 ### DELETE
 @idToDelete = {{createAnimal .response.body.data.id}}
 DELETE http://localhost:3000/api/animal/{{{{idToDelete}}}}
+
+
