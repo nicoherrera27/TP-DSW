@@ -25,4 +25,8 @@ export class ZoneService {
   postZone(zone: Zone){
     return this.http.post<{message: string, data: Zone}>(this.API_URL, zone);
   }
+
+  updateZone(zone: Zone){
+    return this.http.put<{message: string, data: Zone}>(`${this.API_URL}/${zone.id}`, zone);
+  }
 }
