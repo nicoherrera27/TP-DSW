@@ -15,19 +15,19 @@ export class AnimalFormComponent {
   name: FormControl;
   birth_date: FormControl;
   breed: FormControl;
-  rescue: FormControl;
+  rescueClass: FormControl;
 
   constructor(private route: ActivatedRoute,public animalService: AnimalService) {
     this.name = new FormControl('', Validators.required);
     this.birth_date = new FormControl('');
     this.breed = new FormControl('');
-    this.rescue = new FormControl('');
+    this.rescueClass = new FormControl('');
     
     this.animalForm = new FormGroup({
       name: this.name,
       birth_date: this.birth_date,
       breed: this.breed,
-      rescue: this.rescue
+      rescueClass: this.rescueClass
     });
    }
 

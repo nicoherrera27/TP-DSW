@@ -6,12 +6,12 @@ export class Animal {
   name: string;
   birth_date: Date;
   breed: Breed;
-  rescue: Rescue;
+  rescueClass: Rescue;
 
   constructor(name: string, rescue_date: Date, birth_date: Date, breed: Breed, rescue: Rescue) {
     this.name = name;
     this.birth_date = birth_date;
     this.breed = breed;
-    this.rescue = rescue
+    this.rescueClass = rescue
   }
 }
