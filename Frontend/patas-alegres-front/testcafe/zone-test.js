@@ -17,6 +17,9 @@ test("Verificar que el botón Zona muestra la lista correcta de zonas", async (t
 });
 
 test('Eliminar la zona "Sur"', async (t) => {
+  const zoneLink = Selector("a").withText("Zona");
+  await t.click(zoneLink);
+
   const zonaSur = Selector("h2").withText("Sur");
 
   const botonEliminar = zonaSur
@@ -51,4 +54,26 @@ test('Crear la zona "Sur"', async (t) => {
   await t.eval(() => location.reload());
 
   await t.expect(Selector("h2").withText("Sur").exists).ok();
+});
+
+test('Modificar la zona "Sur" a "Sur de Rosario"', async (t) => {
+  const zoneLink = Selector("a").withText("Zona");
+  await t.click(zoneLink);
+
+  const zonaSurH2 = Selector("h2").withText("Sur");
+
+  await t.scrollIntoView(zonaSurH2).hover(zonaSurH2).click(zonaSurH2);
+
+  const inputNombreZona = Selector("input").withAttribute(
+    "formcontrolname",
+    "name"
+  );
+
+  await t
+    .selectText(inputNombreZona)
+    .pressKey("delete")
+    .typeText(inputNombreZona, "Sur de Rosario");
+
+  const botonActualizar = Selector("button").withText("Actualizar zona");
+  await t.click(botonActualizar);
 });
