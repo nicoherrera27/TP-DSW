@@ -1,22 +1,20 @@
-
 <h1>Animales: </h1>
-
 <ul>
   <li *ngFor="let animal of animalService.animals; let i = index">
-    <h2>{{ i + 1 }}</h2>
-    <h2>{{ animal.name }}</h2>
+    <div class="d-flex flex-row align-self-center">
+      <div>
+        <a *ngIf="animal.id" routerLink="/animal/{{ animal.id }}">
+          <h2>{{ animal.name }}</h2>
+        </a>
+      </div>
+      <div class="p-3">
+        <button class="btn btn-danger" (click)="animal.id ? deleteAnimal(animal.id) : null">Eliminar animal</button>
+      </div>
+    </div>
   </li>
 </ul>
-
-<ul>
-  <li *ngFor="let animal of animalService.animals; let i = index">
-    <h2>{{ i + 1 }}</h2>
-    <h2>{{ animal.name }}</h2>
-  </li>
-</ul>
-
 <nav>
   <ul>
-    <button><a routerLink="/animal/animalForm">agregar un animal </a></button>
+    <button><a routerLink="/animal/create">agregar un animal </a></button>
   </ul>
 </nav>

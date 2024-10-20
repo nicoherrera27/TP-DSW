@@ -7,6 +7,7 @@ export class Animal {
   birth_date: Date;
   breed: Breed;
   rescueClass: Rescue;
+  data: Animal | undefined;
 
   constructor(name: string, rescue_date: Date, birth_date: Date, breed: Breed, rescue: Rescue) {
     this.name = name;

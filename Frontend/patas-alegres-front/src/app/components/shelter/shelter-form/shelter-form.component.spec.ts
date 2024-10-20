@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnimalListComponent } from './animal-list.component';
+import { ShelterFormComponent } from './shelter-form.component';
 
-describe('AnimalListComponent', () => {
-  let component: AnimalListComponent;
-  let fixture: ComponentFixture<AnimalListComponent>;
+describe('ShelterFormComponent', () => {
+  let component: ShelterFormComponent;
+  let fixture: ComponentFixture<ShelterFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AnimalListComponent]
+      imports: [ShelterFormComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AnimalListComponent);
+    fixture = TestBed.createComponent(ShelterFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

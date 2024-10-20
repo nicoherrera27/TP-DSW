@@ -21,10 +21,10 @@ async function findAll( req: Request, res: Response ){
 async function findOne( req: Request, res: Response ){
   try {
     const id = Number.parseInt(req.params.id)
-    const animal = await em.findOneOrFail(Animal, { id })
+    const animal = await em.findOneOrFail(Animal, { id }, {populate:["rescueClass, breed"]})
     res
       .status(200)
-      .json({ message: 'found animal', data: animal })
+      .json({ data: animal })
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }

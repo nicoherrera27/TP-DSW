@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AnimalService } from '../../../services/animal/animal.service.js';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-animal-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './animal-form.component.html',
   styleUrl: './animal-form.component.css'
 })

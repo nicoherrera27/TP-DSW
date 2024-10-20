@@ -14,12 +14,14 @@ import { ZoneFormComponent } from "./zone-form/zone-form/zone-form.component";
 export class ZoneComponent {
   constructor(public zoneService: ZoneService) {}
 
+
   ngOnInit(): void {
     this.getZones()
   }
 
   getZones(){
     this.zoneService.getZones().subscribe({
+
       next: (response) => {
         this.zoneService.zones = response.data;
       },

@@ -1,0 +1,32 @@
+<form [formGroup]="shelterForm" (ngSubmit)="postShelter()">
+  <fieldset>
+    <label for="name">Nombre: </label>
+    <input type="text" id="shelter-name" formControlName="name">
+    <p class="error" *ngIf="name.invalid && name.touched">El nombre es obligatorio</p>
+  </fieldset>
+  <fieldset>
+    <label for="address">Direccion: </label>
+    <input type="text" id="shelter-address" formControladdress="address">
+    <p class="error" *ngIf="address.invalid && address.touched">La dirección es obligatoria</p>
+  </fieldset>
+  <fieldset>
+    <label for="max_capacity">Capacidad maxima : </label>
+    <input type="text" id="shelter-max_capacity" formControlName="max_capacity">
+  </fieldset>
+  <fieldset>
+    <label for="zone">Zona: </label>
+    <input type="text" id="shelter-zone" formControlName="zone">
+
+  </fieldset>
+  <fieldset>
+    <label for="rescue">Rescate: </label>
+    <input type="text" id="shelter-rescue" formControlName="rescue">
+  </fieldset>
+  <fieldset>
+    <label for="vet">Veterinario: </label>
+    <input type="text" id="shelter-vet" formControlName="vet">
+  </fieldset>
+
+  <button [disabled]="shelterForm.invalid">crear shelter
+  </button>
+</form>
