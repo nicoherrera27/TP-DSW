@@ -35,7 +35,8 @@ export class AnimalDetailsComponent  {
   }
 
   ngOnInit(): void {
-    const animalid = this.route.snapshot.paramMap.get('id')
+    const animalid = this.route.snapshot.params['id']
+    this.getAnimal(animalid);
   }
   
     getAnimal(id: number) {
@@ -47,7 +48,6 @@ export class AnimalDetailsComponent  {
           birth_date: this.selectedAnimal.birth_date,
           breed: this.selectedAnimal.breed.id,
           rescueClass: this.selectedAnimal.rescueClass.id
-
         });
         console.log('Animal cargado:', this.selectedAnimal)
       },

@@ -8,11 +8,15 @@ export class Animal {
   breed: Breed;
   rescueClass: Rescue;
   data: Animal | undefined;
+  updatedAt: Date;
+  createdAt: Date;
 
-  constructor(name: string, rescue_date: Date, birth_date: Date, breed: Breed, rescue: Rescue) {
+  constructor(name: string, rescue_date: Date, birth_date: Date, breed: Breed, rescue: Rescue, updatedAt: Date, createdAt: Date) {
     this.name = name;
     this.birth_date = birth_date;
     this.breed = breed;
-    this.rescueClass = rescue
+    this.rescueClass = rescue;
+    this.updatedAt = updatedAt;
+    this.createdAt = createdAt;
   }
 }

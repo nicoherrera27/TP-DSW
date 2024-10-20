@@ -1,0 +1,21 @@
+<div class="card" style="width: fit-content;">
+  <div class="card-body" *ngIf="selectedShelter" id="{{ selectedShelter?.id }}">
+    <form [formGroup]="shelterForm" (ngSubmit)="updateShelter()">
+      <fieldset>
+        <label for="name" class="p-3">Nombre:</label>
+        <input type="text" id="shelter-name" formControlName="name">
+        <label for="name" class="p-3">Direccion:</label>
+        <input type="text" id="shelter-address" formControlName="address">
+        <label for="name" class="p-3">Capacidad maxima:</label>
+        <input type="number" id="shelter-max_capacity" formControlName="max_capacity">
+        <label for="name" class="p-3">Zona:</label>
+        <input type="number" id="shelter-zone" formControlName="zone">
+        <p class="card-text">
+          UpdatedAt: {{ selectedShelter?.updatedAt }}<br>
+          CreatedAt: {{ selectedShelter?.createdAt }}<br>
+        </p>
+        <button type="submit" class="btn btn-primary">Actualizar refugio</button>
+      </fieldset>
+    </form>
+  </div>
+</div>

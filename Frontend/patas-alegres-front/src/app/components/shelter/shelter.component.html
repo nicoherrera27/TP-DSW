@@ -1,24 +1,15 @@
-<h1>Zonas: </h1>
+<h1>Lista de Refugios</h1>
 
-<ul>
-  <li *ngFor="let shelter of shelterService.shelters; let i = index">
-    <div class="d-flex flex-row align-self-center">
-      <div>
-        <a [routerLink]="shelter.id.toString()">
-          <h2>{{ shelter.name }}</h2>
-        </a>
-        <ul>
-          <li *ngFor="let shelter of zone.shelters">
-            <h3>Refugios:</h3>
-            {{ shelter.name }} - {{ shelter.address }}
-          </li>
-        </ul>
+<div class="d-flex flex-wrap gap-3">
+  <div *ngFor="let shelter of shelterService.shelters; let i = index" class="card" style="width: 18rem;">
+    <a [routerLink]="shelter.id.toString()">
+      <div class="card-body">
+        <h5 class="card-title">{{ shelter.name }}</h5>
+        <p class="card-text">Direccion: {{ shelter.address }}</p><br>
+        <p class="card-text">capacidad maxima: {{shelter.max_capacity }}</p><br>
+        <p class="card-text">Zona: {{shelter.zone }}</p><br>
+        <a href="#" class="btn btn-primary">Editar</a>
       </div>
-      <div class="p-3">
-        <button class="btn btn-danger" (click)="deleteShelter(shelter.id)">Eliminar zona</button>
-      </div>
-    </div>
-  </li>
-</ul>
-
-<app-shelter-form></app-shelter-form>
+    </a>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import { AnimalDetailsComponent } from './components/animal/animal-details/anima
 import { ZoneDetailComponent } from './components/zone/zone-detail/zone-detail/zone-detail.component.js';
 import { ZoneFormComponent } from './components/zone/zone-form/zone-form/zone-form.component.js';
 import { ShelterComponent } from './components/shelter/shelter.component.js';
+import { ShelterDetailComponent } from './components/shelter/shelter-detail/shelter-detail/shelter-detail.component.js';
 
 export const routes: Routes = [
   {path: 'zone', component: ZoneComponent},
@@ -16,6 +17,6 @@ export const routes: Routes = [
   {path: 'animal', component: AnimalComponent},
   {path: 'animal/:id', component:AnimalDetailsComponent},
 
-  {path: 'shelterr', component: ShelterComponent}
-
+  {path: 'shelter', component: ShelterComponent},
+  {path: 'shelter/:id', component: ShelterDetailComponent},
 ];

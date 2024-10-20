@@ -6,12 +6,11 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ShelterService {
-
-  readonly API_URL = 'http://localhost:3000/api/shelter';
+  readonly API_URL = 'http://localhost:3000/api/shelter'
 
   shelters: Shelter[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) { 
     this.shelters = [];
   }
 
@@ -23,16 +22,15 @@ export class ShelterService {
     return this.http.get<{data: Shelter}>(`${this.API_URL}/${id}`);
   }
 
-  postShelter(shelter: Shelter){
-    return this.http.post<{message: string, data: Shelter}>(this.API_URL, shelter);
+  postShelter(Shelter: Shelter){
+    return this.http.post<{message: string, data: Shelter}>(this.API_URL, Shelter);
   }
 
-  updateShelter(shelter: Shelter){
-    return this.http.put<{message: string, data: Shelter}>(`${this.API_URL}/${shelter.id}`, shelter);
+  updateShelter(Shelter: Shelter){
+    return this.http.put<{message: string, data: Shelter}>(`${this.API_URL}/${Shelter.id}`, Shelter);
   }
 
   deleteShelter(id: number){
     return this.http.delete<{message: string, data: Shelter}>(`${this.API_URL}/${id}`);
   }
 }
-

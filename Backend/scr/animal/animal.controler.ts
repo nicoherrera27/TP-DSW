@@ -21,7 +21,7 @@ async function findAll( req: Request, res: Response ){
 async function findOne( req: Request, res: Response ){
   try {
     const id = Number.parseInt(req.params.id)
-    const animal = await em.findOneOrFail(Animal, { id }, {populate:["rescueClass, breed"]})
+    const animal = await em.findOneOrFail(Animal, { id }, {populate:['rescueClass', 'breed']})
     res
       .status(200)
       .json({ data: animal })

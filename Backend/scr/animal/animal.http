@@ -10,14 +10,16 @@ Content-Type: application/json
     "name": "simon", 
     "birth_date": "2020-10-10",
     "breed": "1",
-    "rescueClass": "2"
-    
+    "rescueClass": "1"
 }
 
 ###ID
  @id = {{createAnimal.response.body.data.id}}
 ### obtener un animal 
 GET http://localhost:3000/api/animal/{{id}}
+
+###Obtener animal 1
+GET http://localhost:3000/api/animal/6
 
 
 ### modificar un animal (PUT)
