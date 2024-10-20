@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ShelterService } from '../../services/shelter/shelter.service.js';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-shelter',
@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './shelter.component.css'
 })
 export class ShelterComponent {
-  constructor(public shelterService: ShelterService) {}
+  constructor( private router: Router, public shelterService: ShelterService) {}
 
   ngOnInit(): void{
     this.getShelters();
@@ -39,6 +39,8 @@ export class ShelterComponent {
     }
   })
   }
+
+  navigateToShelterCreate(){
+    this.router.navigate(['/shelter/create']);
+  }
 }
-
-

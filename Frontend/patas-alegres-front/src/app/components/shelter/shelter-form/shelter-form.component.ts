@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ShelterService } from '../../../services/shelter/shelter.service.js';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-shelter-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './shelter-form.component.html',
   styleUrl: './shelter-form.component.css'
 })
@@ -33,7 +34,7 @@ export class ShelterFormComponent {
       max_capacity: this.max_capacity,
       zone: this.zone,
       rescue: this.rescue,
-      vet: this.vet
+      vet: this.vet,
     })
   }
 

@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './animal.component.css'
 })
 export class AnimalComponent {
-index: any;
+  index: any;
 
   constructor(public animalService: AnimalService) { 
 
