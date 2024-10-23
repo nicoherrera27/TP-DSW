@@ -2,15 +2,13 @@
 
 <div class="d-flex flex-wrap gap-3">
   <div *ngFor="let shelter of shelterService.shelters; let i = index" class="card" style="width: 18rem;">
-    <a *ngIf="shelter.id" [routerLink]="shelter.id.toString()">
       <div class="card-body">
         <h5 class="card-title">{{ shelter.name }}</h5>
         <p class="card-text">Direccion: {{ shelter.address }}</p><br>
         <p class="card-text">capacidad maxima: {{shelter.max_capacity }}</p><br>
-        <p class="card-text">Zona: {{shelter.zone }}</p><br>
-        <a href="#" class="btn btn-primary">Editar</a>
+        <p class="card-text">Zona: {{shelter.zone.name }}</p><br>
+        <a *ngIf="shelter.id" [routerLink]="shelter.id.toString()" class="btn btn-primary">Editar</a>
       </div>
-    </a>
   </div>
 </div>
 

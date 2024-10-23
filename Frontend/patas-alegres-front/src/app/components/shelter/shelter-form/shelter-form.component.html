@@ -20,7 +20,9 @@
   </fieldset>
   <fieldset>
     <label for="zone">Zona: </label>
-    <input type="number" id="shelter-zone" formControlName="zone">
+    <select id="shelter-zone" formControlName="zone">
+      <option *ngFor="let zone of zones" [ngValue]="zone">{{ zone.name }}</option>
+    </select>
   </fieldset>
   <fieldset>
     <label for="rescue">Rescate: </label>
