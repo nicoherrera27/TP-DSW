@@ -37,7 +37,7 @@ export class ShelterComponent {
     error: (error) => {
       console.log(error);
     }
-  })
+    })
   }
 
   navigateToShelterCreate(){
