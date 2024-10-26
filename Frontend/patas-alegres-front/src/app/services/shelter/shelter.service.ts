@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Shelter } from '../../models/shelter/shelter/shelter.model.js';
+import { Shelter } from '../../models/shelter/shelter.model.js';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

@@ -1,5 +1,5 @@
-import { Rescue } from "../../rescue/rescue.model.js";
-import { Zone } from "../../zone/zone.model.js";
+import { Rescue } from "../rescue/rescue.model.js";
+import { Zone } from "../zone/zone.model.js";
 
 export class Shelter {
   id?: number;

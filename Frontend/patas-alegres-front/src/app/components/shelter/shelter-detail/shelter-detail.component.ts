@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Shelter } from '../../../models/shelter/shelter/shelter.model.js';
+import { Shelter } from '../../../models/shelter/shelter.model.js';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ShelterService } from '../../../services/shelter/shelter.service.js';

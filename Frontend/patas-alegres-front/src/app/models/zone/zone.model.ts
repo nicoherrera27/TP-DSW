@@ -1,4 +1,4 @@
-import { Shelter } from "../shelter/shelter/shelter.model.js";
+import { Shelter } from "../shelter/shelter.model.js";
 
 export class Zone {
   id: number;
