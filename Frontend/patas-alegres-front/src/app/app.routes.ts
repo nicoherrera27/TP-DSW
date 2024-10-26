@@ -8,6 +8,9 @@ import { ZoneFormComponent } from './components/zone/zone-form/zone-form/zone-fo
 import { ShelterComponent } from './components/shelter/shelter.component.js';
 import { ShelterDetailComponent } from './components/shelter/shelter-detail/shelter-detail.component.js';
 import { ShelterFormComponent } from './components/shelter/shelter-form/shelter-form.component.js';
+import { PersonComponent } from './components/person/person.component.js';
+import { PersonFormComponent } from './components/person/person-form/person-form.component.js';
+import { PersonDetailComponent } from './components/person/person-detail/person-detail.component.js';
 
 export const routes: Routes = [
   {path: 'zone', component: ZoneComponent},
@@ -20,5 +23,9 @@ export const routes: Routes = [
 
   {path: 'shelter', component: ShelterComponent},
   {path: 'shelter/create', component: ShelterFormComponent},
-  {path: 'shelter/:id', component: ShelterDetailComponent}
+  {path: 'shelter/:id', component: ShelterDetailComponent},
+
+  {path: 'person', component: PersonComponent},
+  {path: 'person/create', component: PersonFormComponent},
+  {path: 'person/:id', component: PersonDetailComponent},
 ];

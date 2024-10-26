@@ -1,0 +1,24 @@
+<h1>Lista de personas</h1>
+
+<div class="d-flex flex-wrap gap-3">
+  <div *ngFor="let person of personService.people; let i = index" class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ person.name }} {{ person.surname }}</h5>
+        <p class="card-text">{{ person.doc_type }}: {{ person.doc_nro }}</p>
+        <p class="card-text">Contacto:</p>
+        <p class="card-text" *ngIf="person.email">email: {{ person.email }}</p>
+        <p class="card-text" *ngIf="person.phone">telefono: {{ person.phone }}</p>
+        <p class="card-text">fecha de nacimiento: {{ person.birthdate | date: 'dd/MM/yyyy' }}</p>
+        <p class="card-text">Domicilio: {{ person.address }}</p>
+        <p class="card-text" *ngIf="person.nroCuit">CUIT: {{ person.nroCuit }}</p>
+        <a *ngIf="person.id" [routerLink]="person.id.toString()" class="btn btn-primary">Editar</a>
+        <div class="pl-3">
+          <button class="btn btn-danger" *ngIf="person.id !== undefined" (click)="deletePerson(person.id!)">Eliminar</button>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="p-3">
+  <button type="button" class="btn btn-success" (click)="navigateToPersonCreate()">Añadir persona</button>
+</div>
