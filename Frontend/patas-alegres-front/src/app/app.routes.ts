@@ -11,8 +11,8 @@ import { ShelterFormComponent } from './components/shelter/shelter-form/shelter-
 
 export const routes: Routes = [
   {path: 'zone', component: ZoneComponent},
-  {path: 'zone/:id', component: ZoneDetailComponent},
   {path: 'zone/create', component: ZoneFormComponent},
+  {path: 'zone/:id', component: ZoneDetailComponent},
 
   {path: 'animal/create', component: AnimalFormComponent},
   {path: 'animal', component: AnimalComponent},

@@ -1,27 +1,25 @@
 import { Component } from '@angular/core';
 import { ZoneService } from '../../services/zone/zone.service.js';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { ZoneFormComponent } from "./zone-form/zone-form/zone-form.component";
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-zone',
   standalone: true,
-  imports: [CommonModule, RouterModule, ZoneFormComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './zone.component.html',
   styleUrl: './zone.component.css'
 })
 export class ZoneComponent {
-  constructor(public zoneService: ZoneService) {}
+  constructor(public zoneService: ZoneService, private router: Router) {}
 
 
   ngOnInit(): void {
-    this.getZones()
+    this.getZones();
   }
 
   getZones(){
     this.zoneService.getZones().subscribe({
-
       next: (response) => {
         this.zoneService.zones = response.data;
       },
@@ -42,4 +40,9 @@ export class ZoneComponent {
       }
     })
   }
+  
+  navigateToZoneCreate(){
+    this.router.navigate(['/zone/create']);
+  }
+
 }
