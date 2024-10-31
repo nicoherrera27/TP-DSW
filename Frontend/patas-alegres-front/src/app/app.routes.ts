@@ -11,8 +11,11 @@ import { ShelterFormComponent } from './components/shelter/shelter-form/shelter-
 import { PersonComponent } from './components/person/person.component.js';
 import { PersonFormComponent } from './components/person/person-form/person-form.component.js';
 import { PersonDetailComponent } from './components/person/person-detail/person-detail.component.js';
+import { HomeComponent } from './components/home/home.component.js';
 
 export const routes: Routes = [
+  { path: '', component: HomeComponent },
+
   {path: 'zone', component: ZoneComponent},
   {path: 'zone/create', component: ZoneFormComponent},
   {path: 'zone/:id', component: ZoneDetailComponent},

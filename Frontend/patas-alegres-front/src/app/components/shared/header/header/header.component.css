@@ -81,11 +81,31 @@ a:hover {
   border-radius: 4px;
 }
 
+.hidden {
+  display: none;
+}
+
+.open {
+  display: block;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .nav-links {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  
+  .nav-links.open {
+    max-height: 500px;
   }
 }
