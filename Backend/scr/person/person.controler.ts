@@ -23,6 +23,17 @@ async function findOne( req: Request, res: Response ){
   }
 }
 
+async function findOneByDoc( req: Request, res: Response ){
+  try {
+    const { doc_type, doc_nro } = req.params;
+    const id = Number.parseInt(req.params.id);
+    const person = await em.findOneOrFail(Person, { doc_type: doc_type, doc_nro: doc_nro });
+    res.status(200).json({message: 'person data: ', data: person});
+  } catch (error: any){
+    res.status(500).json({message: error.message});
+  }
+}
+
 async function add( req: Request, res: Response ){
   try{
     const input = req.body.sanitizedPerson;
@@ -82,4 +93,4 @@ function sanitizePersonInput(req: Request, res: Response, next: NextFunction) {
   next();
 }
 
-export { findAll, findOne, add, update, remove, sanitizePersonInput }
+export { findAll, findOne, add, update, remove, findOneByDoc, sanitizePersonInput }

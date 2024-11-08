@@ -12,6 +12,7 @@ import { PersonComponent } from './components/person/person.component.js';
 import { PersonFormComponent } from './components/person/person-form/person-form.component.js';
 import { PersonDetailComponent } from './components/person/person-detail/person-detail.component.js';
 import { HomeComponent } from './components/home/home.component.js';
+import { AdoptAnimalComponent } from './components/adopt-animal/adopt-animal.component.js';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,4 +32,6 @@ export const routes: Routes = [
   {path: 'person', component: PersonComponent},
   {path: 'person/create', component: PersonFormComponent},
   {path: 'person/:id', component: PersonDetailComponent},
+
+  { path: 'adopt/:id', component: AdoptAnimalComponent },
 ];

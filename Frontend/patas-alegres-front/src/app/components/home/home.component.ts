@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AnimalService } from '../../services/animal/animal.service.js';
 import { ShelterService } from '../../services/shelter/shelter.service.js';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -42,9 +42,4 @@ export class HomeComponent {
   }
 
   title: string = 'Patas alegres front end';
-
-  // Crear la vista de adopcion
-  navigateToAdoptAnimal(){
-    this.router.navigate(['/adopt']);
-  }
 }

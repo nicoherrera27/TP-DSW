@@ -1,0 +1,38 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6 text-center">Adoptando a {{ selectedAnimal?.name }}</h1>
+
+  <section class="mb-8">
+    <form (ngSubmit)="searchPerson()">
+      <div class="form-group d-flex justify-content-center align-items-center gap-3">
+        <label for="docType">Tipo de Documento</label>
+        <select class="form-control" [(ngModel)]="docType" name="docType" required style="max-width: fit-content;">
+          <option value="dni">DNI</option>
+          <option value="ci">CI</option>
+          <option value="pasaporte">Pasaporte</option>
+        </select>
+      </div>
+
+      <div class="form-group d-flex justify-content-center align-items-center gap-1">
+        <label for="docNro" class="pt-3 pb-3">Número de Documento</label>
+        <input type="text" [(ngModel)]="docNro" name="docNro" required style="max-width: fit-content; width: 6em;" placeholder="12345678"/>
+      </div>
+
+      <div class="d-flex justify-content-center align-items-center w-100">
+        <button type="submit">Buscar Persona</button>
+      </div>
+    </form>
+
+    <div *ngIf="foundPerson">
+      <h3>Persona Encontrada:</h3>
+      <p>{{ foundPerson.name }} {{ foundPerson.surname }}</p>
+
+      <div *ngIf="selectedAnimal && foundPerson" class="confirmation-section">
+        <div class="form-group">
+          <label for="comments">Comentarios (opcional):</label>
+          <textarea class="form-control" [(ngModel)]="comments" name="comments" rows="3" placeholder="Comentarios adicionales..."></textarea>
+        </div>
+        <button class="btn btn-primary mt-3" (click)="confirmAdoption()">Confirmar adopción</button>
+      </div>
+    </div>
+  </section>
+</div>

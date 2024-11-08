@@ -33,4 +33,8 @@ export class PersonService {
   deletePerson(id: number){
     return this.http.delete<{message: string, data: Person}>(`${this.API_URL}/${id}`);
   }
+
+  searchPerson(docType: string, docNro: string){
+    return this.http.get<{data: Person}>(`${this.API_URL}/${docType}/${docNro}`);
+  }
 }

@@ -11,6 +11,8 @@ import { shelterRouter } from './scr/shelter/shelter.router.js';
 import { zoneRouter } from './scr/zone/zone.router.js';
 import { rescueRouter } from './scr/rescue/rescue.router.js';
 import { vetRouter } from './scr/vet/vet.router.js';
+import { adoptionRouter } from './scr/adoption/adoption.router.js';
+
 const app = express();
 app.use(express.json());
 
@@ -34,6 +36,8 @@ app.use('/api/shelter', shelterRouter)
 app.use('/api/zone', zoneRouter)
 app.use('/api/rescue', rescueRouter)
 app.use('/api/vet', vetRouter)
+app.use('/api/adoption', adoptionRouter)
+
 await syncSchema() //never in production*/
 
 app.listen(3000, ()=>{

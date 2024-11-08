@@ -9,7 +9,7 @@
         <h3 class="text-lg font-semibold">{{animal.name}}</h3>
         <p class="text-gray-600">{{animal.breed}}</p>
         <div class="p-3">
-          <button type="button" class="btn btn-success" (click)="navigateToAdoptAnimal()">Adoptar</button>
+          <a *ngIf="animal.id" [routerLink]="['/adopt', animal.id.toString()]" class="btn btn-primary">Adoptar</a>
         </div>
       </div>
     </div>

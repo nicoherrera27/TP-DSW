@@ -9,12 +9,12 @@ Content-Type: application/json
 {
     "name": "Otra",
     "surname":"person",
-    "doc_type": "no tiene",
-    "doc_nro": 0,
+    "doc_type": "DNI",
+    "doc_nro": "12345678",
     "phone": "123456789",
     "birthdate": "01/01/2000",
-    "address": "cualquiera",
-    "nroCuit": 0
+    "address": "corrientes",
+    "nroCuit": 2019
 }
 
 ### ID
@@ -30,8 +30,8 @@ Content-Type: application/json
 {
     "name": "Otra",
     "surname":"person",
-    "doc_type": "ahora si tiene",
-    "doc_nro": "1",
+    "doc_type": "DNI",
+    "doc_nro": "12345678",
     "phone": "123456789",
     "birthdate": "01/01/2000",
     "address": "corrientes",
@@ -49,3 +49,7 @@ Content-Type: application/json
 
 ### borrar una person
 DELETE http://localhost:3000/api/person/{{id}}
+
+### Encontrar una persona por tipo de documento y numero de documento
+GET http://localhost:3000/api/person/DNI/42126550
+Content-Type: application/json

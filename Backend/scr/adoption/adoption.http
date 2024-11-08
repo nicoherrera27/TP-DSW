@@ -10,22 +10,20 @@ Content-Type: application/json
 
 {
   "comments": "adoption 2", 
-  "id_animal": 2,
-  "id_person": 2,
-  "adoption_date": "2020-03-03",
-  "id": 2
+  "animal": 6,
+  "person": 4,
+  "adoption_date": "2020-03-03"
 }
 
 ### modificar un adoption (PUT)
-PUT http://localhost:3000/api/adoption/2
+PUT http://localhost:3000/api/adoption/1
 Content-Type: application/json
 
 {
-  "comments": "adoption 2", 
-  "id_animal": 2,
-  "id_person": 2,
-  "adoption_date": "2024-03-03",
-  "id": 2
+  "comments": "adoptionsss", 
+  "person": 4,
+  "animal": 6,
+  "adoption_date": "2024-03-03"
 }
 
 ### modificar un adoption (PATCH - recurso parcial)
@@ -33,12 +31,8 @@ PATCH http://localhost:3000/api/adoption/1
 Content-Type: application/json
 
 {
-  "comments": "adoption 2", 
-  "id_animal": 2,
-  "id_person": 2,
-  "adoption_date": "2024-03-03",
-  "id": 2
+  "comments": "adoption patch test",
 }
 
 ### borrar un adoption
-DELETE http://localhost:3000/api/adoption/2
+DELETE http://localhost:3000/api/adoption/1
