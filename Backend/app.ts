@@ -12,6 +12,7 @@ import { zoneRouter } from './scr/zone/zone.router.js';
 import { rescueRouter } from './scr/rescue/rescue.router.js';
 import { vetRouter } from './scr/vet/vet.router.js';
 import { adoptionRouter } from './scr/adoption/adoption.router.js';
+import { userRouter } from './scr/user/user.routes.js';
 
 const app = express();
 app.use(express.json());
@@ -37,6 +38,8 @@ app.use('/api/zone', zoneRouter)
 app.use('/api/rescue', rescueRouter)
 app.use('/api/vet', vetRouter)
 app.use('/api/adoption', adoptionRouter)
+app.use('/api/user', userRouter)
+app.use('/api/login', userRouter)
 
 await syncSchema() //never in production*/
 

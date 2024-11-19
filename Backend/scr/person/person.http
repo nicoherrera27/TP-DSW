@@ -7,14 +7,14 @@ POST http://localhost:3000/api/person
 Content-Type: application/json
 
 {
-    "name": "Otra",
-    "surname":"person",
+    "name": "Otra 2",
+    "surname":"person 2",
     "doc_type": "DNI",
-    "doc_nro": "12345678",
-    "phone": "123456789",
-    "birthdate": "01/01/2000",
-    "address": "corrientes",
-    "nroCuit": 2019
+    "doc_nro": "12345672",
+    "phone": "123456782",
+    "birthdate": "01/02/2000",
+    "address": "corriente",
+    "nroCuit": 2012
 }
 
 ### ID

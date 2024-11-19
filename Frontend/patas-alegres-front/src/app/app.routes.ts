@@ -13,9 +13,15 @@ import { PersonFormComponent } from './components/person/person-form/person-form
 import { PersonDetailComponent } from './components/person/person-detail/person-detail.component.js';
 import { HomeComponent } from './components/home/home.component.js';
 import { AdoptAnimalComponent } from './components/adopt-animal/adopt-animal.component.js';
+import { LoginComponent } from './components/login/login.component.js';
+import { SignInComponent } from './components/sign-in/sign-in.component.js';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  {path: 'login', component: LoginComponent},
+  {path: 'signIn', component: SignInComponent},
+  { path: '',redirectTo: 'login',pathMatch: 'full' }, 
+  {path: 'home', component: HomeComponent },
+
 
   {path: 'zone', component: ZoneComponent},
   {path: 'zone/create', component: ZoneFormComponent},
@@ -34,4 +40,5 @@ export const routes: Routes = [
   {path: 'person/:id', component: PersonDetailComponent},
 
   { path: 'adopt/:id', component: AdoptAnimalComponent },
+  { path: '**',redirectTo: 'login',pathMatch: 'full' }
 ];

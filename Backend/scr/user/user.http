@@ -1,0 +1,21 @@
+###crear un usuario 
+#  @name newUser
+POST http://localhost:3000/api/user
+Content-Type: application/json
+
+{
+    "username": "01-10-2024", 
+    "password": "Gato solitario",
+    "person": 1
+}
+
+###login
+#  @name login
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{
+    "username": "01-10-2024", 
+    "password": "Gato solitario",
+    "person": 1
+}
