@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Zone } from '../../models/zone/zone.model.js';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ZoneService {
   }
 
   getZones(){
-    return this.http.get<{message: string, data: Zone[]}>(this.API_URL);
+    return this.http.get<{message: string, data: Zone[]}>(this.API_URL,);
   }
 
   getZone(id: number){

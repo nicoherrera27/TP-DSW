@@ -13,8 +13,8 @@ export class User extends BaseEntity {
   @Property({nullable: false, unique:true})
   password!: string
 
-  @OneToOne(() => Person, (person) => person.user, { nullable: true, owner: true })
+ /* @OneToOne(() => Person, (person) => person.user, { nullable: true, owner: true })
   person?: typeof Person;
-  static create: any;
+  static create: any;*/
 
 }

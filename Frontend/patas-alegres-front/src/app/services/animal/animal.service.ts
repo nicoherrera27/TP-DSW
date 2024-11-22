@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Animal } from '../../models/animal/animal.model.js';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class AnimalService {
   }
 
     getAnimals(){
-      return this.http.get<{message: string, data: Animal[]}>(this.API_URL)
+    return this.http.get<{message: string, data: Animal[]}>(this.API_URL)
     }
   
     getAnimal(id: number) {

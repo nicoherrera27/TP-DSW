@@ -12,9 +12,9 @@ import { validateToken } from "../validate-token/validate-token.routes.js";
 
 export const personRouter = Router();
 
-personRouter.get('/', validateToken,findAll)
-personRouter.get('/:id', validateToken,findOne)
+personRouter.get('/',validateToken ,findAll)
+personRouter.get('/:id',validateToken, findOne)
 personRouter.get('/:doc_type/:doc_nro', validateToken,sanitizePersonInput, findOneByDoc)
 personRouter.post('/', validateToken,sanitizePersonInput, add)
-personRouter.put('/:id', validateToken,sanitizePersonInput, update)
+personRouter.put('/:id',validateToken, sanitizePersonInput, update)
 personRouter.delete('/:id', validateToken,sanitizePersonInput, remove)

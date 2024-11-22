@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -12,7 +12,13 @@ import { NgClass } from '@angular/common';
 export class HeaderComponent {
   isMenuOpen = false;
 
+ constructor(private router: Router) { }
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+    logOut() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login'])
   }
 }

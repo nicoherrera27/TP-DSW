@@ -38,6 +38,8 @@ export const newUser = async(req: Request, res: Response) => {
     })
   }
 }
+
+
 export const login = async(req: Request, res: Response) => {
   const em = orm.em
   const {username, password} = req.body;

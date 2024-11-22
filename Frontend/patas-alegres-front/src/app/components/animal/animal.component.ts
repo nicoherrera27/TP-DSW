@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-animal',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, ReactiveFormsModule, AnimalFormComponent, RouterLink],
+  imports: [CommonModule,  ReactiveFormsModule,  RouterLink],
   templateUrl: './animal.component.html',
   styleUrl: './animal.component.css'
 })

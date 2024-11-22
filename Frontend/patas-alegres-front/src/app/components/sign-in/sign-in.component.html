@@ -1,22 +1,17 @@
 <div class="wrapper">
-  <div  class="body">
-    <img class="logo" src="../../../assets/img/login.png" alt="img login">
-    <h3>Registrar Usuario</h3>
-    <div class="form-floating mb-3 mt-3">
-      <input type="text"  class="form-control" placeholder="Ingrese usuario">
-      <label>Usuario</label>
-    </div>
-    <div class="form-floating mb-3">
-      <input type="password" class="form-control" placeholder="Ingrese password">
-      <label>Password</label>
-    </div>
-    <div class="form-floating mb-3">
-      <input type="password"  class="form-control" placeholder="Ingrese password de nuevo">
-      <label>Repetir Password</label>
-    </div>
-    <div class="d-grid gap-2 mb-3">
-      <button type="button" class="btn btn-primary btn-lg">Aceptar</button>
-    </div>
-    <a routerLink="/Login">Volver</a>
+  <div class="body">
+    <img class="icon" src="../../assets/img/hospital.png" alt="img login">
+    <h1>Registrar usuario</h1>
+    <form [formGroup]="UserForm" novalidate>
+      <input formControlName="username" type="text" class="form-control mb-1" placeholder="Ingrese su  DNI">
+      <input formControlName="password" type="password" class="form-control mb-1" placeholder="Ingrese su contraseña">
+      <input formControlName="repassword" type="password" class="form-control mb-1" placeholder="Repita su contraseña">
+      <span *ngIf="UserForm.errors?.['passwordmatcherror']" class="">Las contraseñas no son iguales</span>
+        <div class="d-grid gap-2 mt-2">
+          <button  (click)="SignIn()" type="button"  
+            class="btn btn-primary btn-lg" routerLink="/login">Aceptar</button>
+        </div>
+    </form>
+    <a href="" routerLink="/login">Pagina anterior</a>
   </div>
 </div>
