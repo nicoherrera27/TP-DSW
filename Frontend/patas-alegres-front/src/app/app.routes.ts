@@ -15,30 +15,31 @@ import { HomeComponent } from './components/home/home.component.js';
 import { AdoptAnimalComponent } from './components/adopt-animal/adopt-animal.component.js';
 import { LoginComponent } from './components/login/login.component.js';
 import { SignInComponent } from './components/sign-in/sign-in.component.js';
+import { authGuard } from './utils/auth.guard.js';
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signIn', component: SignInComponent},
   { path: '',redirectTo: 'login',pathMatch: 'full' }, 
-  {path: 'home', component: HomeComponent },
+  {path: 'home', component: HomeComponent, canActivate:[authGuard]},
 
 
-  {path: 'zone', component: ZoneComponent},
+  {path: 'zone', component: ZoneComponent, canActivate:[authGuard]},
   {path: 'zone/create', component: ZoneFormComponent},
   {path: 'zone/:id', component: ZoneDetailComponent},
 
   {path: 'animal/create', component: AnimalFormComponent},
-  {path: 'animal', component: AnimalComponent},
+  {path: 'animal', component: AnimalComponent, canActivate:[authGuard]},
   {path: 'animal/:id', component:AnimalDetailsComponent},
 
-  {path: 'shelter', component: ShelterComponent},
+  {path: 'shelter', component: ShelterComponent, canActivate:[authGuard]},
   {path: 'shelter/create', component: ShelterFormComponent},
   {path: 'shelter/:id', component: ShelterDetailComponent},
 
-  {path: 'person', component: PersonComponent},
+  {path: 'person', component: PersonComponent, canActivate:[authGuard]},
   {path: 'person/create', component: PersonFormComponent},
   {path: 'person/:id', component: PersonDetailComponent},
 
-  { path: 'adopt/:id', component: AdoptAnimalComponent },
+  { path: 'adopt/:id', component: AdoptAnimalComponent, canActivate:[authGuard] },
   { path: '**',redirectTo: 'login',pathMatch: 'full' }
 ];
