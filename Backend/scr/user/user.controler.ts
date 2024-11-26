@@ -28,8 +28,8 @@ export const newUser = async(req: Request, res: Response) => {
       await em.flush();
     
 
-    res.json({
-      msg: `Usuario ${username} creado exitosamente!`
+    res.status(201).json({
+      msg: `Usuario ${username} creado exitosamente!`, data:user 
     })
   } catch (error) {
       res.status(400).json({

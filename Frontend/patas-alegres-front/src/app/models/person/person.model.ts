@@ -1,3 +1,5 @@
+import { User } from "../user/user.model.js";
+
 export class Person {
   id?: number;
   name: string; // no
@@ -11,9 +13,9 @@ export class Person {
   nroCuit: number; // nullable
   createdAt: Date; // no
   updatedAt: Date; // no
+  user: User;
 
-
-  constructor(name: string, surname: string, doc_type: string, doc_nro: string, email: string, phone: string, birthdate: Date, address: string, nroCuit: number, createdAt: Date, updatedAt: Date) {
+  constructor(name: string, surname: string, doc_type: string, doc_nro: string, email: string, phone: string, birthdate: Date, address: string, nroCuit: number, createdAt: Date, updatedAt: Date, user: User) {
     this.name = name;
     this.surname = surname;
     this.doc_type = doc_type;
@@ -25,5 +27,6 @@ export class Person {
     this.nroCuit = nroCuit;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.user = user;
   }
 }

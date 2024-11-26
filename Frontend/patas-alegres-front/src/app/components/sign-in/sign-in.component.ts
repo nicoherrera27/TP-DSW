@@ -29,6 +29,7 @@ export class SignInComponent {
   birthdate: FormControl;
   address: FormControl;
   nroCuit: FormControl;
+  user: FormControl;
 
 
 
@@ -47,6 +48,7 @@ export class SignInComponent {
     this.birthdate = new FormControl('', [Validators.required]);
     this.address = new FormControl('', [Validators.required]);
     this.nroCuit = new FormControl('');
+    this.user = new FormControl('');
 
 
     {
@@ -63,6 +65,7 @@ export class SignInComponent {
         birthdate: new FormControl('', [Validators.required]),
         address: new FormControl('', [Validators.required]),
         nroCuit: new FormControl(''),
+        user: new FormControl(''),
 
       }),
     });
@@ -102,7 +105,9 @@ export class SignInComponent {
       // Primero llama al servicio de usuario
       this.userService.signIn(user).subscribe({
         next: (userResponse) => {
-          console.log('Usuario creado:', userResponse);      
+          console.log('Usuario creado:', userResponse); 
+          person.user = userResponse.data.id;   
+          console.log(userResponse.data.id);  
           // Luego llama al servicio de persona
           this.personService.postPerson(person).subscribe({
             next: (personResponse) => {

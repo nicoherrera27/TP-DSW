@@ -38,6 +38,6 @@ export class Person extends BaseEntity {
   @Property({nullable: true})
   nroCuit!: number
 
-  /*@OneToOne(() => User, (user) => user.person, {nullable: true})
-  user?: User;*/
+  @OneToOne(() => User, (user) => user.person, {nullable: true, owner: true})
+  user?: User;
 }

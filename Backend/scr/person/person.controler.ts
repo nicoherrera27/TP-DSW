@@ -36,8 +36,8 @@ async function findOneByDoc( req: Request, res: Response ){
 
 async function add( req: Request, res: Response ){
   try{
-    const input = req.body.sanitizedPerson;
-    const person = em.create(Person, input);
+    //const input = req.body.sanitizedPerson;
+    const person = em.create(Person, req.body);
     await em.flush();
     res.status(201).json({ message: 'person created', data: person });
   }catch (error: any) {
