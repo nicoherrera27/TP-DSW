@@ -17,9 +17,6 @@ export class UserService {
 
   }
 
-  /*signIn(user: User): Observable<{message: string, data: User}> {
-    return this.http.post<{message: string, data: User}>(this.API_URL, user);*/
-  
     signIn(user: User){
     return this.http.post<{message: string, data: User}>(this.API_URL , user);  }
 
@@ -29,14 +26,6 @@ export class UserService {
    login(user: User):Observable<string> {
     return this.http.post<string>(this.API_URL2, user)
    }
-  /*getAnimals(): Observable<any> {
-    // Suponiendo que ya tienes un token almacenado en el almacenamiento local o en algún lugar
-    const token = localStorage.getItem('authToken');  // O donde estés almacenando el token
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    return this.http.get('http://localhost:3000/api/animal', { headers });
-  }*/
-
 
 
 }

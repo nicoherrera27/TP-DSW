@@ -46,8 +46,8 @@ export class AnimalDetailsComponent  {
         this.animalForm.patchValue({
           name: this.selectedAnimal.name,
           birth_date: this.selectedAnimal.birth_date,
-          breed: this.selectedAnimal.breed.id,
-          rescueClass: this.selectedAnimal.rescueClass.id
+          breed: this.selectedAnimal.breed.name,
+          rescueClass: this.selectedAnimal.rescueClass.rescue_date
         });
         console.log('Animal cargado:', this.selectedAnimal)
       },

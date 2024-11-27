@@ -9,7 +9,8 @@
         <p class="card-text">
           UpdatedAt: {{ selectedAnimal?.updatedAt }}<br>
           CreatedAt: {{ selectedAnimal?.createdAt }}<br>
-          Refugios
+          Breed: {{ selectedAnimal?.breed.name }}<br>
+          Rescate: {{ selectedAnimal?.rescueClass.rescue_date }}<br>
         </p>
         <button type="submit" class="btn btn-primary">Actualizar animal</button>
       </fieldset>

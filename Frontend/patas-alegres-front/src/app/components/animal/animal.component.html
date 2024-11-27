@@ -1,11 +1,17 @@
 <h1>Animales: </h1>
+<div>
+  <input type="text" [(ngModel)]="breeds" placeholder="Filtrar por especie" />
+  <input type="text" [(ngModel)]="rescue" placeholder="Filtrar por fecha de rescate" />
+</div>
 <ul>
-  <li *ngFor="let animal of animalService.animals; let i = index">
+  <li *ngFor="let animal of animalService.animals| animalFilter:breeds:rescue; let i = index">
     <div class="d-flex flex-row align-self-center">
       <div>
         <a *ngIf="animal.id" routerLink="/animal/{{ animal.id }}">
           <h2>{{ animal.name }}</h2>
         </a>
+      <p class="card-text">Raza: {{ animal.breed.name }}</p><br>
+      <p class="card-text">Fecha de rescate: {{ animal.rescueClass.rescue_date | date:'shortDate' }}</p><br>
       </div>
       <div class="p-3">
         <button class="btn btn-danger" (click)="animal.id ? deleteAnimal(animal.id) : null">Eliminar animal</button>

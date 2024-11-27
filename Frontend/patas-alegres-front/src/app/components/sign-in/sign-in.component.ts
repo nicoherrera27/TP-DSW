@@ -72,43 +72,21 @@ export class SignInComponent {
   }
      }
 
-
-    
-    /*this.UserForm = new FormGroup({
-      username: this.username,
-      password: this.password,
-
-    });
-
-      this.personForm = new FormGroup({
-      name: this.name,
-      surname: this.surname,
-      doc_type: this.doc_type,
-      doc_nro: this.doc_nro,
-      email: this.email,
-      phone: this.phone,
-      birthdate: this.birthdate,
-      address: this.address,
-      nroCuit: this.nroCuit,
-    })
-  }*/
-
     SignIn() {
     if (this.UserForm.valid) {
       const user: any = {
         username: this.UserForm.value.username,
         password: this.UserForm.value.password,
       };
-
-      //const person: any = this.personForm.value;
+     
     const person = {  ...this.UserForm.value.person  };
-      // Primero llama al servicio de usuario
+
       this.userService.signIn(user).subscribe({
         next: (userResponse) => {
           console.log('Usuario creado:', userResponse); 
           person.user = userResponse.data.id;   
           console.log(userResponse.data.id);  
-          // Luego llama al servicio de persona
+       
           this.personService.postPerson(person).subscribe({
             next: (personResponse) => {
               console.log('Persona creada:', personResponse);
@@ -134,27 +112,5 @@ export class SignInComponent {
   }
 }
 
-  /*SignIn() {
-    if (this.UserForm.valid && this.personForm.valid) {
-      const user: any = {
-        username: this.UserForm.value.username,
-        password: this.UserForm.value.password,
-
-      };
-      this.userService.signIn(user).subscribe({
-        next: (response) => {
-          console.log('Respuesta del servidor:', response);
-          alert('Usuario creado exitosamente!');
-          this['router'].navigate(['/login']); 
-        },
-     error: (e: HttpErrorResponse) => {
-          this.errorservice.msjError(e);
-      }
-    });
-    } else {
-      console.log('Formulario inválido');
-
-  }
-  }*/
 
   
