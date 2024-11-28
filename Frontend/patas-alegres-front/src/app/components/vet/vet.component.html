@@ -1,1 +1,27 @@
-<p>vet works!</p>
+<h1>Veterinarios:</h1>
+
+<ul>
+  <li *ngFor="let vet of vetService.vets; let i = index">
+    <div class="d-flex flex-row align-self-center">
+      <div>
+        <a [routerLink]="vet.id.toString()">
+          <h2>{{ vet.name }}</h2>
+          
+        </a>
+        <ul>
+          <li *ngFor="let shelter of vet.shelters">
+            <h3>Refugios:</h3>
+            {{ shelter.name }} 
+          </li>
+        </ul>
+      </div>
+      <div class="p-3">
+        <button class="btn btn-danger" (click)="deleteVet(vet.id)">Eliminar zona</button>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<div class="p-3">
+  <button type="button" class="btn btn-success" (click)="navigateToVetCreate()">Crear veterinario</button>
+</div>

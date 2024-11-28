@@ -1,0 +1,11 @@
+<h2>Crear veterinario</h2>
+<form [formGroup]="vetForm" (submit)="postVet()">
+  <fieldset>
+    <label for="name">Nombre:</label><br>
+    <input type="text" id="vet-name" name="name" formControlName="name"><br>
+    <input type="text" id="vet-address" name="address" formControlName="address"><br>
+    <input type="text" id="vet-shelters" name="shelters" formControlName="shelters">
+    <br><br>
+  </fieldset>
+  <button class="btn">Crear veterinario</button>
+</form>

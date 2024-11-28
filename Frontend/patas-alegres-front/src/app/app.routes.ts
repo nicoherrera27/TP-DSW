@@ -19,6 +19,9 @@ import { authGuard } from './utils/auth.guard.js';
 import { BreedDetailComponent } from './components/breed/breed-detail/breed-detail.component.js';
 import { BreedComponent } from './components/breed/breed.component.js';
 import { BreedFormComponent } from './components/breed/breed-form/breed-form.component.js';
+import { VetComponent } from './components/vet/vet.component.js';
+import { VetFormComponent } from './components/vet/vet-form/vet-form.component.js';
+import { VetDetailComponent } from './components/vet/vet-detail/vet-detail.component.js';
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -28,24 +31,29 @@ export const routes: Routes = [
 
 
   {path: 'zone', component: ZoneComponent, canActivate:[authGuard]},
-  {path: 'zone/create', component: ZoneFormComponent},
-  {path: 'zone/:id', component: ZoneDetailComponent},
+  {path: 'zone/create', component: ZoneFormComponent, canActivate:[authGuard]},
+  {path: 'zone/:id', component: ZoneDetailComponent, canActivate:[authGuard]},
 
-  {path: 'animal/create', component: AnimalFormComponent},
+  {path: 'animal/create', component: AnimalFormComponent, canActivate:[authGuard]},
   {path: 'animal', component: AnimalComponent, canActivate:[authGuard]},
-  {path: 'animal/:id', component:AnimalDetailsComponent},
+  {path: 'animal/:id', component:AnimalDetailsComponent, canActivate:[authGuard]},
 
   {path: 'shelter', component: ShelterComponent, canActivate:[authGuard]},
-  {path: 'shelter/create', component: ShelterFormComponent},
-  {path: 'shelter/:id', component: ShelterDetailComponent},
+  {path: 'shelter/create', component: ShelterFormComponent, canActivate:[authGuard]},
+  {path: 'shelter/:id', component: ShelterDetailComponent, canActivate:[authGuard]},
 
   {path: 'person', component: PersonComponent, canActivate:[authGuard]},
-  {path: 'person/create', component: PersonFormComponent},
-  {path: 'person/:id', component: PersonDetailComponent},
+  {path: 'person/create', component: PersonFormComponent, canActivate:[authGuard]},
+  {path: 'person/:id', component: PersonDetailComponent, canActivate:[authGuard]},
 
-  {path: 'breed/:id', component: BreedDetailComponent},
-  {path: 'breed', component: BreedComponent},
-  {path: 'breed/create', component: BreedFormComponent},
+  {path: 'breed', component: BreedComponent, canActivate:[authGuard]},
+  {path: 'breed/create', component: BreedFormComponent, canActivate:[authGuard]},
+  {path: 'breed/:id', component: BreedDetailComponent, canActivate:[authGuard]},
+
+
+  {path: 'vet', component: VetComponent, canActivate:[authGuard]},
+  {path: 'vet/create', component: VetFormComponent, canActivate:[authGuard]},
+  {path: 'vet/:id', component: VetDetailComponent,  canActivate:[authGuard]},
 
   { path: 'adopt/:id', component: AdoptAnimalComponent, canActivate:[authGuard] },
   { path: '**',redirectTo: 'login',pathMatch: 'full' }

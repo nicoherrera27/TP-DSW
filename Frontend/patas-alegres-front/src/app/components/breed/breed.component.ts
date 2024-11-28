@@ -43,8 +43,8 @@ export class BreedComponent {
     })
   }
   
-  navigateToZoneCreate(){
-    this.router.navigate(['/zone/create']);
+  navigateToBreedCreate(){
+    this.router.navigate(['breed/create']);
   }
 
 }
