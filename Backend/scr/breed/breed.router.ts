@@ -6,12 +6,12 @@ import {
   update,
   remove 
 } from "./breed.controler.js";
+import { validateToken } from "../validate-token/validate-token.routes.js";
 
 export const breedRouter = Router();
 
-breedRouter.get('/', findAll)
-breedRouter.get('/:id', findOne)
-breedRouter.post('/', add)
-breedRouter.put('/:id', update)
-// breedRouter.patch('/:id', sanitizeBreedInput, update)
-breedRouter.delete('/:id', remove)
+breedRouter.get('/', validateToken,findAll)
+breedRouter.get('/:id',validateToken ,findOne)
+breedRouter.post('/', validateToken,add)
+breedRouter.put('/:id',validateToken,update)
+breedRouter.delete('/:id',validateToken, remove)

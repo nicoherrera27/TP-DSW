@@ -18,4 +18,20 @@ export class BreedService {
     return this.http.get<{message: string, data: Breed[]}>(this.API_URL,);
   }
 
+    getBreed(id: number){
+    return this.http.get<{data: Breed}>(`${this.API_URL}/${id}`);
+  }
+
+  postBreed(breed: Breed){
+    return this.http.post<{message: string, data: Breed}>(this.API_URL, breed);
+  }
+
+  updateBreed(breed: Breed){
+    return this.http.put<{message: string, data: Breed}>(`${this.API_URL}/${breed.id}`, breed);
+  }
+
+  deleteBreed(id: number){
+    return this.http.delete<{message: string, data: Breed}>(`${this.API_URL}/${id}`);
+  }
+
 }

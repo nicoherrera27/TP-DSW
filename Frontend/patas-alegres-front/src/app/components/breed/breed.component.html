@@ -1,0 +1,27 @@
+<h1>Razas:</h1>
+
+<ul>
+  <li *ngFor="let breed of breedService.breeds; let i = index">
+    <div class="d-flex flex-row align-self-center">
+      <div>
+        <a *ngIf="breed.id" [routerLink]="breed.id.toString()">
+          <h2>{{ breed.name }}</h2>
+        </a>
+            <p>{{ breed.description }}</p>
+                <p>{{ breed.id }}</p>
+
+          <li *ngFor="let animal of breed.animals">
+            <h3>Refugios:</h3>
+            {{ animal.name }} 
+          </li>
+        <div class="p-3">
+          <button class="btn btn-danger" (click)="deleteBreed(breed.id)">Eliminar zona</button>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<div class="p-3">
+  <button type="button" class="btn btn-success" (click)="navigateToZoneCreate()">Crear zona</button>
+</div>

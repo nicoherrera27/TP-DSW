@@ -1,0 +1,21 @@
+<div class="card" style="width: fit-content;">
+  <div class="card-body" *ngIf="selectedBreed" id="{{ selectedBreed?.id }}">
+    <form [formGroup]="breedForm" (ngSubmit)="updateBreed()">
+      <fieldset>
+        <label for="name" class="p-3">Nombre:</label>
+        <input type="text" id="zone-name" formControlName="name">
+        <p class="card-text">
+          Nombre: {{ selectedBreed?.name }}<br>
+          Descripcion: {{ selectedBreed?.description }}<br>
+          Animales
+        </p>
+        <ul>
+          <li *ngFor="let animal of selectedBreed?.animas">
+            <p>{{ animal.name }} </p>
+          </li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Actualizar zona</button>
+      </fieldset>
+    </form>
+  </div>
+</div>

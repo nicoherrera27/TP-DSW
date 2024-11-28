@@ -8,7 +8,6 @@ import { ShelterFormComponent } from './components/shelter/shelter-form/shelter-
 import { AnimalFormComponent } from './components/animal/animal-form/animal-form.component.js';
 import { ShelterComponent } from './components/shelter/shelter.component.js';
 import { LoginComponent } from './components/login/login.component.js';
-
 import { CommonModule } from '@angular/common';
 
 @Component({

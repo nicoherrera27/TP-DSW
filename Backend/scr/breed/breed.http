@@ -32,4 +32,4 @@ Content-Type: application/json
 
 ### DELETE
 @idToDelete = {{createBreed.response.body.data.id}}
-DELETE http://localhost:3000/api/breed/8
+DELETE http://localhost:3000/api/breed/1
