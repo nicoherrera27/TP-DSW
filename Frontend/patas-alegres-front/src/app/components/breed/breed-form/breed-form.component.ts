@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BreedService } from '../../../services/breed/breed.service.js';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-breed-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './breed-form.component.html',
   styleUrl: './breed-form.component.css'
 })

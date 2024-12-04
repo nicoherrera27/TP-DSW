@@ -8,7 +8,7 @@ const em = orm.em
 
 async function findAll( req: Request, res: Response ){
   try {
-    const animal = await em.find(Animal, {})
+    const animal = await em.find(Animal, {}, {populate:['rescueClass', 'breed']})
     res
       .status(200)
       .json({ message: 'found all animal', data: animal })
