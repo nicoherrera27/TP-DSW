@@ -14,7 +14,7 @@ import { AnimalFilterPipe } from '../../pipes/animal-filter.pipe.js';
   styleUrl: './animal.component.css'
 })
 export class AnimalComponent {
-  breeds: string  = '';  // Filtro de especie
+  breeds: string  = ''; 
   rescue: string  = ''; 
   index: any;
 

@@ -15,7 +15,7 @@ export class AnimalFilterPipe implements PipeTransform {
         ? animal.breed?.name.toLowerCase().includes(breed.toLowerCase())
         : true;
       const matchesRescue = rescue
-        ? animal.rescueClass?.rescue_date.toLocaleDateString().toLowerCase().includes(rescue.toLowerCase())
+        ? animal.rescueClass?.rescue_date.toString().toLowerCase().includes(rescue.toLowerCase())
         : true;
       return matchesBreeds && matchesRescue;
     });
