@@ -18,4 +18,19 @@ export class RescueService {
   getRescues(){
     return this.http.get<{message: string, data: Rescue[]}>(this.API_URL,);
   }
+    getRescue(id: number){
+    return this.http.get<{data: Rescue}>(`${this.API_URL}/${id}`);
+  }
+
+  postRescue(rescue: Rescue){
+    return this.http.post<{message: string, data: Rescue}>(this.API_URL, rescue);
+  }
+
+  updateRescue(rescue: Rescue){
+    return this.http.put<{message: string, data: Rescue}>(`${this.API_URL}/${rescue.id}`, rescue);
+  }
+
+  deleteRescue(id: number){
+    return this.http.delete<{message: string, data: Rescue}>(`${this.API_URL}/${id}`);
+  }
 }

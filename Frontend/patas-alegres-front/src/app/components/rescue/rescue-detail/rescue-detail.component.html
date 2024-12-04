@@ -1,0 +1,14 @@
+<div class="card" style="width: fit-content;">
+  <div class="card-body" *ngIf="selectedRescue" id="{{ selectedRescue?.id }}">
+    <form [formGroup]="rescueForm" (ngSubmit)="updateRescue()">
+      <fieldset>
+        <label for="rescue_date" class="p-3">fecha de rescate:</label>
+        <input type="date" id="rescue_date" rescue_date="rescue_date" formControlName="rescue_date">
+        <p class="card-text">
+          UpdatedAt: {{ selectedRescue?.description }}<br>
+        </p>
+        <button type="submit" class="btn btn-primary">Actualizar rescate</button>
+      </fieldset>
+    </form>
+  </div>
+</div>F

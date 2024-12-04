@@ -1,0 +1,15 @@
+<h2>Crear Rescate</h2>
+<form [formGroup]="rescueForm" (submit)="postRescue()">
+  <fieldset>
+    <label for="rescue_date">fecha de rescate:</label><br>
+    <input type="date" id="rescue-date" rescue_date="rescue_date" formControlName="rescue_date">
+    <br><br>
+    <label for="description">Descripcion:</label><br>
+    <input type="text" id="description" comments="description" formControlName="description">
+    <br><br>
+    <label for="comments">Comentarios:</label><br>
+    <input type="text" id="comments" comments="comments" formControlName="comments">
+    <br><br>
+  </fieldset>
+  <button class="btn">Crear rescate</button>
+</form>

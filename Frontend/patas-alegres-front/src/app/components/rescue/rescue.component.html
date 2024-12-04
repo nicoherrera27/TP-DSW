@@ -1,0 +1,20 @@
+<h1>Rescates:</h1>
+
+<ul>
+  <li *ngFor="let rescue of rescueService.rescues; let i = index">
+    <div class="d-flex flex-row align-self-center">
+      <div>
+        <a *ngIf="rescue.id" [routerLink]="rescue.id.toString()">
+          <h2>{{ rescue.rescue_date }}</h2>
+        </a>
+  <div class="p-3">
+    <button class="btn btn-danger" (click)="deleteRescue(rescue.id)">Eliminar raza</button>
+  </div>
+  </div>
+  </div>
+  </li>
+</ul>
+
+<div class="p-3">
+  <button type="button" class="btn btn-success" (click)="navigateToRescueCreate()">Crear raza</button>
+</div>

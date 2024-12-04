@@ -3,7 +3,7 @@ import { Shelter } from "../shelter/shelter.model.js";
 
 
 export class Rescue {
-  id?: number;
+  id: number;
   rescue_date: Date;
   description: string;
   coments: string;
@@ -11,7 +11,8 @@ export class Rescue {
   animals: Animal[];
 
 
-  constructor(rescue_date: Date, description: string, coments: string, updatedAt: Date, createdAt: Date, shelters: Shelter[] = [], animals: Animal[] = []) {
+  constructor(id:number, rescue_date: Date, description: string, coments: string, shelters: Shelter[] = [], animals: Animal[] = []) {
+    this.id = id;
     this.rescue_date = rescue_date;
     this.description = description;
     this.coments = coments;

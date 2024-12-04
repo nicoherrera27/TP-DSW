@@ -22,6 +22,9 @@ import { BreedFormComponent } from './components/breed/breed-form/breed-form.com
 import { VetComponent } from './components/vet/vet.component.js';
 import { VetFormComponent } from './components/vet/vet-form/vet-form.component.js';
 import { VetDetailComponent } from './components/vet/vet-detail/vet-detail.component.js';
+import { RescueComponent } from './components/rescue/rescue.component.js';
+import { RescueFormComponent } from './components/rescue/rescue-form/rescue-form.component.js';
+import { RescueDetailComponent } from './components/rescue/rescue-detail/rescue-detail.component.js';
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -54,6 +57,10 @@ export const routes: Routes = [
   {path: 'vet', component: VetComponent, canActivate:[authGuard]},
   {path: 'vet/create', component: VetFormComponent, canActivate:[authGuard]},
   {path: 'vet/:id', component: VetDetailComponent,  canActivate:[authGuard]},
+
+  {path: 'rescue', component:RescueComponent},
+  {path: 'rescue/create', component:RescueFormComponent},
+  {path: 'rescue/:id', component:RescueDetailComponent},
 
   { path: 'adopt/:id', component: AdoptAnimalComponent, canActivate:[authGuard] },
   { path: '**',redirectTo: 'login',pathMatch: 'full' }
