@@ -62,8 +62,8 @@ export class SignInComponent {
         doc_nro: new FormControl('', [Validators.required]),
         email: new FormControl(''),
         phone: new FormControl(''),
-        birthdate: new FormControl('', [Validators.required]),
-        address: new FormControl('', [Validators.required]),
+        birthdate: new FormControl(''),
+        address: new FormControl('', [Validators.required, Validators.minLength(11)]),
         nroCuit: new FormControl(''),
         user: new FormControl(''),
 

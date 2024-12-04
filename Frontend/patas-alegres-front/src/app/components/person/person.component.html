@@ -10,7 +10,7 @@
         <p class="card-text" *ngIf="person.phone">telefono: {{ person.phone }}</p>
         <p class="card-text">fecha de nacimiento: {{ person.birthdate | date: 'dd/MM/yyyy' }}</p>
         <p class="card-text">Domicilio: {{ person.address }}</p>
-        <p class="card-text" *ngIf="person.nroCuit">CUIT: {{ person.nroCuit }}</p>
+        <p class="card-text" *ngIf="person.nroCuit">CUIT: {{ person.nroCuit.toString() }}</p>
         <a *ngIf="person.id" [routerLink]="person.id.toString()" class="btn btn-primary">Editar</a>
         <div class="pl-3">
           <button class="btn btn-danger" *ngIf="person.id !== undefined" (click)="deletePerson(person.id!)">Eliminar</button>

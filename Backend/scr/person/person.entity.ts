@@ -36,7 +36,7 @@ export class Person extends BaseEntity {
   address!: string
 
   @Property({nullable: true})
-  nroCuit!: number
+  nroCuit!: string
 
   @OneToOne(() => User, (user) => user.person, {nullable: true, owner: true})
   user?: User;
