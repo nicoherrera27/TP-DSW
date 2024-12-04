@@ -23,6 +23,7 @@ export class RescueComponent {
     this.rescueService.getRescues().subscribe({
       next: (response) => {
         this.rescueService.rescues = response.data;
+        console.log(response.data)
       },
       error: (error) => {
         console.log(error);

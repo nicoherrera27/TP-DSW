@@ -23,7 +23,7 @@ export class BreedComponent {
       next: (response) => {
         console.log(response.data);
         this.breedService.breeds = response.data;
-        const breed = response.data;
+        console.log(response.data);
       },
       error: (error) => {
         console.log(error);
