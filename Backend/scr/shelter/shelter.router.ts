@@ -6,12 +6,13 @@ import {
   update, 
   remove 
 } from "./shelter.controler.js";
+import { validateToken } from "../validate-token/validate-token.routes.js";
 
 export const shelterRouter = Router();
 
-shelterRouter.get('/', findAll)
-shelterRouter.get('/:id', findOne)
-shelterRouter.post('/',  add)
-shelterRouter.put('/:id',  update)
-shelterRouter.patch('/:id',  update)
-shelterRouter.delete('/:id',  remove)
+shelterRouter.get('/',validateToken ,findAll)
+shelterRouter.get('/:id', validateToken,findOne)
+shelterRouter.post('/', validateToken ,add)
+shelterRouter.put('/:id', validateToken ,update)
+shelterRouter.patch('/:id', validateToken, update)
+shelterRouter.delete('/:id', validateToken, remove)

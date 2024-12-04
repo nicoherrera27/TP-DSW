@@ -58,9 +58,9 @@ export const routes: Routes = [
   {path: 'vet/create', component: VetFormComponent, canActivate:[authGuard]},
   {path: 'vet/:id', component: VetDetailComponent,  canActivate:[authGuard]},
 
-  {path: 'rescue', component:RescueComponent},
-  {path: 'rescue/create', component:RescueFormComponent},
-  {path: 'rescue/:id', component:RescueDetailComponent},
+  {path: 'rescue', component:RescueComponent, canActivate:[authGuard]},
+  {path: 'rescue/create', component:RescueFormComponent, canActivate:[authGuard]},
+  {path: 'rescue/:id', component:RescueDetailComponent, canActivate:[authGuard]},
 
   { path: 'adopt/:id', component: AdoptAnimalComponent, canActivate:[authGuard] },
   { path: '**',redirectTo: 'login',pathMatch: 'full' }
