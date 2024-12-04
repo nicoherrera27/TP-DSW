@@ -4,6 +4,7 @@ import { ShelterService } from '../../../services/shelter/shelter.service.js';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ZoneService } from '../../../services/zone/zone.service.js';
+import { VetService } from '../../../services/vet/vet.service.js';
 
 @Component({
   selector: 'app-shelter-form',
@@ -21,14 +22,15 @@ export class ShelterFormComponent {
   rescue: FormControl;
   vet: FormControl;
   zones: any[] = [];
+  vets: any[] = [];
 
-  constructor(private route: ActivatedRoute, public shelterService: ShelterService, private zoneService: ZoneService){
+  constructor(private route: ActivatedRoute, public shelterService: ShelterService, private zoneService: ZoneService, private vetService: VetService){
     this.name = new FormControl('', [Validators.required]);
     this.address = new FormControl('', [Validators.required]);
-    this.max_capacity = new FormControl('');
-    this.zone = new FormControl('');
+    this.max_capacity = new FormControl('', [Validators.required]);
+    this.zone = new FormControl('', [Validators.required]);
     this.rescue = new FormControl('');
-    this.vet = new FormControl('');
+    this.vet = new FormControl('', [Validators.required]);
 
     this.shelterForm = new FormGroup({
       name: this.name,
@@ -42,12 +44,24 @@ export class ShelterFormComponent {
 
   ngOnInit() {
     this.loadZones();
+    this.loadVets();
   }
 
   loadZones() {
     this.zoneService.getZones().subscribe({
       next: (data) => {
         this.zones = data.data;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  loadVets(){
+    this.vetService.getVets().subscribe({
+      next: (data) => {
+        this.vets = data.data;
       },
       error: (error) => {
         console.log(error);

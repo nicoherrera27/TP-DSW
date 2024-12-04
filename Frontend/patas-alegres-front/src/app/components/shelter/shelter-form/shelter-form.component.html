@@ -1,37 +1,40 @@
 <h1> Creacion de un refugio </h1>
-<form [formGroup]="shelterForm" (submit)="postShelter()">
-  <fieldset>
-    <label for="name">Nombre: </label>
+<form [formGroup]="shelterForm" (submit)="postShelter()" class="form-container">
+  <div class="form-fieldset">
+    <label for="name">Nombre</label>
     <input type="text" id="shelter-name" formControlName="name">
-    @if (name.invalid && name.touched) {
-      <p class="error">El nombre es obligatorio</p>
-    }
-  </fieldset>
-  <fieldset>
-    <label for="address">Direccion: </label>
-    <input type="text" id="shelter-address" formControladdress="address">
-    @if (address.invalid && address.touched) {
-      <p class="error">La dirección es obligatoria</p>
-    }
-  </fieldset>
-  <fieldset>
-    <label for="max_capacity">Capacidad maxima : </label>
+    <p class="error" *ngIf="shelterForm.get('name')?.invalid && shelterForm.get('name')?.touched">El nombre es obligatorio</p>
+  </div>
+  
+  <div class="form-fieldset">
+    <label for="address">Direccion</label>
+    <input type="text" id="shelter-address" formControlName="address">
+    <p class="error" *ngIf="shelterForm.get('address')?.invalid && shelterForm.get('address')?.touched">La direccion es obligatoria</p>
+  </div>
+
+  <div class="form-fieldset">
+    <label for="max_capacity">Capacidad maxima</label>
     <input type="number" id="shelter-max_capacity" formControlName="max_capacity">
-  </fieldset>
-  <fieldset>
-    <label for="zone">Zona: </label>
+    <p class="error" *ngIf="shelterForm.get('max_capacity')?.invalid && shelterForm.get('max_capacity')?.touched">La capacidad es obligatoria</p>
+  </div>
+
+  <div class="form-fieldset">
+    <label for="zone">Zona</label>
     <select id="shelter-zone" formControlName="zone">
       <option *ngFor="let zone of zones" [ngValue]="zone">{{ zone.name }}</option>
     </select>
-  </fieldset>
-  <fieldset>
-    <label for="rescue">Rescate: </label>
-    <input type="number" id="shelter-rescue" formControlName="rescue">
-  </fieldset>
-  <fieldset>
-    <label for="vet">Veterinario: </label>
-    <input type="number" id="shelter-vet" formControlName="vet">
-  </fieldset>
+    <p class="error" *ngIf="shelterForm.get('zone')?.invalid && shelterForm.get('zone')?.touched">La zona es obligatoria</p>
+  </div>
 
-  <button >crear refugio</button>
+  <div class="form-fieldset">
+    <label for="vet">Veterinaria</label>
+    <select id="shelter-vet" formControlName="vet">
+      <option *ngFor="let vet of vets" [ngValue]="vet">{{ vet.name }}</option>
+    </select>
+    <p class="error" *ngIf="shelterForm.get('vet')?.invalid && shelterForm.get('vet')?.touched">La veterinaria es obligatoria</p>
+  </div>
+
+  <div class="form-submit">
+    <button type="submit" [disabled]="shelterForm.invalid">Añadir refugio</button>
+  </div>
 </form>
