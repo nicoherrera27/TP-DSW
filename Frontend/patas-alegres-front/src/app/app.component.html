@@ -1,2 +1,4 @@
-<h1>Bienvenidos a {{title}}!!!</h1>
-<app-animal></app-animal>
+<ng-container *ngIf="showHeader">
+  <app-header></app-header>
+</ng-container>
+<router-outlet></router-outlet>

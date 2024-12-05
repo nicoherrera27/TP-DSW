@@ -16,7 +16,18 @@ async function findAll( req: Request, res: Response ){
 async function findOne( req: Request, res: Response ){
   try{
     const id = Number.parseInt(req.params.id);
-    const person = await em.find(Person, { id: id });
+    const person = await em.findOneOrFail(Person, { id: id });
+    res.status(200).json({message: 'person data: ', data: person});
+  } catch (error: any){
+    res.status(500).json({message: error.message});
+  }
+}
+
+async function findOneByDoc( req: Request, res: Response ){
+  try {
+    const { doc_type, doc_nro } = req.params;
+    const id = Number.parseInt(req.params.id);
+    const person = await em.findOneOrFail(Person, { doc_type: doc_type, doc_nro: doc_nro });
     res.status(200).json({message: 'person data: ', data: person});
   } catch (error: any){
     res.status(500).json({message: error.message});
@@ -25,8 +36,8 @@ async function findOne( req: Request, res: Response ){
 
 async function add( req: Request, res: Response ){
   try{
-    const input = req.body.sanitizedPersonInput;
-    const person = em.create(Person, input);
+    //const input = req.body.sanitizedPerson;
+    const person = em.create(Person, req.body);
     await em.flush();
     res.status(201).json({ message: 'person created', data: person });
   }catch (error: any) {
@@ -37,7 +48,7 @@ async function add( req: Request, res: Response ){
 async function update( req: Request, res: Response ){
   try{
     const id = Number.parseInt(req.params.id);
-    const input = req.body.sanitizedPersonInput;
+    const input = req.body.sanitizedPerson;
     const person = em.getReference(Person, id);
     em.assign(person, input);
     await em.flush();
@@ -58,8 +69,7 @@ async function remove( req: Request, res: Response ){
   }
 }
 
-function sanitizePersonInput(req: Request, res: Response, next:NextFunction){
-  
+function sanitizePersonInput(req: Request, res: Response, next: NextFunction) {
   req.body.sanitizedPerson = {
     name: req.body.name,
     surname: req.body.surname,
@@ -67,17 +77,20 @@ function sanitizePersonInput(req: Request, res: Response, next:NextFunction){
     doc_type: req.body.doc_type,
     email: req.body.email,
     phone: req.body.phone,
-    birthdate: req.body.birthdate,
+    birthdate: req.body.birthdate ? new Date(req.body.birthdate) : null,
     address: req.body.address,
-    nroCuit: req.body.nroCuit
-    }  
-    Object.keys(req.body.sanitizedPersonInput).forEach((key) => {
-    if (req.body.sanitizedPersonInput[key] === undefined) {
-      delete req.body.sanitizedPersonInput[key]
-    }
-  })
+    nroCuit: req.body.nroCuit,
+  };
 
-  next()
+  if (req.body.sanitizedPerson) {
+    Object.keys(req.body.sanitizedPerson).forEach((key) => {
+      if (req.body.sanitizedPerson[key] === undefined) {
+        delete req.body.sanitizedPerson[key];
+      }
+    });
+  }
+
+  next();
 }
 
-export { findAll, findOne, add, update, remove, sanitizePersonInput }
+export { findAll, findOne, add, update, remove, findOneByDoc, sanitizePersonInput }

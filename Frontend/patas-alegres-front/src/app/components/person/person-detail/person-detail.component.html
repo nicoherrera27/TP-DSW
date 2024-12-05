@@ -1,0 +1,59 @@
+<h1>Formulario para editar una persona</h1>
+<div *ngIf="selectedPerson" id="{{ selectedPerson?.id }}">
+  <form [formGroup]="personForm" (submit)="updatePerson()" class="form-container">
+    <div class="form-fieldset">
+      <label for="name">Nombre:</label>
+      <input type="text" id="person-name" formControlName="name">
+      <p class="error" *ngIf="personForm.get('name')?.invalid && personForm.get('name')?.touched">El nombre es obligatorio</p>
+    </div>
+
+    <div class="form-fieldset">
+      <label for="surname">Apellido:</label>
+      <input type="text" id="person-surname" formControlName="surname">
+      <p class="error" *ngIf="personForm.get('surname')?.invalid && personForm.get('surname')?.touched">El apellido es obligatorio</p>
+    </div>
+
+    <div class="form-fieldset">
+      <label for="doc_type">Tipo de documento:</label>
+      <input type="text" id="person-doc_type" formControlName="doc_type">
+      <p class="error" *ngIf="personForm.get('doc_type')?.invalid && personForm.get('doc_type')?.touched">El tipo de documento es obligatorio</p>
+    </div>
+
+    <div class="form-fieldset">
+      <label for="doc_nro">Número de documento:</label>
+      <input type="text" id="person-doc_nro" formControlName="doc_nro">
+      <p class="error" *ngIf="personForm.get('doc_nro')?.invalid && personForm.get('doc_nro')?.touched">El número de documento es obligatorio</p>
+    </div>
+
+    <div class="form-fieldset">
+      <label for="email">Email:</label>
+      <input type="email" id="person-email" formControlName="email">
+    </div>
+
+    <div class="form-fieldset">
+      <label for="phone">Teléfono:</label>
+      <input type="text" id="person-phone" formControlName="phone">
+    </div>
+
+    <div class="form-fieldset">
+      <label for="birthdate">Fecha de nacimiento:</label>
+      <input type="date" id="person-birthdate" formControlName="birthdate">
+      <p class="error" *ngIf="personForm.get('birthdate')?.invalid && personForm.get('birthdate')?.touched">La fecha de nacimiento es obligatoria</p>
+    </div>
+
+    <div class="form-fieldset">
+      <label for="address">Dirección:</label>
+      <input type="text" id="person-address" formControlName="address">
+      <p class="error" *ngIf="personForm.get('address')?.invalid && personForm.get('address')?.touched">La dirección es obligatoria</p>
+    </div>
+
+    <div class="form-fieldset">
+      <label for="nroCuit">CUIT:</label>
+      <input type="number" id="person-nroCuit" formControlName="nroCuit">
+    </div>
+
+    <div class="form-submit">
+      <button type="submit" [disabled]="personForm.invalid">Actualizar Persona</button>
+    </div>
+  </form>
+</div>

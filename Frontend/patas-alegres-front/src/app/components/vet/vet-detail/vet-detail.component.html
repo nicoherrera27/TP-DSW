@@ -1,0 +1,24 @@
+<div class="card" style="width: fit-content;">
+  <div class="card-body" *ngIf="selectedVet" id="{{ selectedVet?.id }}">
+    <form [formGroup]="vetForm" (ngSubmit)="updateVet()">
+      <fieldset>
+        <label for="name" class="p-3">Nombre:</label>
+        <input type="text" id="vet-name" formControlName="name"><br>
+        <label for="name" class="p-3">Direccion:</label>
+        <input type="text" id="vet-address" formControlName="address">
+        <p class="card-text">
+          UpdatedAt: {{ selectedVet?.updatedAt }}<br>
+          CreatedAt: {{ selectedVet?.createdAt }}<br>
+          Refugios
+        </p>
+        <ul>
+          <li *ngFor="let shelter of selectedVet?.shelters">
+            <p>{{ shelter.name }} - {{ shelter.address }}</p>
+          </li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Actualizar veterinario</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
+

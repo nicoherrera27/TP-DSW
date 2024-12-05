@@ -1,0 +1,20 @@
+<div>
+  <h1>Detalles de un animal</h1>
+  <div class="card" style="width: fit-content;">
+  <div class="card-body" *ngIf="selectedAnimal" id="{{ selectedAnimal?.id }}">
+    <form [formGroup]="animalForm" (ngSubmit)="updateAnimal()">
+      <fieldset>
+        <label for="name" class="p-3">Nombre:</label>
+        <input type="text" id="animal-name" formControlName="name">
+        <p class="card-text">
+          UpdatedAt: {{ selectedAnimal?.updatedAt }}<br>
+          CreatedAt: {{ selectedAnimal?.createdAt }}<br>
+          Breed: {{ selectedAnimal?.breed.name }}<br>
+          Rescate: {{ selectedAnimal?.rescueClass.rescue_date }}<br>
+        </p>
+        <button type="submit" class="btn btn-primary">Actualizar animal</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
+</div>

@@ -1,0 +1,21 @@
+<div class="card" style="width: fit-content;">
+  <div class="card-body" *ngIf="selectedZone" id="{{ selectedZone?.id }}">
+    <form [formGroup]="zoneForm" (ngSubmit)="updateZone()">
+      <fieldset>
+        <label for="name" class="p-3">Nombre:</label>
+        <input type="text" id="zone-name" formControlName="name">
+        <p class="card-text">
+          UpdatedAt: {{ selectedZone?.updatedAt }}<br>
+          CreatedAt: {{ selectedZone?.createdAt }}<br>
+          Refugios
+        </p>
+        <ul>
+          <li *ngFor="let shelter of selectedZone?.shelters">
+            <p>{{ shelter.name }} - {{ shelter.address }}</p>
+          </li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Actualizar zona</button>
+      </fieldset>
+    </form>
+  </div>
+</div>

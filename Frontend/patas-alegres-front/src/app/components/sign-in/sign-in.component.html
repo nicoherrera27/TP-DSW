@@ -1,0 +1,33 @@
+<div class="wrapper">
+  <div class="body">
+    <img class="icon" src="../../assets/img/hospital.png" alt="img login">
+    <h1>Registrar usuario</h1>
+    <form [formGroup]="UserForm" novalidate>
+      <input formControlName="username" type="text" class="form-control mb-1" placeholder="Ingrese su  nombre de usuario">
+      <input formControlName="password" type="password" class="form-control mb-1" placeholder="Ingrese su contraseña">
+      <input formControlName="repassword" type="password" class="form-control mb-1" placeholder="Repita su contraseña">
+      <span *ngIf="UserForm.errors?.['passwordmatcherror']" class="">Las contraseñas no son iguales</span>
+
+            <h2>Datos Personales</h2>
+            
+          <div formGroupName="person">
+              <input formControlName="name" type="text" class="form-control mb-1" placeholder="Ingrese su nombre" />
+              <input formControlName="surname" type="text" class="form-control mb-1" placeholder="Ingrese su apellido" />
+              <input formControlName="doc_type" type="text" class="form-control mb-1" placeholder="Tipo de documento" />
+              <input formControlName="doc_nro" type="number" class="form-control mb-1" placeholder="Número de documento" />
+              <input formControlName="email" type="email" class="form-control mb-1"
+                placeholder="Ingrese su correo electrónico (opcional)" />
+              <input formControlName="phone" type="text" class="form-control mb-1"
+                placeholder="Ingrese su número de teléfono (opcional)" />
+              <input formControlName="birthdate" type="date" class="form-control mb-1" placeholder="Fecha de nacimiento" />
+              <input formControlName="address" type="string" class="form-control mb-1" placeholder="Dirección" />
+              <input formControlName="nroCuit" type="String" class="form-control mb-1" placeholder="Número de CUIT (opcional)" />
+          </div>
+        <div class="d-grid gap-2 mt-2">
+          <button  (click)="SignIn()" type="button"  
+            class="btn btn-primary btn-lg" routerLink="/login">Aceptar</button>
+        </div>
+    </form>
+    <a href="" routerLink="/login">Pagina anterior</a>
+  </div>
+</div>

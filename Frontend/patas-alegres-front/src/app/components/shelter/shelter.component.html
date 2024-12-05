@@ -1,0 +1,20 @@
+<h1>Lista de Refugios</h1>
+
+<div class="d-flex flex-wrap gap-3">
+  <div *ngFor="let shelter of shelterService.shelters; let i = index" class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ shelter.name }}</h5>
+        <p class="card-text">Direccion: {{ shelter.address }}</p><br>
+        <p class="card-text">capacidad maxima: {{shelter.max_capacity }}</p><br>
+        <p class="card-text">Zona: {{shelter.zone.name }}</p><br>
+        <a *ngIf="shelter.id" [routerLink]="shelter.id.toString()" class="btn btn-primary">Editar</a>
+        <div class="pl-3">
+          <button class="btn btn-danger" *ngIf="shelter.id !== undefined" (click)="deleteShelter(shelter.id!)">Eliminar</button>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="p-3">
+  <button type="button" class="btn btn-success" (click)="navigateToShelterCreate()">Crear refugio</button>
+</div>

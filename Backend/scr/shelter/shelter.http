@@ -19,6 +19,9 @@ Content-Type: application/json
 ### obtener una sucurdal de algun shelter
 GET http://localhost:3000/api/shelter/{{id}}
 
+### obtener una un refugio en especial
+GET http://localhost:3000/api/shelter/2
+
 ### modificar un shelter(PUT)
 PUT http://localhost:3000/api/shelter/{{id}}
 Content-Type: application/json

@@ -1,0 +1,16 @@
+<h1>Crear Raza</h1>
+<form [formGroup]="breedForm" (submit)="postBreed()" class="form-container">
+  <div class="form-fieldset">
+    <label for="name">Nombre de raza</label>
+    <input type="text" id="zone-name" name="name" formControlName="name">
+  </div>
+
+  <div class="form-fieldset">
+    <label for="name">Descripcion (opcional)</label>
+    <input type="text" id="zone-description" description="description" formControlName="description">
+  </div>
+  
+  <div class="form-submit">
+    <button type="submit" [disabled]="breedForm.invalid">Añadir Raza</button>
+  </div>
+</form>

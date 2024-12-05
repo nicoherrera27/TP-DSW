@@ -4,9 +4,11 @@ import {
   PrimaryKey,
   Property,
   Cascade,
-  Collection
+  Collection,
+  OneToOne
 } from "@mikro-orm/core";
 import { BaseEntity } from "../zshare/db/baseEntity.entity.js";
+import { User } from "../user/user.entity.js";
 @Entity()
 export class Person extends BaseEntity {
   @Property({nullable: false})
@@ -34,5 +36,8 @@ export class Person extends BaseEntity {
   address!: string
 
   @Property({nullable: true})
-  nroCuit!: number
+  nroCuit!: string
+
+  @OneToOne(() => User, (user) => user.person, {nullable: true, owner: true})
+  user?: User;
 }

@@ -7,12 +7,13 @@ import {
   update, 
   remove 
 } from "./zone.controler.js";
+import { validateToken } from "../validate-token/validate-token.routes.js";
 
 export const zoneRouter = Router();
 
-zoneRouter.get('/', findAll)
-zoneRouter.get('/:id', findOne)
-zoneRouter.post('/', sanitizeZoneInput, add)
-zoneRouter.put('/:id', sanitizeZoneInput, update)
-zoneRouter.patch('/:id', sanitizeZoneInput, update)
-zoneRouter.delete('/:id', sanitizeZoneInput, remove)
+zoneRouter.get('/',validateToken, findAll)
+zoneRouter.get('/:id',validateToken, findOne)
+zoneRouter.post('/', validateToken,sanitizeZoneInput, add)
+zoneRouter.put('/:id',validateToken, sanitizeZoneInput, update)
+zoneRouter.patch('/:id',validateToken, sanitizeZoneInput, update)
+zoneRouter.delete('/:id',validateToken, sanitizeZoneInput, remove)
