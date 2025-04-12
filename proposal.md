@@ -17,7 +17,7 @@ Sistema web diseñado para facilitar la administración integral de un cine. Per
 
 
 ### Modelo
-![imagen del modelo]()
+!https://drive.google.com/file/d/1fBN7paHpEiJ1GlJ1oV7hzcQ3yfb4LWCq/view?usp=sharing
 
 *Nota*: incluir un link con la imagen de un modelo, puede ser modelo de dominio, diagrama de clases, DER. Si lo prefieren pueden utilizar diagramas con [Mermaid](https://mermaid.js.org) en lugar de imágenes.
 
@@ -39,7 +39,7 @@ Regularidad:
 Adicionales para Aprobación
 |Req|Detalle|
 |:-|:-|
-|CRUD |1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Genero<br>4. CRUD Pelicula<br>5. CRUD Compra<br>6. CRUD Entradao<br>7. CRUD Funcion<br>8. CRUD Tipo Funcion<br>9. CRUD Valor Historico|
+|CRUD |1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Genero<br>4. CRUD Pelicula<br>5. CRUD Compra<br>6. CRUD Entrada<br>7. CRUD Funcion<br>8. CRUD Tipo Funcion<br>9. CRUD Valor Historico|
 |CUU/Epic|1. Login de usuario<br>2. Compra de entrada<br> 3. Reseñas|
 
 
