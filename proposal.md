@@ -40,7 +40,7 @@ Adicionales para Aprobación
 |Req|Detalle|
 |:-|:-|
 |CRUD |1. CRUD Tipo Habitacion<br>2. CRUD Servicio<br>3. CRUD Localidad<br>4. CRUD Provincia<br>5. CRUD Habitación<br>6. CRUD Empleado<br>7. CRUD Cliente|
-|CUU/Epic|<br>1. reseñas<br>2. compra de entrada<br>3. sinopsis|
+|CUU/Epic|1. Reseñas<br>2. Compra de entrada<br>3. Sinopsis|
 
 
 ### Alcance Adicional Voluntario
