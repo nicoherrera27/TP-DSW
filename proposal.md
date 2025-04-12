@@ -30,17 +30,18 @@ Sistema web diseñado para facilitar la administración integral de un cine. Per
 Regularidad:
 |Req|Detalle|
 |:-|:-|
-|CRUD simple|1. CRUD Tipo Entrada<br>2. CRUD Usuario<br>3. CRUD Sala<br>4. CRUD Genero|
+|CRUD simple|1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Genero|
 |CRUD dependiente|1. CRUD Pelicula {depende de} CRUD Genero<br>2. CRUD Funcion {depende de} CRUD Sala|
 |Listado<br>+<br>detalle| 1. Listado de peliculas filtrado por genero, muestra nombre, duracion y funciones disponibles para el dia actual. <br> 2. Listado de entradas vendidas por rango de fecha y pelicula 
-|CUU/Epic|1. Login de usuario<br>2. Pago digital con MercadoPago|
+|CUU/Epic|1. Login de usuario<br>2. Compra de entrada|
 
 
 Adicionales para Aprobación
 |Req|Detalle|
 |:-|:-|
-|CRUD |1. CRUD Tipo Habitacion<br>2. CRUD Servicio<br>3. CRUD Localidad<br>4. CRUD Provincia<br>5. CRUD Habitación<br>6. CRUD Empleado<br>7. CRUD Cliente|
-|CUU/Epic|1. Reseñas<br>2. Compra de entrada<br>3. Sinopsis|
+|CRUD |1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Genero<br>4. CRUD Pelicula<br>5. CRUD Compra<br>6. CRUD Entradao<br>7. CRUD Funcion<br>8. CRUD Tipo Funcion<br>9. CRUD Valor Historico|
+|CUU/Epic|1. Login de usuario<br>2. Compra de entrada<br> 3. Reseñas|
+
 
 
 ### Alcance Adicional Voluntario
@@ -50,6 +51,6 @@ Adicionales para Aprobación
 |Req|Detalle|
 |:-|:-|
 |Listados |1. Estadía del día filtrado por fecha muestra, cliente, habitaciones y estado <br>2. Reservas filtradas por cliente muestra datos del cliente y de cada reserve fechas, estado cantidad de habitaciones y huespedes|
-|CUU/Epic|1. Consumir servicios<br>2. Cancelación de reserva|
-|Otros|1. Envío de recordatorio de reserva por email|
+|CUU/Epic|1. Sinopsis<br>2. Pago digital con MercadoPago|
+|Otros|1. Envío de entrada por email|
 
