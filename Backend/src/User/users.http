@@ -1,0 +1,17 @@
+### GET ALL
+GET http://localhost:3000/api/users
+
+### GET ONE
+GET http://localhost:3000/api/users/2
+
+### POST
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "id": 3,
+    "name": "Jane",
+    "surname": "Doe",
+    "email": "jane@doe.com",
+    "birthdate": "1990-02-01"
+}
