@@ -1,8 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express'
 import {User} from './src/User/user.js'
 
-
-
 const app = express()
 app.use(express.json())
 
@@ -23,7 +21,7 @@ const users= [
     )
 ]
 
-function sanitizeUserInput(req: Request, res: Response, next: NextFunction) {
+function sanitizeUserInput(req: Request, res: Response, next: NextFunction) {  // Aca se realizarian las validaciones //
   req.body.sanitizedInput ={
     name: req.body.name,
     surname: req.body.surname,
@@ -33,7 +31,6 @@ function sanitizeUserInput(req: Request, res: Response, next: NextFunction) {
   
   next()
 }
-
 
 
 app.get('/api/users', (req, res) => {
@@ -54,7 +51,13 @@ app.post('/api/users', sanitizeUserInput, (req, res) => {
   const input = req.body.sanitizedInput
   const id = req.body.id
 
-  const user = new User(id, input.name, input.surname, input. email, input.birthdate)
+  const user = new User(
+    id, 
+    input.name, 
+    input.surname, 
+    input.email, 
+    input.birthdate
+  )
 
   users.push(user)
   res.status(201).send({ message: 'User created successfully', data: user })
@@ -66,13 +69,24 @@ app.put('/api/users/:id', sanitizeUserInput, (req, res) => {
   if (userIdX === -1) {
     res.status(404).send({ message: 'User not found'})
   } 
-
-
-
   users[userIdX] = {...users[userIdX], ...req.body.sanitizedInput}
   res.status(200).send({ message: 'User updated successfully', data: users[userIdX] })
   
 })
+
+app.patch('/api/users/:id', sanitizeUserInput, (req, res) => {
+  const userIdX = users.findIndex((user) => user.id === parseInt(req.params.id))
+  
+  if (userIdX === -1) {
+    res.status(404).send({ message: 'User not found' })
+  }
+  
+  users[userIdX] = {...users[userIdX], ...req.body.sanitizedInput}
+
+  res.status(200).send({ message: 'User updated successfully', data: users[userIdX] })
+  
+})
+
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000')
