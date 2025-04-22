@@ -10,8 +10,19 @@ Content-Type: application/json
 
 {
     "id": 3,
-    "name": "Jane",
-    "surname": "Doe",
+    "name": "Jane4",
+    "surname": "Doe4",
+    "email": "jane@doe.com",
+    "birthdate": "1990-02-01"
+}
+
+### PUT
+PUT http://localhost:3000/api/users/5
+Content-Type: application/json
+
+{
+    "name": "Jane5",
+    "surname": "Doe5",
     "email": "jane@doe.com",
     "birthdate": "1990-02-01"
 }

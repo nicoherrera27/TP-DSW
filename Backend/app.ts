@@ -1,5 +1,6 @@
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import {User} from './src/User/user.js'
+
 
 
 const app = express()
@@ -22,6 +23,19 @@ const users= [
     )
 ]
 
+function sanitizeUserInput(req: Request, res: Response, next: NextFunction) {
+  req.body.sanitizedInput ={
+    name: req.body.name,
+    surname: req.body.surname,
+    email: req.body.email,
+    birthdate: req.body.birthdate
+  }
+  
+  next()
+}
+
+
+
 app.get('/api/users', (req, res) => {
   res.json(users)
 })
@@ -36,13 +50,28 @@ app.get('/api/users/:id', (req, res) => {
   }
 })
 
-app.post('/api/users', (req, res) => {
-  const { id, name, surname, email, birthdate } = req.body
+app.post('/api/users', sanitizeUserInput, (req, res) => {
+  const input = req.body.sanitizedInput
+  const id = req.body.id
 
-  const user = new User(id, name, surname, email, birthdate)
+  const user = new User(id, input.name, input.surname, input. email, input.birthdate)
 
   users.push(user)
   res.status(201).send({ message: 'User created successfully', data: user })
+})
+
+app.put('/api/users/:id', sanitizeUserInput, (req, res) => {
+  const userIdX = users.findIndex((user) => user.id === parseInt(req.params.id)) 
+
+  if (userIdX === -1) {
+    res.status(404).send({ message: 'User not found'})
+  } 
+
+
+
+  users[userIdX] = {...users[userIdX], ...req.body.sanitizedInput}
+  res.status(200).send({ message: 'User updated successfully', data: users[userIdX] })
+  
 })
 
 app.listen(3000, () => {
