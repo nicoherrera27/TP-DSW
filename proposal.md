@@ -17,7 +17,7 @@ Sistema web diseñado para facilitar la administración integral de un cine. Per
 
 
 ### Modelo
-!https://drive.google.com/file/d/1fBN7paHpEiJ1GlJ1oV7hzcQ3yfb4LWCq/view?usp=sharing
+[!https://drive.google.com/file/d/1fBN7paHpEiJ1GlJ1oV7hzcQ3yfb4LWCq/view?usp=sharing](https://drive.google.com/file/d/1fBN7paHpEiJ1GlJ1oV7hzcQ3yfb4LWCq/view?usp=sharing)
 
 *Nota*: incluir un link con la imagen de un modelo, puede ser modelo de dominio, diagrama de clases, DER. Si lo prefieren pueden utilizar diagramas con [Mermaid](https://mermaid.js.org) en lugar de imágenes.
 
