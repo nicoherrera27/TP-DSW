@@ -84,7 +84,8 @@ app.put('/api/users/:id', sanitizeUserInput, (req, res) => {
     res.status(404).send({ message: 'User not found' })
     return
   } 
-  users[userIdX] = {...users[userIdX], ...req.body.sanitizedInput}
+  Object.assign(users[userIdX], req.body.sanitizedInput)
+
   res.status(200).send({ message: 'User updated successfully', data: users[userIdX] })
   return
 
@@ -98,7 +99,7 @@ app.patch('/api/users/:id', sanitizeUserInput, (req, res) => {
     return
   }
   
-  users[userIdX] = {...users[userIdX], ...req.body.sanitizedInput}
+  Object.assign(users[userIdX], req.body.sanitizedInput)
 
   res.status(200).send({ message: 'User updated successfully', data: users[userIdX] })
   return
@@ -110,13 +111,20 @@ app.delete('/api/users/:id', (req, res) => {
 
   if (userIdX === -1) {
     res.status(404).send({ message: 'User not found' })
+    return
   } 
-  else{
-    users.splice(userIdX, 1)
-    res.status(200).send({ message: 'User deleted successfully' })
-  }
+
+  users.splice(userIdX, 1)
+
+  res.status(200).send({ message: 'User deleted successfully' })
+  return
+  
 })
 
+app.use((req, res) => {
+  res.status(404).send({ message: 'Resource not found' })
+  return
+})
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000')
