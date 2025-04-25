@@ -31,14 +31,14 @@ Regularidad:
 |CRUD simple|1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Genero|
 |CRUD dependiente|1. CRUD Pelicula {depende de} CRUD Genero<br>2. CRUD Funcion {depende de} CRUD Sala|
 |Listado<br>+<br>detalle| 1. Listado de peliculas filtrado por genero, muestra nombre, duracion y funciones disponibles para el dia actual. <br> 2. Listado de entradas vendidas por rango de fecha y pelicula 
-|CUU/Epic|1. Login de usuario<br>2. Compra de entrada|
+|CUU/Epic|1. Seleccion de promociones de entrada<br>2. Compra de entrada|
 
 
 Adicionales para Aprobación
 |Req|Detalle|
 |:-|:-|
 |CRUD |1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Genero<br>4. CRUD Pelicula<br>5. CRUD Compra<br>6. CRUD Entrada<br>7. CRUD Funcion<br>8. CRUD Tipo Funcion<br>9. CRUD Valor Historico|
-|CUU/Epic|1. Login de usuario<br>2. Compra de entrada<br> 3. Reseñas|
+|CUU/Epic|1. Seleccion de promociones de entrada<br>2. Compra de entrada<br> 3. Reseñas|
 
 
 
