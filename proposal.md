@@ -2,7 +2,7 @@
 
 ## Grupo
 ### Integrantes
-* 49498 - Boscarol, Candela Maria
+* 49498 - Boscarol, Candela
 * 51386 - Araguas, Joaquín
 * 51541 - Herrera, Nicolas
 
