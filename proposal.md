@@ -25,8 +25,6 @@ Sistema web diseñado para facilitar la administración integral de un cine. Per
 
 ### Alcance Mínimo
 
-*Nota*: el siguiente es un ejemplo para un grupo de 3 integrantes para un sistema de hotel. El 
-
 Regularidad:
 |Req|Detalle|
 |:-|:-|
