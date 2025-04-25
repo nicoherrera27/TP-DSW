@@ -51,3 +51,6 @@ coverage/
 *.js.map
 *.d.ts
 *.d.ts.map
+
+#Ignore conn.ts
+**/conn.ts
