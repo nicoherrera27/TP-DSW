@@ -1,6 +1,6 @@
 import crypto from 'node:crypto'
 
-export class hall{
+export class Hall{
   constructor(
     public num_hall: number,
     public capacity: number, 
