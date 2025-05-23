@@ -93,10 +93,10 @@ app.delete('/api/halls/:id', (req, res) => {
 
 //aca termina
 
-app.use((_, res) => {
-  res.status(404).send({ message: 'Resource not found' })
-  return
-})
+//app.use((_, res) => {
+//  res.status(404).send({ message: 'Resource not found' })
+//  return
+//})
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000')
