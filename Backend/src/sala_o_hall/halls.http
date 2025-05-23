@@ -1,0 +1,16 @@
+### GET ALL
+GET http://localhost:3000/api/halls
+
+### GET ONE
+GET http://localhost:3000/api/halls/'9f3a8c7e-2b9d-4c6b-b2d1-ec4e9a57d4f3'
+
+### POST  
+POST http://localhost:3000/api/halls
+
+Content-Type: application/json
+
+{
+    "id_hall": "3",
+    "capacity": "60", 
+ 
+}
