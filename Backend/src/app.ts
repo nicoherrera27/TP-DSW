@@ -44,7 +44,7 @@ app.get('/api/halls/:id',(req, res) => {
     if(!hall){
         res.status(404).send({message: 'hall not found'})
     }
-    res.json(halls)
+    res.json(hall)
 })
 
 app.post('/api/halls', sanitizeHallInput, (req, res) => {
