@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express'
-import { userRouter } from './routes/userRoutes.js'
+import { userRouter } from './user/userRoutes.js'
 
 const app = express()
 app.use(express.json())
