@@ -1,27 +1,30 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response } from 'express'
+import { orm } from '../shared/db/orm.js'
+
+const em = orm.em
 //import { User } from '../entities/userEntity.js'
 
 
-function sanitizeUserInput(req: Request, res: Response, next: NextFunction) {
-  // Aca se realizarian las validaciones //
-  req.body.sanitizedInput = {
-    id: req.body.id,
-    username: req.body.username,
-    password: req.body.password,
-    name: req.body.name,
-    surname: req.body.surname,
-    email: req.body.email,
-    birthdate: req.body.birthdate,
-  }
-
-  Object.keys(req.body.sanitizedInput).forEach((key) => {
-    if (req.body.sanitizedInput[key] === undefined) {
-      delete req.body.sanitizedInput[key]
-    }
-  })
-
-  next()
-}
+//function sanitizeUserInput(req: Request, res: Response, next: NextFunction) {
+//  // Aca se realizarian las validaciones //
+//  req.body.sanitizedInput = {
+//    id: req.body.id,
+//    username: req.body.username,
+//    password: req.body.password,
+//    name: req.body.name,
+//    surname: req.body.surname,
+//    email: req.body.email,
+//    birthdate: req.body.birthdate,
+//  }
+//
+//  Object.keys(req.body.sanitizedInput).forEach((key) => {
+//    if (req.body.sanitizedInput[key] === undefined) {
+//      delete req.body.sanitizedInput[key]
+//    }
+//  })
+//
+//  next()
+//}
 
 async function findAll (req: Request, res: Response) {
   //const users = await repository.findAll()
@@ -104,11 +107,4 @@ async function remove (req: Request, res: Response) {
 }
 
 
-export const user_Controller = { 
-  sanitizeUserInput,
-  findAll,
-  findOne,
-  create,
-  update,
-  remove
-}
+export  { findAll, findOne, create, update, remove}
