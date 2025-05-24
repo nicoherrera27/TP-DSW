@@ -1,5 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express'
 import { userRouter } from './routes/userRoutes.js'
+import {Hall} from './sala_o_hall/hallEntity.js'
+import { HallRepository } from './sala_o_hall/hallRepository2.js'
 
 const app = express()
 app.use(express.json())
@@ -8,19 +10,19 @@ app.use('/api/users', userRouter)
 
 //aca arranca hall
 
-import {Hall} from './sala_o_hall/hallEntity.js'
+const repository2 = new HallRepository
 
 const halls = [
   new Hall(
     3,
     60,
-    '9f3a8c7e-2b9d-4c6b-b2d1-ec4e9a57d4f3'
+    'H01'
   ),
 ]
 
 function sanitizeHallInput(req: Request, res: Response, next: NextFunction){
 
-  req.body.sanitizedinput = {
+  req.body.sanitizedInput = {
     num_hall: req.body.num_hall,
     capacity: req.body.capacity,
     id_hall: req.body.id_hall    
@@ -36,67 +38,71 @@ function sanitizeHallInput(req: Request, res: Response, next: NextFunction){
 }
 
 app.get('/api/halls',(req, res) => {
-  res.json(halls)  
+  res.json({data: repository2.findAll2() })
 })
 
 app.get('/api/halls/:id',(req, res) => {
-    const hall = halls.find((hall) => hall.id_hall == req.params.id)
+    const hall = repository2.findOne2({id:req.params.id})
     if(!hall){
-        res.status(404).send({message: 'hall not found'})
+      res.status(404).send({message: 'hall not found'})
+      return
     }
-    res.json(hall)
+    res.json({data: hall})
 })
 
 app.post('/api/halls', sanitizeHallInput, (req, res) => {
-  const Input = req.body.sanitizedinput
+  const Input = req.body.sanitizedInput
 
-  const hall = new Hall(Input.num_hall, Input.capacity, Input.id_hall)
+  const hallInput = new Hall(Input.num_hall, Input.capacity, Input.id_hall)
 
-  halls.push(hall)
+  const hall = repository2.create2(hallInput)
   res.status(201).send({message: 'hall crated', data: hall})
+  return
 })
 
 app.put('/api/halls/:id', sanitizeHallInput, (req, res) => {
-  const hallIdx = halls.findIndex((hall) => hall.id_hall == req.params.id)
-
-  if(hallIdx == -1){
-    res.status(404).send({message: 'Hall not found'})
+  req.body.sanitizedInput.id = req.params.id
+  const hall = repository2.update2(req.body.sanitizedInput)
+  
+  if (!hall) {
+    res.status(404).send({ message: 'Hall not found' })
+    return
   }
 
-  halls[hallIdx] = {...halls[hallIdx], ...req.body.sanitizedinput}
-
-  res.status(200).send({message: 'Hall updated successfully', data: halls[hallIdx]})
+  res.status(200).send({ message: 'Hall updated successfully', data: hall})
+  return
 })
 
 app.patch('/api/halls/:id', sanitizeHallInput, (req, res) => {
-  const hallIdx = halls.findIndex((hall) => hall.id_hall == req.params.id)
-
-  if(hallIdx == -1){
-    res.status(404).send({message: 'Hall not found'})
+  req.body.sanitizedInput.id = req.params.id
+  const hall = repository2.update2(req.body.sanitizedInput)
+  
+  if (!hall) {
+    res.status(404).send({ message: 'Hall not found' })
+    return
   }
 
-  halls[hallIdx] = {...halls[hallIdx], ...req.body.sanitizedinput}
-
-  res.status(200).send({message: 'Hall updated successfully', data: halls[hallIdx]})
+  res.status(200).send({ message: 'Hall updated successfully', data: hall})
+  return
 })
 
 app.delete('/api/halls/:id', (req, res) => {
-  const hallIdx = halls.findIndex((hall) => hall.id_hall == req.params.id)
+  const id = req.params.id
+  const hall = repository2.delete2({id})
 
-  if(hallIdx == -1) {
+  if(!hall) {
     res.status(404).send({message:'Hall not found'})
-  }else{
-  halls.splice(hallIdx, 1)
+  } else{
   res.status(200).send({message: 'Hall deleted successfully' })
   }
 })
 
 //aca termina
 
-//app.use((_, res) => {
-//  res.status(404).send({ message: 'Resource not found' })
-//  return
-//})
+app.use((_, res) => {
+  res.status(404).send({ message: 'Resource not found' })
+  return
+})
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000')
