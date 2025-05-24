@@ -1,5 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express'
-import { userRouter } from './routes/userRoutes.js'
+import { userRouter } from './user/userRoutes.js'
+import { Hall } from './sala_o_hall/hallEntity.js'
+import { HallRepository } from './sala_o_hall/hallRepository2.js'
 
 const app = express()
 app.use(express.json())
