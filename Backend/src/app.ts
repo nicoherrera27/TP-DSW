@@ -1,9 +1,11 @@
+
 import 'reflect-metadata'
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import { userRouter } from './user/user.routes.js'
 import { RequestContext } from '@mikro-orm/core'
 import { orm, syncSchema } from './shared/db/orm.js'
-
+import { Hall } from './sala_o_hall/hallEntity.js'
+import { HallRepository } from './sala_o_hall/hallRepository2.js'
 
 
 const app = express()
@@ -25,6 +27,7 @@ app.use((_, res) => {
 })
 
 await syncSchema()
+
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000')
