@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import express from 'express'
-import { userRouter } from './user/userRoutes.js'
+import { userRouter } from './user/user.routes.js'
 import { RequestContext } from '@mikro-orm/core'
 import { orm, syncSchema } from './shared/db/orm.js'
 
