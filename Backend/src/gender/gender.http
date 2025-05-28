@@ -1,0 +1,5 @@
+### GET ALL
+GET http://localhost:3000/api/gender
+
+### GET ONE
+GET http://locahost:3000/api/gender/1
