@@ -1,11 +1,11 @@
 import { Repository2 } from "../shared/repository2.js";
-import { Hall } from "./hallEntity.js";
+import { Hall } from "./hall.entity.js";
 
 const halls = [
   new Hall(
     3,
     60,
-    '9f3a8c7e-2b9d-4c6b-b2d1-ec4e9a57d4f3'
+    "H01"
   ),
 ]
 
@@ -28,7 +28,7 @@ export class HallRepository implements Repository2<Hall>{
         const hallIdx = halls.findIndex((hall) => hall.id_hall == item.id_hall)
 
         if(hallIdx != -1){
-            halls[hallIdx] = {...halls[hallIdx], ...item} //1er forma de reasignar algo (forma mas fea segun meca)
+            halls[hallIdx] = {...halls[hallIdx], ...item}
         }
         return halls[hallIdx]
     }

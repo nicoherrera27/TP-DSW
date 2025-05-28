@@ -1,5 +1,5 @@
 import { Repository } from "../shared/repository.js"
-import { User } from "./userEntity.js"
+import { User } from "./user.entity.js"
 import { pool } from "../shared/db/conn.js"
 import { ResultSetHeader, RowDataPacket } from "mysql2"
 
