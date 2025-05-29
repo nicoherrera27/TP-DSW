@@ -16,16 +16,16 @@ export class HallRepository implements Repository2<Hall>{
     }
         
     public findOne2(item: { id: string; }): Hall | undefined {
-        return halls.find((hall) => hall.id_hall == item.id)   
+        return halls.find((hall) => hall.id == item.id)   
     }
 
     public create2(item: Hall): Hall | undefined {
         halls.push(item)
         return item
     }
-    
+
     public update2(item: Hall): Hall | undefined {
-        const hallIdx = halls.findIndex((hall) => hall.id_hall == item.id_hall)
+       const hallIdx = halls.findIndex((hall) => hall.id == item.id)
 
         if(hallIdx != -1){
             halls[hallIdx] = {...halls[hallIdx], ...item}
@@ -34,7 +34,7 @@ export class HallRepository implements Repository2<Hall>{
     }
 
     public delete2(item: { id: string; }): Hall | undefined {
-        const hallIdx = halls.findIndex((hall) => hall.id_hall == item.id)
+        const hallIdx = halls.findIndex((hall) => hall.id == item.id)
 
         if(hallIdx != -1) {
             const deletedHalls = halls[hallIdx] 

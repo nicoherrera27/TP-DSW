@@ -7,9 +7,9 @@ const Repository2 = new HallRepository()
 function sanitizeHallInput(req: Request, res: Response, next: NextFunction) {
   // Aca se realizarian las validaciones //
   req.body.sanitizedInput = {
-    num_hall: req.body.num_hall,
+    number: req.body.number,
     capacity: req.body.capacity,
-     id_hall: req.body.id
+     id: req.body.id
   }
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
@@ -37,7 +37,7 @@ function findOne2(req: Request, res: Response) {
 function create2(req: Request, res: Response) {
     const Input = req.body.sanitizedInput
 
-    const hallInput = new Hall(Input.num_hall, Input.capacity, Input.id_hall)
+    const hallInput = new Hall(Input.number, Input.capacity, Input.id)
 
     const hall = Repository2.create2(hallInput)
     res.status(201).send({message: 'hall crated', data: hall})
