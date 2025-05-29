@@ -12,7 +12,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.6.5",
+  "packageManager": "pnpm@10.11.0",
   "devDependencies": {
     "@mikro-orm/cli": "^6.4.15",
     "@types/express": "5.0.1",
