@@ -27,7 +27,7 @@ Content-Type: application/json
 
 {
     "name": "Romance",
-    "id": 4
+    "id": 4 
 }
 ### DELETE
 DELETE http://localhost:3000/api/gender/id
