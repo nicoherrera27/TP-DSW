@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@mikro-orm/core':
-        specifier: ^6.4.15
-        version: 6.4.15
       '@mikro-orm/mysql':
         specifier: ^6.4.15
         version: 6.4.15(@mikro-orm/core@6.4.15)

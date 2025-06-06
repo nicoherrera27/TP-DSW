@@ -1,5 +1,5 @@
-import { MikroORM } from '@mikro-orm/core'
-import { MySqlDriver } from '@mikro-orm/mysql'
+
+import { MySqlDriver, MikroORM } from '@mikro-orm/mysql'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
 
 
