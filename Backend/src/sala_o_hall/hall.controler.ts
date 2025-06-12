@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { HallRepository } from "./hall.repository2.js";
+import { HallRepository } from "./hall.repository.js";
 import { Hall } from "./hall.entity.js";
+import { hallRouter } from "./hall.routes.js";
 
-const Repository2 = new HallRepository()
+const Repository = new HallRepository()
 
 function sanitizeHallInput(req: Request, res: Response, next: NextFunction) {
   // Aca se realizarian las validaciones //
@@ -21,54 +22,69 @@ function sanitizeHallInput(req: Request, res: Response, next: NextFunction) {
   next()
 }
 
-function findAll2(req: Request, res: Response) {
-    res.json({data: Repository2.findAll2() })
-}
-
-function findOne2(req: Request, res: Response) {
-    const id = req.params.id
-    const hall = Repository2.findOne2({ id })
-    if (!hall) {
-        res.status(404).send({ message: 'Hall not found' })
-    }
-    res.json({ data: hall })
-}
-
-function create2(req: Request, res: Response) {
-    const Input = req.body.sanitizedInput
-
-    const hallInput = new Hall(Input.number, Input.capacity, Input.id)
-
-    const hall = Repository2.create2(hallInput)
-    res.status(201).send({message: 'hall crated', data: hall})
+async function findAll (req: Request, res: Response) {
+  const hall = await Repository.findAll()
+  if (!hall) {
+    res.status(404).send({ message: 'No users found' })
     return
+  }
+  res.json(await Repository.findAll())
+  return
 }
 
-function update2(req: Request, res: Response) {
+async function findOne (req: Request, res: Response) {
+  const id = req.params.id
+  const hall = await Repository.findOne({id})
+  if (!hall) {
+    res.status(404).send({ message: 'User not found' })
+    return
+  }
+
+  res.json({ hall })
+}
+
+async function create (req: Request, res: Response) {
+  const input = req.body.sanitizedInput
+
+  const hallInput = new Hall(
+    input.id,
+    input.capacity,
+    input.number,
+  )
+
+  const hall = await Repository.create(hallInput)
+
+  res.status(201).send({ message: 'User created successfully', data: hall })
+  return  
+}
+
+async function update (req: Request, res: Response) {
   req.body.sanitizedInput.id = req.params.id
- 
-  const hall = Repository2.update2(req.body.sanitizedInput)
-  
+
+  const hall= await Repository.update (req.params.id, req.body.sanitizedInput)
+
   if (!hall) {
     res.status(404).send({ message: 'Hall not found' })
     return
   }
 
-  res.status(200).send({ message: 'Hall updated successfully', data: hall})
+  res.status(200).send({ message: 'Hall updated successfully', data: hall })
   return
 }
 
-function delete2(req: Request, res: Response) {
+async function remove(req: Request, res: Response) {
   const id = req.params.id
-  const hall = Repository2.delete2({id})
 
-  if(!hall) {
-    res.status(404).send({message:'Hall not found'})
+  const hall = await Repository.delete({id})
+
+  if (!hall) {
+    res.status(404).send({ message: 'Hall not found' })
+    return
   }
-  
-  res.status(200).send({message: 'Hall deleted successfully' })
-  return
+
+  res.status(200).send({ message: 'Hall deleted successfully' })
+  return  
 }
 
 
-export { sanitizeHallInput, findAll2, findOne2, create2, update2, delete2 }
+export { sanitizeHallInput, findAll, findOne, create, update, remove }

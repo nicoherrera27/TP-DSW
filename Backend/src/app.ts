@@ -13,13 +13,6 @@ app.use('/api/users', userRouter)
 app.use('/api/halls', hallRouter)
 app.use('/api/genders', genderRouter)
 
-
-
-
-
-
-//------------------
-
 app.use((_, res) => {
   res.status(404).send({ message: 'Resource not found' })
   return
