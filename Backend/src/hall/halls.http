@@ -9,9 +9,9 @@ POST http://localhost:3000/api/halls
 Content-Type: application/json
 
 {
-    "number": 5,
-    "capacity": 70,
-    "id": "H02"
+    "name": "sala 1",
+    "capacity": 85,
+    "id": 1
 }
 
 ### PUT (modificacion completa)
@@ -19,9 +19,8 @@ PUT http://localhost:3000/api/halls/H01
 Content-Type: application/json
 
 {
-    "number": 20,
-    "capacity": 100, 
-    "id":  "H03"
+    "name": "sala me",
+    "capacity": 100 
 }
 
 ### PATCH (modificacion parcial o incremental)
@@ -29,8 +28,7 @@ PATCH http://localhost:3000/api/halls/H01
 Content-Type: application/json
 
 {
-    "number": 10,
-    "id":  "H03"
+    "name": "sala dos",
 }
 
 ### DELETE 
