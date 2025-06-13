@@ -1,8 +1,8 @@
-import { PrimaryKey, Property, DateTimeType } from "@mikro-orm/core";
+import { PrimaryKey, Property, DateTimeType } from "@mikro-orm/mysql";
 
-export abstract class HallClass{
+export abstract class BaseEntity{
     @PrimaryKey()   
-    id?: string
+    id?: number
 
     /*
 

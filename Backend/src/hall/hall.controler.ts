@@ -33,8 +33,8 @@ async function findAll (req: Request, res: Response) {
 
 async function findOne (req: Request, res: Response) {
   try{
-    const id = req.params.id
-    const hall = await em.findOneOrFail(Hall, { id })
+    const id = Number.parseInt(req.params.id)
+    const hall = await em.findOneOrFail(Hall,  id )
     res.status(200).json({message: 'found hall', data: hall})
   } catch (error: any){
     res.status(500).json({ message: error.message})
@@ -54,7 +54,7 @@ async function create (req: Request, res: Response) {
 
 async function update (req: Request, res: Response) {
   try{
-    const id = req.params.id
+    const id = Number.parseInt(req.params.id)
     const hall = em.getReference(Hall, id )
     em.assign(hall, req.body)
     await em.flush()
@@ -66,7 +66,7 @@ async function update (req: Request, res: Response) {
 
 async function remove(req: Request, res: Response) {
   try{
-    const id = req.params.id
+    const id = Number.parseInt(req.params.id)
     const hall = em.getReference(Hall, id)
     await em.removeAndFlush(hall)
     //em.nativeDelete(Hall, {id}) este es un delete mas poderoso, se usa en operaciones importantes pero no tiene informacion de lo que borra (tener cuidado al usarlo)

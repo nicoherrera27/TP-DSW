@@ -1,5 +1,4 @@
-import { MikroORM } from "@mikro-orm/core";
-import { MySqlDriver } from "@mikro-orm/mysql";
+import { MySqlDriver, MikroORM } from "@mikro-orm/mysql";
 import { SqlHighlighter } from "@mikro-orm/sql-highlighter";
 
 export const orm = await MikroORM.init({
@@ -7,7 +6,7 @@ export const orm = await MikroORM.init({
     entitiesTs: ['src/**/*.entity.ts'],
     dbName:  'cine_test',
     driver: MySqlDriver,
-    clientUrl: 'mysql:/root:agusBattlefront2@1864@localhost:3306/cine_test',
+    clientUrl: 'mysql://root:1864@localhost:3306/cine_test',
     highlighter: new SqlHighlighter(),
     debug: true,
 
