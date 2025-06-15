@@ -66,7 +66,7 @@ async function remove (req: Request, res: Response) {
     const id = Number.parseInt(req.params.id)
     const userToRemove = em.getReference(User, id)
     await em.removeAndFlush(userToRemove)
-    res.status(200).send({ message: 'User emoved' })
+    res.status(200).send({ message: 'User removed' })
   }
   catch (error: any) {
     res.status(500).json({ message: error.message })

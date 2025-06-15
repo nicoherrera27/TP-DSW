@@ -5,6 +5,7 @@ import { RequestContext } from '@mikro-orm/mysql'
 import { orm, syncSchema } from './shared/db/orm.js'
 import { hallRouter } from './hall/hall.routes.js'
 import { genderRouter } from './gender/gender.routes.js'
+import { showCategoryRouter } from './show_category/show_category.routes.js'
 
 const app = express()
 app.use(express.json())
@@ -18,6 +19,7 @@ app. use((req, res, next) => {
 app.use('/api/users', userRouter)
 app.use('/api/halls', hallRouter)
 app.use('/api/genders', genderRouter)
+app.use('/api/show_category', showCategoryRouter)
 
 app.use((_, res) => {
   res.status(404).send({ message: 'Resource not found' })
