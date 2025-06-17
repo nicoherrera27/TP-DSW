@@ -1,0 +1,25 @@
+import { Cascade, Collection, Entity, OneToMany, Property } from "@mikro-orm/mysql";
+import { BaseEntity } from "../shared/db/baseEntity.entity.js";
+import { Show } from "../show/show.entity.js";
+
+@Entity()
+
+export class Movie extends BaseEntity{
+
+  @Property()
+  name!: string;
+
+  @Property()
+  duration!: number;
+
+  @Property()
+  synopsis?: string;
+
+  @OneToMany({entity: () => Show, mappedBy: 'showMovie', cascade: [Cascade.ALL]})
+  shows = new Collection<Show>(this);
+  
+  
+  //@ManyToOne({entity: () => Gender} )  // ESTO PARA CUANDO SE PASE EL GENERO A ORM
+  //movieGenre!: Rel<Gender>;
+
+}

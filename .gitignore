@@ -53,4 +53,4 @@ coverage/
 *.d.ts.map
 
 #Ignore conn.ts
-**/conn.ts
+**/orm.ts

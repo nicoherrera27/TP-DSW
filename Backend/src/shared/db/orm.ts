@@ -9,7 +9,6 @@ export const orm = await MikroORM.init({
    dbName: 'cine_test',
    driver: MySqlDriver,
    clientUrl: 'mysql://root:2719@localhost:3306/cine_test',
-   //metadataProvider: TsMorphMetadataProvider,
    highlighter: new SqlHighlighter(),
    debug: true,
    
