@@ -6,8 +6,8 @@ const em = orm.em
 
 async function findAll(req: Request, res: Response) {
   try {
-    const showsCategorys = await em.find(ShowCategory, {})
-    res.status(200).json({ message: 'Tipos de funcion encontrados: ', data: showsCategorys })
+    const showCategorys = await em.find(ShowCategory, {})
+    res.status(200).json({ message: 'Tipos de funcion encontrados: ', data: showCategorys })
   }
   catch (error: any) {
     res.status(500).json({ message: error.message })
@@ -18,7 +18,7 @@ async function findAll(req: Request, res: Response) {
 async function findOne(req: Request, res: Response) {
   try {
     const id = Number.parseInt(req.params.id)
-    const showCategoryById = await em.findOne(ShowCategory, id)
+    const showCategoryById = await em.findOne(ShowCategory, id, {populate: ['shows']})
     res.status(200).json({ message: 'Tipo de funcion encontrado: ', data: showCategoryById })
   }
   catch (error: any) {
@@ -28,10 +28,11 @@ async function findOne(req: Request, res: Response) {
 
 async function create(req: Request, res: Response) {
   try {
-    const description = req.params.description
+    const { description, price } = req.body
 
     const showcategory = new ShowCategory()
     showcategory.description = description
+    showcategory.price = price
 
     em.persist(showcategory)
     await em.flush()
@@ -64,7 +65,7 @@ async function update(req: Request, res: Response) {
 async function remove(req: Request, res: Response) {
   try{
     const id = Number.parseInt(req.params.id)
-    const scToRemove = em.getReference(ShowCategory, id)
+    const scToRemove = await em.findOneOrFail(ShowCategory, id, {populate: ['shows']})
     await em.removeAndFlush(scToRemove)
 
     res.status(200).send({message: 'Show category removed'})

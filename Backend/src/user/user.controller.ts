@@ -53,7 +53,7 @@ async function update (req: Request, res: Response) {
 
     em.assign(userRef, req.body)
     await em.flush()
-    res.status(200).send({ message: 'User updated'})
+    res.status(201).send({ message: 'User updated'})
   }
   catch (error: any) {
     res.status(500).json({ message: error.message })
