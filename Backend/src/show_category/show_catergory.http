@@ -2,14 +2,14 @@
 GET http://localhost:3000/api/showCategory
 
 ### GET ONE
-GET http://localhost:3000/api/showCategory/1
+GET http://localhost:3000/api/showCategory/2
 
 ### POST  
 POST http://localhost:3000/api/showCategory
 Content-Type: application/json
 
 {
-    "description": "Funcion 2D",
+    "description": "Funcion 3D",
     "price": 5000
 }
 
