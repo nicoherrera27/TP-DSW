@@ -3,7 +3,7 @@ import express from 'express'
 import { userRouter } from './user/user.routes.js'
 import { RequestContext } from '@mikro-orm/mysql'
 import { orm, syncSchema } from './shared/db/orm.js'
-import { hallRouter } from './hall/hall.routes.js'
+import { movie_roomRouter } from './movie_room/movie_room.routes.js'
 import { genderRouter } from './gender/gender.routes.js'
 import { showCategoryRouter } from './show_category/show_category.routes.js'
 import { showRouter } from './show/show.routes.js'
@@ -18,7 +18,7 @@ app. use((req, res, next) => {
 //antes de las rutas y middlewares de nuestro negocio
 
 app.use('/api/users', userRouter)
-app.use('/api/halls', hallRouter)
+app.use('/api/halls', movie_roomRouter)
 app.use('/api/genders', genderRouter)
 app.use('/api/showCategory', showCategoryRouter)
 app.use('/api/show', showRouter)

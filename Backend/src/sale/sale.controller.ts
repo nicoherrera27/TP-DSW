@@ -1,16 +1,16 @@
 import { Request, Response, NextFunction } from "express";
 import { orm } from "../shared/db/orm.js";
-import { Movie } from "./movie.entity.js";
-import { movieRouter } from "./movie.routes.js";
+import { Sale } from "./sale.entity.js";
+import { saleRouter } from "./sale.routes.js";
 
 const em = orm.em
 
-function sanitizeMovieInput(req: Request, res: Response, next: NextFunction) {
+function sanitizeSaleInput(req: Request, res: Response, next: NextFunction) {
   // Aca se realizarian las validaciones //
   req.body.sanitizedInput = {
-    name: req.body.name,
-    duration: req.body.duration,
-    synopsis: req.body.synopsis,
+    amount: req.body.amount,
+    dateTime: req.body.date_and_time,
+    total_price: req.body.total_price,
     id: req.body.id
   }
 
@@ -26,8 +26,8 @@ function sanitizeMovieInput(req: Request, res: Response, next: NextFunction) {
 
 async function findAll (req: Request, res: Response) {
   try{
-    const movie = await em.find(Movie, {})
-    res.status(200).json({message: 'find all movie', data: movie})
+    const sale = await em.find(Sale, {})
+    res.status(200).json({message: 'find all sale', data: sale})
   } catch (error: any){
     res.status(500).json({ message:'Not implemented' })
   }
@@ -36,8 +36,8 @@ async function findAll (req: Request, res: Response) {
 async function findOne (req: Request, res: Response) {
   try{
     const id = Number.parseInt(req.params.id)
-    const movie = await em.findOneOrFail(Movie,  id )
-    res.status(200).json({message: 'found movie', data: movie})
+    const sale = await em.findOneOrFail(Sale,  id )
+    res.status(200).json({message: 'found sale', data: sale})
   } catch (error: any){
     res.status(500).json({ message: error.message})
   }
@@ -46,9 +46,9 @@ async function findOne (req: Request, res: Response) {
 
 async function create (req: Request, res: Response) {  
   try{
-    const movie = em.create(Movie, req.body.sanitizedInput) //await no es necesario aca porque es una operacion sincronica
+    const sale = em.create(Sale, req.body.sanitizedInput) //await no es necesario aca porque es una operacion sincronica
     await em.flush() //flush es una op asincronica por eso el await aca
-    res.status(201).json({ message: 'movie created', data: movie})
+    res.status(201).json({ message: 'sale created', data: sale})
   } catch (error: any){
     res.status(500).json({ message: error.message})
   }
@@ -57,10 +57,10 @@ async function create (req: Request, res: Response) {
 async function update (req: Request, res: Response) {
   try{
     const id = Number.parseInt(req.params.id)
-    const movie = em.getReference(Movie, id )
-    em.assign(movie, req.body)
+    const sale = em.getReference(Sale, id )
+    em.assign(sale, req.body)
     await em.flush()
-    res.status(200).json({message: 'movie updated'})
+    res.status(200).json({message: 'sale updated'})
   } catch (error: any){
     res.status(500).json({ message: error.message})
   }
@@ -69,13 +69,13 @@ async function update (req: Request, res: Response) {
 async function remove(req: Request, res: Response) {
   try{
     const id = Number.parseInt(req.params.id)
-    const movie = em.getReference(Movie, id)
-    await em.removeAndFlush(movie)
+    const sale = em.getReference(Sale, id)
+    await em.removeAndFlush(sale)
     //em.nativeDelete(Screening_room, {id}) este es un delete mas poderoso, se usa en operaciones importantes pero no tiene informacion de lo que borra (tener cuidado al usarlo)
-    res.status(200).send({message: 'movie deleted'})
+    res.status(200).send({message: 'sale deleted'})
   } catch (error: any){
     res.status(500).json({ message: error.message})
   }
 }
 
-export { sanitizeMovieInput, findAll, findOne, create, update, remove }
+export { sanitizeSaleInput, findAll, findOne, create, update, remove }

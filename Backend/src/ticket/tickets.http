@@ -1,0 +1,36 @@
+### GET ALL
+GET http://localhost:3000/api/Ticket
+
+### GET ONE
+GET http://localhost:3000/api/Ticket/1
+
+### POST  
+POST http://localhost:3000/api/Ticket
+Content-Type: application/json
+
+{
+    "type": "3D",
+    "row": 10,
+    "column": 8
+}
+
+### PUT (modificacion completa)
+PUT http://localhost:3000/api/Ticket/1
+Content-Type: application/json
+
+{
+    "type": "2D",
+    "row": 1,
+    "column": 5
+}
+
+### PATCH (modificacion parcial o incremental)
+PATCH http://localhost:3000/api/Ticket/1
+Content-Type: application/json
+
+{
+    "type": "jubilado"
+}
+
+### DELETE 
+DELETE http://localhost:3000/api/Ticket/1

@@ -2,11 +2,13 @@ import { Entity, PrimaryKey, Property, OneToMany, Cascade, Collection } from "@m
 import { BaseEntity } from '../shared/db/baseEntity.entity.js'
 
 @Entity()
-export class Hall extends BaseEntity{
+export class Movie_room extends BaseEntity{
     
     @Property({nullable: false, unique: true})
-    name!: string
+    name?: string
 
     @Property({nullable: false})
     capacity!: number
+
+    //ManyToMany con show y ManyToMany con butaca
 }

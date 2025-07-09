@@ -1,15 +1,17 @@
 import { Request, Response, NextFunction } from "express";
 import { orm } from "../shared/db/orm.js";
-import { Hall } from "./hall.entity.js";
+import { Ticket } from "./ticket.entity.js";
+import { ticketRouter } from "./ticket.routes.js";
 
 const em = orm.em
 
-function sanitizeHallInput(req: Request, res: Response, next: NextFunction) {
+function sanitizeTicketInput(req: Request, res: Response, next: NextFunction) {
   // Aca se realizarian las validaciones //
   req.body.sanitizedInput = {
-    number: req.body.number,
-    capacity: req.body.capacity,
-     id: req.body.id
+    type: req.body.type,
+    row: req.body.row,
+    column: req.body.column,
+    id: req.body.id
   }
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
@@ -24,8 +26,8 @@ function sanitizeHallInput(req: Request, res: Response, next: NextFunction) {
 
 async function findAll (req: Request, res: Response) {
   try{
-    const hall = await em.find(Hall, {})
-    res.status(200).json({message: 'find all halls', data: hall})
+    const ticket = await em.find(Ticket, {})
+    res.status(200).json({message: 'find all ticket', data: ticket})
   } catch (error: any){
     res.status(500).json({ message:'Not implemented' })
   }
@@ -34,8 +36,8 @@ async function findAll (req: Request, res: Response) {
 async function findOne (req: Request, res: Response) {
   try{
     const id = Number.parseInt(req.params.id)
-    const hall = await em.findOneOrFail(Hall,  id )
-    res.status(200).json({message: 'found hall', data: hall})
+    const ticket = await em.findOneOrFail(Ticket,  id )
+    res.status(200).json({message: 'found ticket', data: ticket})
   } catch (error: any){
     res.status(500).json({ message: error.message})
   }
@@ -44,9 +46,9 @@ async function findOne (req: Request, res: Response) {
 
 async function create (req: Request, res: Response) {  
   try{
-    const hall = em.create(Hall, req.body.sanitizedInput) //await no es necesario aca porque es una operacion sincronica
+    const ticket = em.create(Ticket, req.body.sanitizedInput) //await no es necesario aca porque es una operacion sincronica
     await em.flush() //flush es una op asincronica por eso el await aca
-    res.status(201).json({ message: 'hall created', data: hall})
+    res.status(201).json({ message: 'ticket created', data: ticket})
   } catch (error: any){
     res.status(500).json({ message: error.message})
   }
@@ -55,10 +57,10 @@ async function create (req: Request, res: Response) {
 async function update (req: Request, res: Response) {
   try{
     const id = Number.parseInt(req.params.id)
-    const hall = em.getReference(Hall, id )
-    em.assign(hall, req.body)
+    const ticket = em.getReference(Ticket, id )
+    em.assign(ticket, req.body)
     await em.flush()
-    res.status(200).json({message: 'hall updated'})
+    res.status(200).json({message: 'ticket updated'})
   } catch (error: any){
     res.status(500).json({ message: error.message})
   }
@@ -67,13 +69,13 @@ async function update (req: Request, res: Response) {
 async function remove(req: Request, res: Response) {
   try{
     const id = Number.parseInt(req.params.id)
-    const hall = em.getReference(Hall, id)
-    await em.removeAndFlush(hall)
-    //em.nativeDelete(Hall, {id}) este es un delete mas poderoso, se usa en operaciones importantes pero no tiene informacion de lo que borra (tener cuidado al usarlo)
-    res.status(200).send({message: 'hall deleted'})
+    const ticket = em.getReference(Ticket, id)
+    await em.removeAndFlush(ticket)
+    //em.nativeDelete(Screening_room, {id}) este es un delete mas poderoso, se usa en operaciones importantes pero no tiene informacion de lo que borra (tener cuidado al usarlo)
+    res.status(200).send({message: 'ticket deleted'})
   } catch (error: any){
     res.status(500).json({ message: error.message})
   }
 }
 
-export { sanitizeHallInput, findAll, findOne, create, update, remove }
+export { sanitizeTicketInput, findAll, findOne, create, update, remove }

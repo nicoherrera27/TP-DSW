@@ -1,0 +1,35 @@
+### GET ALL
+GET http://localhost:3000/api/Sale
+
+### GET ONE
+GET http://localhost:3000/api/Sale/1
+
+### POST  
+POST http://localhost:3000/api/Sale
+Content-Type: application/json
+
+{
+    "amount": 2,
+    "total_price": 10000,
+    "dateTime": "date"
+}
+
+### PUT (modificacion completa)
+PUT http://localhost:3000/api/Sale/1
+Content-Type: application/json
+
+{
+    "amount": 4,
+    "total_price": 20000,
+}
+
+### PATCH (modificacion parcial o incremental)
+PATCH http://localhost:3000/api/Sale/1
+Content-Type: application/json
+
+{
+    "total_price": 15000,
+}
+
+### DELETE 
+DELETE http://localhost:3000/api/Sale/1
