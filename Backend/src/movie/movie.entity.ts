@@ -19,7 +19,7 @@ export class Movie extends BaseEntity{
   shows = new Collection<Show>(this);
   
   
-  //@ManyToOne({entity: () => Gender} )  // ESTO PARA CUANDO SE PASE EL GENERO A ORM
-  //movieGenre!: Rel<Gender>;
+  //@ManyToMany // ESTO PARA CUANDO SE PASE EL GENERO A ORM
+
 
 }

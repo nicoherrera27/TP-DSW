@@ -1,5 +1,7 @@
-import { Entity, PrimaryKey, Property, OneToMany, Cascade, Collection } from "@mikro-orm/mysql";
+import { Entity, PrimaryKey, Property, OneToMany, Cascade, Collection, ManyToOne, Rel } from "@mikro-orm/mysql";
 import { BaseEntity } from '../shared/db/baseEntity.entity.js'
+import { Sale } from "../sale/sale.entity.js";
+import { Show } from "../show/show.entity.js";
 
 @Entity()
 export class Ticket extends BaseEntity{
@@ -13,6 +15,10 @@ export class Ticket extends BaseEntity{
     @Property({nullable: false})
     column?: number
 
+    @ManyToOne({entity: () => Sale})
+    ticketSale!: Rel<Sale>
 
-    //OneToMany con show y ManyToOne con sale
+    @ManyToOne({entity: () => Show})
+    showTicket!: Rel<Show>
+
 }

@@ -1,18 +1,24 @@
-import { Entity, PrimaryKey, Property, OneToMany, Cascade, Collection } from "@mikro-orm/mysql";
+import { Entity, PrimaryKey, Property, ManyToOne, OneToMany, Cascade, Collection, Rel } from "@mikro-orm/mysql";
 import { BaseEntity } from '../shared/db/baseEntity.entity.js'
+import { User } from "../user/user.entity.js";
+import { Ticket } from "../ticket/ticket.entity.js";
 
 @Entity()
 export class Sale extends BaseEntity{
     
-    @Property({nullable: false})
-    amount!: number
+  @Property({nullable: false})
+  amount!: number
 
-    @Property({nullable: false})
-    total_price?: number
+  @Property({nullable: false})
+  total_price?: number
 
-    @Property({nullable: false})
-    dateTime!: Date
+  @Property({nullable: false})
+  dateTime!: Date
 
-
-    //OnetoMany con ticket y ManytoOne con user
+  @ManyToOne({entity: () => User})
+  userSale!: Rel<User>
+    
+  @OneToMany({entity: () => Ticket, mappedBy: 'ticketSale', cascade: [Cascade.ALL]})
+  tickets = new Collection<Ticket>(this)
+  
 }

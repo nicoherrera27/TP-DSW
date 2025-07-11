@@ -1,5 +1,6 @@
-import { Entity, Property } from "@mikro-orm/mysql";
+import { Collection, Entity, OneToMany, Property, Cascade } from "@mikro-orm/mysql";
 import { BaseEntity } from "../shared/db/baseEntity.entity.js";
+import { Sale } from "../sale/sale.entity.js";
 
 @Entity()
 
@@ -23,4 +24,6 @@ export class User extends BaseEntity {
   @Property({nullable: false})
   birthdate!:string
 
+  @OneToMany({entity: () => Sale, mappedBy: 'userSale', cascade: [Cascade.ALL]} )
+    sales = new Collection<Sale>(this)
 }
