@@ -12,10 +12,10 @@ export class Movie_room extends BaseEntity{
     @Property({nullable: false})
     capacity!: number
 
-    @ManyToMany(() => Seat, seat => seat.movie_rooms)
-    seats = new Collection<Seat>(this)
+    //@ManyToMany(() => Seat, seat => seat.movie_rooms)
+    //seats = new Collection<Seat>(this)
 
-    @ManyToMany(() => Show, show => show.movie_rooms)
-    shows = new Collection<Show>(this)
-
+    //@ManyToMany(() => Show, show => show.movie_rooms)
+    //shows = new Collection<Show>(this)
+//
 }

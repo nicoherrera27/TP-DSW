@@ -2,8 +2,6 @@ import { Router } from "express";
 import { sanitizeGenderInput, findAll2, create2, update2, delete2 } from "./gender.controller.js";
 
 
-
-
 export const genderRouter = Router();
 
 genderRouter.get('/', findAll2);
