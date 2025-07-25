@@ -12,10 +12,9 @@ export class Movie_room extends BaseEntity{
     @Property({nullable: false})
     capacity!: number
 
-    //@ManyToMany(() => Seat, seat => seat.movie_rooms)
-    //seats = new Collection<Seat>(this)
+    @OneToMany(({entity: () =>   Show, mappedBy: 'showRoom', cascade: [Cascade.ALL]}))
+    Shows = new Collection<Show>(this)
 
-    //@ManyToMany(() => Show, show => show.movie_rooms)
-    //shows = new Collection<Show>(this)
-//
+    @OneToMany(({entity: () => Seat, mappedBy: 'seatRoom', cascade: [Cascade.ALL]}))
+    Seats = new Collection<Seat>(this)
 }

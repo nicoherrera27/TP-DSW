@@ -25,6 +25,6 @@ export class Show extends BaseEntity{
   @OneToMany({entity: () =>   Ticket, mappedBy: 'showTicket', cascade: [Cascade.ALL]})
   Tickets = new Collection<Ticket>(this)
 
-  //@ManyToMany(() => Movie_room, movie_room => movie_room.seats)
-  //movie_rooms = new Collection<Movie_room>(this)
+  @ManyToOne({entity: () => Movie_room})
+  showRoom!: Rel<Movie_room>
 }
