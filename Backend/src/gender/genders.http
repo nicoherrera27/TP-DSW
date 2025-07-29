@@ -10,7 +10,8 @@ Content-Type: application/json
 
 {
     "name": "Horror",
-    "id": 2
+    "id": 2,
+    "genderClass": "movie"
 }
 
 ### PUT

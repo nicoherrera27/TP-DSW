@@ -25,5 +25,5 @@ export class User extends BaseEntity {
   birthdate!:string
 
   @OneToMany({entity: () => Sale, mappedBy: 'userSale', cascade: [Cascade.ALL]} )
-    sales = new Collection<Sale>(this)
+  sales = new Collection<Sale>(this)
 }
