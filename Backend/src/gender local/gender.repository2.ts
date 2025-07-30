@@ -1,5 +1,5 @@
 import { Repository2 } from "../shared/repository2.js";
-import { Gender } from "./gender.entity.js";
+import { Gender } from "./gender.entity.local.js";
 import { pool } from "../shared/db/conn.js";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 

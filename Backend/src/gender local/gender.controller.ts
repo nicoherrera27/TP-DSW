@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { GenderRepository } from './gender.repository2.js';
-import { Gender } from './gender.entity.js';
+import { Gender } from './gender.entity.local.js';
 
 
 const repository2 = new GenderRepository()

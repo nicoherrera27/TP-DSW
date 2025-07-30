@@ -1,12 +1,14 @@
 import { Request, Response } from 'express'
 import { ShowCategory } from './show_category.entity.js'
-import { orm } from '../shared/db/orm.js'
+import { orm } from '../shared/db/schemaGenerator.js' // Adjust the import path as necessary
 
 const em = orm.em
 
 async function findAll(req: Request, res: Response) {
   try {
-    const showCategorys = await em.find(ShowCategory, {})
+    const showCategorys = await em.find(ShowCategory, {}, {
+      populate: ['shows']
+    })
     res.status(200).json({ message: 'Tipos de funcion encontrados: ', data: showCategorys })
   }
   catch (error: any) {

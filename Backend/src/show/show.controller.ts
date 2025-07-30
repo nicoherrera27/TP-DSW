@@ -1,6 +1,6 @@
 import { Request, Response } from 'express' 
 import { Show } from './show.entity.js'
-import { orm } from '../shared/db/orm.js'
+import { orm } from '../shared/db/schemaGenerator.js' // Adjust the import path as necessary
 
 const em = orm.em
 

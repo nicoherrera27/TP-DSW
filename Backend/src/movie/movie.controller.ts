@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { orm } from "../shared/db/orm.js";
+import { orm } from "../shared/db/schemaGenerator.js"; // Adjust the import path as necessary
 import { Movie } from "./movie.entity.js";
-import { movieRouter } from "./movie.routes.js";
 
 const em = orm.em
 
@@ -10,8 +9,7 @@ function sanitizeMovieInput(req: Request, res: Response, next: NextFunction) {
   req.body.sanitizedInput = {
     name: req.body.name,
     duration: req.body.duration,
-    synopsis: req.body.synopsis,
-    id: req.body.id
+    synopsis: req.body.synopsis
   }
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
@@ -26,7 +24,9 @@ function sanitizeMovieInput(req: Request, res: Response, next: NextFunction) {
 
 async function findAll (req: Request, res: Response) {
   try{
-    const movie = await em.find(Movie, {})
+    const movie = await em.find(Movie, {}, {
+      populate: ['shows']
+    })
     res.status(200).json({message: 'find all movie', data: movie})
   } catch (error: any){
     res.status(500).json({ message:'Not implemented' })

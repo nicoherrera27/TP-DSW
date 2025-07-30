@@ -1,16 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import { orm } from "../shared/db/orm.js";
+import { orm } from "../shared/db/schemaGenerator.js"; // Adjust the import path as necessary
 import { Movie_room } from "./movie_room.entity.js";
-import { movie_roomRouter } from "./movie_room.routes.js";
+
 
 const em = orm.em
 
 function sanitizeMovie_roomInput(req: Request, res: Response, next: NextFunction) {
   // Aca se realizarian las validaciones //
   req.body.sanitizedInput = {
-    name: req.body.number,
-    capacity: req.body.capacity,
-     id: req.body.id
+    name: req.body.name,
+    capacity: req.body.capacity
   }
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
@@ -25,7 +24,9 @@ function sanitizeMovie_roomInput(req: Request, res: Response, next: NextFunction
 
 async function findAll (req: Request, res: Response) {
   try{
-    const movie_room = await em.find(Movie_room, {})
+    const movie_room = await em.find(Movie_room, {}, {
+      populate: ['shows', 'seats']
+    })
     res.status(200).json({message: 'find all movie room', data: movie_room})
   } catch (error: any){
     res.status(500).json({ message:'Not implemented' })

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { orm } from "../shared/db/orm.js";
+import { orm } from "../shared/db/schemaGenerator.js"; // Adjust the import path as necessary
 import { Ticket } from "./ticket.entity.js";
 import { ticketRouter } from "./ticket.routes.js";
 

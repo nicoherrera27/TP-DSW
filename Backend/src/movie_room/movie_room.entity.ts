@@ -13,8 +13,8 @@ export class Movie_room extends BaseEntity{
     capacity!: number
 
     @OneToMany(({entity: () =>   Show, mappedBy: 'showRoom', cascade: [Cascade.ALL]}))
-    Shows = new Collection<Show>(this)
+    shows = new Collection<Show>(this)
 
     @OneToMany(({entity: () => Seat, mappedBy: 'seatRoom', cascade: [Cascade.ALL]}))
-    Seats = new Collection<Seat>(this)
+    seats = new Collection<Seat>(this)
 }

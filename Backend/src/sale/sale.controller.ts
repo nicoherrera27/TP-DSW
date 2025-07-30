@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { orm } from "../shared/db/orm.js";
+import { orm } from "../shared/db/schemaGenerator.js"; // Adjust the import path as necessary
 import { Sale } from "./sale.entity.js";
-import { saleRouter } from "./sale.routes.js";
+
 
 const em = orm.em
 
