@@ -19,7 +19,7 @@ app. use((req, res, next) => {
 
 app.use('/api/users', userRouter)
 app.use('/api/halls', movie_roomRouter)
-app.use('/api/genders', genderRouter)
+app.use('/api/gender', genderRouter)
 app.use('/api/showCategory', showCategoryRouter)
 app.use('/api/show', showRouter)
 

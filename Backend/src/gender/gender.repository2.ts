@@ -1,4 +1,4 @@
-import { GenderRepository2 } from "../shared/repository2.js";
+import { Repository2 } from "../shared/repository2.js";
 import { Gender } from "./gender.entity.js";
 import {pool} from "../shared/db/conn.js";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
@@ -10,7 +10,7 @@ const genders =  [
   )
 ]
 
-export class GenderRepository2 implements GenderRepository2 <Gender>{
+export class repository2 implements Repository2 <Gender>{
 
 public async findAll2(): Promise< Gender[] | undefined> {
 const [genders] = await pool.query <RowDataPacket[]> ('SELECT * from genders')
@@ -42,7 +42,7 @@ public async update2(id: string, genderInput: Gender) : Promise<Gender | undefin
 throw new Error ("not implemented") 
 }
 
-public delete2(item: { id: string, item:Gender }): Promise<Gender | undefined>{
+public delete2(item: { id: string }): Promise<Gender | undefined>{
 throw new Error ('unable to delete gender')
 }
 }

@@ -19,13 +19,13 @@ Object.keys(req.body.sanitizedInput).forEach((key) => {
   })
 next()
 }
-function findAll2( req:Request, res:Response) {
+async function findAll2( req:Request, res:Response) {
  res.json({data: repository2.findAll2()})
 }
 
-function findOne2 (req:Request, res:Response) {
+async function findOne2 (req:Request, res:Response) {
 const id = req.params.id
- const gender = repository2.findOne2({id})
+ const gender = await repository2.findOne2({id})
  if(!gender){
   res.status(404).send({message:'Gender no found'})
   return
@@ -33,21 +33,21 @@ const id = req.params.id
  res.json({data: gender})
 }
 
-function create2 ( req:Request, res:Response) {
+async function create2 ( req:Request, res:Response) {
   const input = req.body.sanitizedInput
 
   const genderInput = new Gender
   (input.id, 
     input.name)
   
-  const gender = repository2.create2 (genderInput) 
+  const gender = await repository2.create2 (genderInput) 
   res.status(201).send({ message: 'Gender created', data: gender})
   return
   }
 
-function update2 ( req:Request, res:Response) {
+async function update2 ( req:Request, res:Response) {
   req.body.sanitizedInput.id = parseInt(req.params.id)
-const gender = repository2.update2(req.params.id, req.body.sanitizedInput )
+const gender = await repository2.update2(req.params.id, req.body.sanitizedInput )
 
 if(!gender) {
   res.status(404).send({ message: 'Gender not found' })
@@ -57,9 +57,9 @@ res.status(200).send({message: 'Gender updated successfully', data: gender })
 return
 }
 
- function delete2 ( req:Request, res:Response) {
+async function delete2 ( req:Request, res:Response) {
   const id = req.params.id
-const gender = repository2.delete2({id})
+const gender = await repository2.delete2({id})
 
 if(!gender) {
   res.status(404).send({ message: 'Gender not found' })
@@ -70,13 +70,4 @@ if(!gender) {
 }
 }
 
-
-export const controller = {
-  sanitizeGenderInput,
-  findAll2,
-  findOne2
-}
-
-export { sanitizeGenderInput, findAll2, findOne2, create2, update2
-, delete2
- };
+export { sanitizeGenderInput, findAll2, findOne2, create2, update2, delete2};
