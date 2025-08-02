@@ -10,7 +10,7 @@ const genders =  [
   )
 ]
 
-export class repository2 implements Repository2 <Gender>{
+export class GenderRepository2 implements Repository2 <Gender>{
 
 public async findAll2(): Promise< Gender[] | undefined> {
 const [genders] = await pool.query <RowDataPacket[]> ('SELECT * from genders')
