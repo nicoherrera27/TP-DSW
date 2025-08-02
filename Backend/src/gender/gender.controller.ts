@@ -47,7 +47,7 @@ function create2 ( req:Request, res:Response) {
 
 function update2 ( req:Request, res:Response) {
   req.body.sanitizedInput.id = parseInt(req.params.id)
-const gender = repository2.update2(req.body.sanitizedInput )
+const gender = repository2.update2(req.params.id, req.body.sanitizedInput )
 
 if(!gender) {
   res.status(404).send({ message: 'Gender not found' })
