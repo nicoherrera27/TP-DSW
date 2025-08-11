@@ -2,6 +2,7 @@
 import { MySqlDriver, defineConfig } from '@mikro-orm/mysql'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
 import { SeedManager } from '@mikro-orm/seeder'
+import { Migrator } from '@mikro-orm/migrations'
 
 
 export default defineConfig({
@@ -13,7 +14,7 @@ export default defineConfig({
    //netadataProvider: TsMorphMetadataProvider,
    highlighter: new SqlHighlighter(),
    debug: true,
-   extensions: [SeedManager], // enable seeding
+   extensions: [SeedManager, Migrator], // enable seeding
 
    seeder: {
       path: './dist/shared/seeders', // path to the folder with seeders
