@@ -1,9 +1,9 @@
 export interface Repository2<T> {
 
-  findAll2(): T[] | undefined;
-  findOne2(item: { id: string }): T | undefined
-  create2(item: T): T | undefined
-  update2(item: T): T | undefined
-  delete2(item: { id: string }): T | undefined
+  findAll2(): Promise <T[] | undefined>
+  findOne2(item: { id: string }): Promise <T | undefined>
+  create2(item: T): Promise <T | undefined>
+  update2(id:String, item: T): Promise <T | undefined>
+  delete2(item: { id: string }): Promise <T | undefined>
   
 }

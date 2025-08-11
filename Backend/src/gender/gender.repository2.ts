@@ -10,7 +10,7 @@ const genders =  [
   )
 ]
 
-export class repository2 implements Repository2 <Gender>{
+export class GenderRepository2 implements Repository2 <Gender>{
 
 public async findAll2(): Promise< Gender[] | undefined> {
 const [genders] = await pool.query <RowDataPacket[]> ('SELECT * from genders')
@@ -38,7 +38,7 @@ return genderInput;
 
 }
 
-public async update2(id: string, genderInput: Gender) : Promise<Gender | undefined> {
+public async update2(id: string, item:Gender) : Promise<Gender | undefined> {
 throw new Error ("not implemented") 
 }
 

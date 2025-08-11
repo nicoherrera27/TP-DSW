@@ -1,3 +1,4 @@
+import cors from 'cors'
 import 'reflect-metadata'
 import express from 'express'
 import { userRouter } from './user/user.routes.js'
@@ -7,8 +8,16 @@ import { movie_roomRouter } from './movie_room/movie_room.routes.js'
 import { genderRouter } from './gender/gender.routes.js'
 import { showCategoryRouter } from './show_category/show_category.routes.js'
 import { showRouter } from './show/show.routes.js'
+import { movieRouter } from './movie/movie.routes.js'
+
 
 const app = express()
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true // puerto de Astro
+}));
+
 app.use(express.json())
 
 //luego de los middlewares base como express.json o cores
@@ -22,6 +31,7 @@ app.use('/api/halls', movie_roomRouter)
 app.use('/api/gender', genderRouter)
 app.use('/api/showCategory', showCategoryRouter)
 app.use('/api/show', showRouter)
+app.use('/api/movies', movieRouter)
 
 app.use((_, res) => {
   res.status(404).send({ message: 'Resource not found' })
