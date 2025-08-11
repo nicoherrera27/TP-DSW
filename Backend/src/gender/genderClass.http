@@ -1,0 +1,36 @@
+### GET ALL
+GET http://localhost:3000/api/gender
+
+###POST
+# @name genderClassUpdate
+
+POST http://localhost:3000/api/genders/classes
+Content-Type: application/json
+
+{
+    "name": "Horror",
+    "id": 2,
+}
+
+### ID 
+@id = {{createGenderClass.response.body.data.id}}
+
+### GET ONE 
+@name = createGenderClass
+GET http://localhost:3000/api/genders/classes/{{id}}
+
+### PUT
+@name 
+PUT http://localhost:3000/api/genders/classes/{{id}}
+
+Content-Type: application/json
+
+{
+    "name": "Romance",
+    "id": 3
+}
+
+### DELETE
+ @idToDelete = {{createGenderClassToDelete.response.body.data.id}}
+
+DELETE http://localhost:3000/api/genders/classes/{{idToDelete}}

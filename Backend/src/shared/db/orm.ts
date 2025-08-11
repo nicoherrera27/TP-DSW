@@ -1,7 +1,7 @@
 
-import { MySqlDriver, MikroORM } from '@mikro-orm/mysql'
+import { MySqlDriver} from '@mikro-orm/mysql'
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter'
-
+import { MikroORM } from '@mikro-orm/core'
 
 export const orm = await MikroORM.init({
    entities: ['./dist/**/*.entity.js'],
@@ -13,7 +13,7 @@ export const orm = await MikroORM.init({
    highlighter: new SqlHighlighter(),
    debug: true,
    
-   schemaGenerator:{
+   schemaGenerator:{ // no se debe utilizar en produccion
       disableForeignKeys: true,
       createForeignKeyConstraints: true,
       ignoreSchema:[],

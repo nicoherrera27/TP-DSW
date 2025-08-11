@@ -8,9 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@mikro-orm/core':
+        specifier: 6.4.16
+        version: 6.4.16
       '@mikro-orm/mysql':
-        specifier: ^6.4.15
-        version: 6.4.15(@mikro-orm/core@6.4.15)
+        specifier: ^6.4.16
+        version: 6.4.16(@mikro-orm/core@6.4.16)
       '@mikro-orm/sql-highlighter':
         specifier: ^1.0.1
         version: 1.0.1
@@ -39,12 +42,12 @@ importers:
 
 packages:
 
-  '@mikro-orm/core@6.4.15':
-    resolution: {integrity: sha512-1uQ7lThYymUHf6k6soByJ0qmnYFZcfpczAdmGsfIkGwoE0Ix83RIea+UAJk4pSFeKgXYdiDZOAFu5t224P/lOw==}
+  '@mikro-orm/core@6.4.16':
+    resolution: {integrity: sha512-BW/My1VlI0R25Eojdh0UiET8J+mEruThksGVfllEnjJQ0uwGs3mm/TbMclv0g+d7Qp4+mpzDQU4+lIo8okHYsw==}
     engines: {node: '>= 18.12.0'}
 
-  '@mikro-orm/knex@6.4.15':
-    resolution: {integrity: sha512-oGehWwJmr/4Jac9Hn+HvMhSUTG+Cqxb1/oFNMFogKVepjd5mN2YUSP2s58DdHdHZHyDCSmAM8pUoMpMk7Q2/6A==}
+  '@mikro-orm/knex@6.4.16':
+    resolution: {integrity: sha512-2xQodj3uh8maPGsLR7PZMmECtdyLutGxzzrGrrhSX2b+7v9k4MeMazTi4/627hJvivdUpuofypW5zMpw3TU1vQ==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       '@mikro-orm/core': ^6.0.0
@@ -59,8 +62,8 @@ packages:
       mariadb:
         optional: true
 
-  '@mikro-orm/mysql@6.4.15':
-    resolution: {integrity: sha512-gvCts/wpGIqewzwTlUF0WoFHwjNZqvIeC9nIse2d34gNYk0cLtx219AWcwzhGLMuIhuvE8HX9PHriz1fdiqjWw==}
+  '@mikro-orm/mysql@6.4.16':
+    resolution: {integrity: sha512-YYCEWtVRjCOU642QD/1iENmPJw8tpP1WpL4hZuRhWClIZp+D2K1U1y6UCdthGKMxqgOPf48ehJBU49aAC7kmnw==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       '@mikro-orm/core': ^6.0.0
@@ -457,8 +460,8 @@ packages:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
 
-  mikro-orm@6.4.15:
-    resolution: {integrity: sha512-ghtt7SnXLkoTcmvSzUn2ORsxKqo9pi9NYPmvu3qKIP41a1l0lQzwu0VG+PkywXSHC669DPDbikWqoo2FOdk90w==}
+  mikro-orm@6.4.16:
+    resolution: {integrity: sha512-a+19cRuEPEJ3qf5Vpv4HO9TAxo/I6/rP1bZT93ln8YtNzAbCrcLC766EG6upLS6Sf7OLqdq0cXs5mUN9ESQQrg==}
     engines: {node: '>= 18.12.0'}
 
   mime-db@1.54.0:
@@ -715,19 +718,19 @@ packages:
 
 snapshots:
 
-  '@mikro-orm/core@6.4.15':
+  '@mikro-orm/core@6.4.16':
     dependencies:
       dataloader: 2.2.3
       dotenv: 16.5.0
       esprima: 4.0.1
       fs-extra: 11.3.0
       globby: 11.1.0
-      mikro-orm: 6.4.15
+      mikro-orm: 6.4.16
       reflect-metadata: 0.2.2
 
-  '@mikro-orm/knex@6.4.15(@mikro-orm/core@6.4.15)(mysql2@3.14.1)':
+  '@mikro-orm/knex@6.4.16(@mikro-orm/core@6.4.16)(mysql2@3.14.1)':
     dependencies:
-      '@mikro-orm/core': 6.4.15
+      '@mikro-orm/core': 6.4.16
       fs-extra: 11.3.0
       knex: 3.1.0(mysql2@3.14.1)
       sqlstring: 2.3.3
@@ -740,10 +743,10 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/mysql@6.4.15(@mikro-orm/core@6.4.15)':
+  '@mikro-orm/mysql@6.4.16(@mikro-orm/core@6.4.16)':
     dependencies:
-      '@mikro-orm/core': 6.4.15
-      '@mikro-orm/knex': 6.4.15(@mikro-orm/core@6.4.15)(mysql2@3.14.1)
+      '@mikro-orm/core': 6.4.16
+      '@mikro-orm/knex': 6.4.16(@mikro-orm/core@6.4.16)(mysql2@3.14.1)
       mysql2: 3.14.1
     transitivePeerDependencies:
       - better-sqlite3
@@ -1148,7 +1151,7 @@ snapshots:
       braces: 3.0.3
       picomatch: 2.3.1
 
-  mikro-orm@6.4.15: {}
+  mikro-orm@6.4.16: {}
 
   mime-db@1.54.0: {}
 

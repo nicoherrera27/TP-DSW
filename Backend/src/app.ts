@@ -7,6 +7,8 @@ import { movie_roomRouter } from './movie_room/movie_room.routes.js'
 import { genderRouter } from './gender/gender.routes.js'
 import { showCategoryRouter } from './show_category/show_category.routes.js'
 import { showRouter } from './show/show.routes.js'
+import { genderClassRouter } from './gender/genderClass.routes.js'
+
 
 const app = express()
 app.use(express.json())
@@ -19,7 +21,9 @@ app. use((req, res, next) => {
 
 app.use('/api/users', userRouter)
 app.use('/api/halls', movie_roomRouter)
-app.use('/api/gender', genderRouter)
+app.use('/api/genders', genderRouter)
+app.use('/api/genders/clases', genderClassRouter)
+
 app.use('/api/showCategory', showCategoryRouter)
 app.use('/api/show', showRouter)
 
