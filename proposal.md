@@ -1,5 +1,7 @@
 # Propuesta TP DSW
 
+Regularidad
+
 ## Grupo
 ### Integrantes
 * 49498 - Boscarol, Candela
