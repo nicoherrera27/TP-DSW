@@ -15,6 +15,9 @@ export class Movie extends BaseEntity{
   @Property()
   synopsis?: string;
 
+  @Property()
+  url!: string;
+
   @OneToMany({entity: () => Show, mappedBy: 'showMovie', cascade: [Cascade.ALL]})
   shows = new Collection<Show>(this);
   

@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
-import Home from '../pages/Home.tsx';
-import About from '../pages/About.tsx';
-import MovieList from '../pages/Movies.tsx';
-import { SeleccionButacas } from '../pages/SelectSeat.tsx';
+import Home from '../components/Home.tsx';
+import About from '../components/About.tsx';
+import MovieList from '../components/Movies.tsx';
+import { SeleccionButacas } from '../components/SelectSeat.tsx';
 
 export default function AppRoutes() {
   return (

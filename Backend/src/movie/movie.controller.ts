@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { orm } from "../shared/db/orm.js";
 import { Movie } from "./movie.entity.js";
 import { movieRouter } from "./movie.routes.js";
+import { url } from "inspector";
 
 const em = orm.em
 
@@ -11,7 +12,8 @@ function sanitizeMovieInput(req: Request, res: Response, next: NextFunction) {
     name: req.body.name,
     duration: req.body.duration,
     synopsis: req.body.synopsis,
-    id: req.body.id
+    id: req.body.id,
+    url: req.body.url
   }
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
@@ -44,13 +46,49 @@ async function findOne (req: Request, res: Response) {
 }
 
 
-async function create (req: Request, res: Response) {  
+/*async function create (req: Request, res: Response) {  
   try{
-    const movie = em.create(Movie, req.body.sanitizedInput) //await no es necesario aca porque es una operacion sincronica
+
+     const input = req.body.sanitizedInput;
+
+    // Si la URL es de Google Drive, convertirla a formato directo
+    if (input.url) {
+      const driveMatch = input.url.match(/\/file\/d\/([^/]+)\//);
+      if (driveMatch && driveMatch[1]) {
+        const fileId = driveMatch[1];
+        input.url = `https://drive.google.com/uc?export=view&id=${fileId}`;
+      }
+    }
+
+    const movie = em.create(Movie, input) //await no es necesario aca porque es una operacion sincronica
     await em.flush() //flush es una op asincronica por eso el await aca
     res.status(201).json({ message: 'movie created', data: movie})
   } catch (error: any){
     res.status(500).json({ message: error.message})
+  }
+}*/
+async function create(req: Request, res: Response) {  
+  try {
+    const input = req.body.sanitizedInput;
+
+    // Si la URL es de Dropbox, convertirla a formato directo
+    if (input.url && input.url.includes("dropbox.com")) {
+      // Si tiene ?dl=0, cambiarlo por ?raw=1
+      if (input.url.includes("?dl=0")) {
+        input.url = input.url.replace("?dl=0", "?raw=1");
+      } 
+      // Opción alternativa: usar el dominio dl.dropboxusercontent.com
+      else {
+        input.url = input.url.replace("www.dropbox.com", "dl.dropboxusercontent.com");
+      }
+    }
+
+    const movie = em.create(Movie, input)
+    await em.flush();
+
+    res.status(201).json({ message: "movie created", data: movie });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
   }
 }
 
