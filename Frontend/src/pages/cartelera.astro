@@ -1,7 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { MovieGrid } from '../components/MovieGrid.tsx'
+import Header from '@/components/Header.astro';
+import { MovieGrid } from '../components/MovieGrid.tsx';
 import { tmdbService } from '../services/tmdbService';
+import '../styles/cartelera.css';
 
 // Obtener películas en cartelera
 const nowPlayingResponse = await tmdbService.getNowPlayingMovies();
@@ -12,6 +14,7 @@ const upcomingMovies = upcomingResponse.results;
 ---
 
 <Layout title="Cartelera - Showastro">
+  <Header />
   <main class="cartelera">
     <div class="container">
       <header class="cartelera-header">
@@ -47,58 +50,3 @@ const upcomingMovies = upcomingResponse.results;
   </main>
 </Layout>
 
-<style>
-  .cartelera {
-    background: #0a1929;
-    min-height: 100vh;
-    padding: 2rem 0;
-  }
-
-  .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .cartelera-header {
-    margin-bottom: 3rem;
-  }
-
-  .cartelera-header h1 {
-    font-size: 3rem;
-    color: #fff;
-    margin-bottom: 1.5rem;
-  }
-
-  .filters {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .filter-select {
-    padding: 0.75rem 1.5rem;
-    background: #1a2332;
-    color: #fff;
-    border: 1px solid #2a3545;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  .movie-section {
-    margin-bottom: 4rem;
-  }
-
-  .movie-section h2 {
-    font-size: 2rem;
-    color: #fff;
-    margin-bottom: 2rem;
-  }
-
-  @media (max-width: 768px) {
-    .cartelera-header h1 {
-      font-size: 2rem;
-    }
-  }
-</style>

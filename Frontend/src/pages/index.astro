@@ -1,4 +1,5 @@
 ---
+import Header from '../components/Header.astro';
 import Layout from '../layouts/Layout.astro';
 import { MovieCarousel } from '../components/MovieCarousel';
 import { tmdbService } from '../services/tmdbService';
@@ -15,7 +16,8 @@ const TicketsMovies = [
 ].slice(0, 3);
 ---
 
-<Layout title="Home Page">
+<Layout title="HomePage">
+  <Header />
   <main>
     <MovieCarousel client:visible />
     
@@ -26,3 +28,4 @@ const TicketsMovies = [
     </section>
   </main>
 </Layout>
+

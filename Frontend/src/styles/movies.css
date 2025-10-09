@@ -1,37 +1,35 @@
-.peliculas-grilla {
+.movie-grid {
   display: grid;
-  /* Crea columnas responsive: un mínimo de 220px y se expanden para llenar el espacio */
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.5rem; /* Espacio entre las tarjetas */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
 }
 
 /* Estilos para cada tarjeta individual */
-.pelicula-card {
-  background-color: #1a2332;
+.movie-card {
+  background-color: #00D1B2;
   border-radius: 8px;
   overflow: hidden; /* Esconde lo que se salga de los bordes redondeados */
   text-decoration: none; /* Quita el subrayado del link */
-  color: white;
+  color: #212121;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
 }
 
-.pelicula-card:hover {
+.movie-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* Imagen del póster */
-.pelicula-card img {
+.movie-card img {
   width: 100%;
   aspect-ratio: 2 / 3; /* Proporción de póster de cine */
   object-fit: cover; /* Evita que la imagen se deforme */
-  border-bottom: 3px solid #e50914; /* Detalle de color */
 }
 
 /* Contenedor para el texto */
-.pelicula-info {
+.movie-info {
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -39,18 +37,12 @@
   justify-content: space-between; /* Empuja el rating hacia abajo */
 }
 
-.pelicula-titulo {
+.movie-titulo {
   font-size: 1.1rem;
   font-weight: 600;
-  margin: 0;
+  margin: 0 0 0 0.5rem 0;
   /* Limita el título a 2 líneas */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
+   white-space: nowrap;
   overflow: hidden;
-}
-
-.pelicula-rating {
-  font-size: 0.9rem;
-  color: #ffd700;
-  margin-top: 0.5rem;
+  text-overflow: ellipsis;
 }

@@ -8,24 +8,12 @@
   }
 }
 
-.showcase-carousel-wrapper {
-  padding: 2rem 0;
-  background: #f0f0f0; /* Un fondo claro para que contraste */
-  text-align: center;
-}
-
-.showcase-carousel-wrapper h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    color: #333; /* Color oscuro para texto */
-}
-
 .showcase-carousel {
   max-width: 1200px;
   margin: 0 auto;
-  overflow: hidden; /* ¡Clave! Oculta lo que se sale del contenedor */
+  overflow: hidden; /* Oculta lo que se sale del contenedor */
   position: relative;
-  /* Opcional: un degradado en los bordes para un efecto más suave */
+  /* degradado en los bordes para un efecto más suave */
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
@@ -34,8 +22,7 @@
   display: flex; /* Pone todas las tarjetas en una línea */
   gap: 1.5rem; /* Espacio entre películas */
   width: calc(200px * 2 * var(--movie-count)); /* Ancho total de la cinta (ancho tarjeta * número de películas duplicadas) */
-  /* La animación! */
-  animation: scroll 40s linear infinite;
+  animation: scroll 10s linear infinite;
 }
 
 .carousel-track:hover {
