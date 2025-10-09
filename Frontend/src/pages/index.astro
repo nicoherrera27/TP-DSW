@@ -1,11 +1,28 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import { MovieCarousel } from '../components/MovieCarousel';
+import { tmdbService } from '../services/tmdbService';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Obtener películas destacadas para el carousel
+const nowPlayingResponse = await tmdbService.getNowPlayingMovies();
+const featuredMovies = nowPlayingResponse.results.slice(0, 15); // Pide 15 para que se vea más lleno
+const upcomingResponse = await tmdbService.getUpcomingMovies();
+
+// Películas para entradas anticipadas (mezcla de now playing y upcoming)
+const TicketsMovies = [
+  ...upcomingResponse.results.slice(0, 2),
+  ...nowPlayingResponse.results.slice(0, 1)
+].slice(0, 3);
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Home Page">
+  <main>
+    <MovieCarousel client:visible />
+    
+    <section style="padding: 4rem; text-align: center;">
+      <a href="/cartelera" style="color: white; font-size: 1.2rem; border: 1px solid white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none;">
+        Ver Cartelera Completa
+      </a>
+    </section>
+  </main>
 </Layout>

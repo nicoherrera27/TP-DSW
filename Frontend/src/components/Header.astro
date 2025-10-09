@@ -1,0 +1,107 @@
+---
+const navLinks = [
+  { href: "/cartelera", text: "Cartelera" },
+  { href: "/promociones", text: "Promociones" },
+  { href: "/cines", text: "Cines" },
+  { href: "/funciones-especiales", text: "Funciones Especiales" },
+];
+---
+<header class="main-header">
+  <div class="container">
+    <div class="top-bar">
+      <a href="/" class="logo">ShowAstro</a>
+      <span class="secondary-title">TP-DSW</span>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        {navLinks.map(link => (
+          <li>
+            <a href={link.href}>{link.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .main-header {
+    /* CAMBIO 1: Fondo oscuro sólido, igual al del carrusel */
+    background: #212121;
+    padding: 1.5rem 0;
+    color: white;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-bottom: 1px solid #2d2d2d; /* Borde sutil para separar del resto */
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    /* CAMBIO 2: Logo con el color de acento principal */
+    color: #00D1B2;
+  }
+
+  .secondary-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 50;
+    color: white; /* Mantenemos el blanco para que no compita con el logo */
+    opacity: 0.2;
+  }
+
+  .main-nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .main-nav a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
+  }
+
+  .main-nav a:hover {
+    /* CAMBIO 3: Efecto hover con el color de acento */
+    color: #00D1B2;
+  }
+  /* Estilos para pantallas más chicas */
+  @media (max-width: 768px) {
+    .top-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .logo {
+      font-size: 2.5rem;
+    }
+    .secondary-title {
+      font-size: 1.25rem;
+    }
+    .main-nav ul {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+</style>
