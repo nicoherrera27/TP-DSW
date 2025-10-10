@@ -1,5 +1,5 @@
   .cartelera {
-    background: #212121;
+    background: #ffffff;
     min-height: 100vh;
     padding: 2rem 0;
   }
@@ -16,7 +16,7 @@
 
   .cartelera-header h1 {
     font-size: 3rem;
-    color: #00D1B2;
+    color: black;
     margin-bottom: 1.5rem;
   }
 
@@ -28,8 +28,8 @@
 
   .filter-select {
     padding: 0.75rem 1.5rem;
-    background: #00D1B2;
-    color: #212121;
+    background: #1a88c7;
+    color: black;
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
@@ -41,7 +41,7 @@
 
   .movie-section h2 {
     font-size: 2rem;
-    color: #00D1B2;
+    color: black;
     margin-bottom: 2rem;
   }
 
