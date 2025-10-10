@@ -1,7 +1,7 @@
 ---
-import Header from '../components/Header.astro';
+import Header from '../components/astro/Header.astro';
 import Layout from '../layouts/Layout.astro';
-import { MovieCarousel } from '../components/MovieCarousel';
+import { MovieCarousel } from '../components/react/MovieCarousel';
 import { tmdbService } from '../services/tmdbService';
 
 // Obtener películas destacadas para el carousel
@@ -12,7 +12,7 @@ const upcomingResponse = await tmdbService.getUpcomingMovies();
 // Películas para entradas anticipadas (mezcla de now playing y upcoming)
 const TicketsMovies = [
   ...upcomingResponse.results.slice(0, 2),
-  ...nowPlayingResponse.results.slice(0, 1)
+  ...nowPlayingResponse.results.slice(0, 1),
 ].slice(0, 3);
 ---
 
@@ -20,12 +20,14 @@ const TicketsMovies = [
   <Header />
   <main>
     <MovieCarousel client:visible />
-    
+
     <section style="padding: 4rem; text-align: center;">
-      <a href="/cartelera" style="color: white; font-size: 1.2rem; border: 1px solid white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none;">
+      <a
+        href="/cartelera"
+        style="color: white; font-size: 1.2rem; border: 1px solid white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none;"
+      >
         Ver Cartelera Completa
       </a>
     </section>
   </main>
 </Layout>
-

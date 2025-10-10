@@ -1,9 +1,13 @@
 ---
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from '../components/react/RegisterForm.tsx';
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/astro/Header.astro';
+import '../styles/register.css';
 ---
 
-<Layout>
-  <h1>Registro</h1>
-  <RegisterForm client:visible />
+<Layout title="Registro - ShowAstro">
+  <Header />
+  <div class="register-container">
+    <RegisterForm client:visible />
+  </div>
 </Layout>

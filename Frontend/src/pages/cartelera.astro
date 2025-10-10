@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '@/components/Header.astro';
-import { MovieGrid } from '../components/MovieGrid.tsx';
+import Header from '../components/astro/Header.astro';
+import { MovieGrid } from '../components/react/MovieGrid.tsx';
 import { tmdbService } from '../services/tmdbService';
 import '../styles/cartelera.css';
 
@@ -49,4 +49,3 @@ const upcomingMovies = upcomingResponse.results;
     </div>
   </main>
 </Layout>
-

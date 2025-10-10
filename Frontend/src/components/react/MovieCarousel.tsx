@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import type { TMDBMovie } from '../types/movies'; // Asegúrate que la ruta a tus tipos sea correcta
-import { tmdbApi, IMAGE_BASE_URL } from '../lib/tmdb'; // Asegúrate que la ruta a tu API sea correcta
+import type { TMDBMovie } from '../../types/movies'; // Asegúrate que la ruta a tus tipos sea correcta
+import { tmdbApi, IMAGE_BASE_URL } from '../../lib/tmdb'; // Asegúrate que la ruta a tu API sea correcta
 
 export function MovieCarousel() {
   // 1. Estado para almacenar las películas, el slide actual y el estado de carga

@@ -1,5 +1,5 @@
-import { IMAGE_BASE_URL } from '../services/tmdbService';
-import type { TMDBMovie } from '../types/movies';
+import { IMAGE_BASE_URL } from '../../services/tmdbService.ts';
+import type { TMDBMovie } from '../../types/movies.ts';
 import { ReadMore } from './ReadMore.tsx';
 interface MovieGridProps {
   movies: TMDBMovie[];
