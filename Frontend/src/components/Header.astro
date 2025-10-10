@@ -2,25 +2,29 @@
 import '../styles/header.css';
 
 const navLinks = [
-  { href: "/cartelera", text: "Cartelera" },
-  { href: "/promociones", text: "Promociones" },
-  { href: "/cines", text: "Cines" },
-  { href: "/funciones-especiales", text: "Funciones Especiales" },
+  { href: '/cartelera', text: 'Cartelera' },
+  { href: '/promociones', text: 'Promociones' },
+  { href: '/cines', text: 'Cines' },
+  { href: '/funciones-especiales', text: 'Funciones Especiales' },
 ];
 ---
+
 <header class="main-header">
   <div class="container">
     <div class="top-bar">
       <a href="/" class="logo">ShowAstro</a>
       <span class="secondary-title">TP-DSW</span>
+      <a href="/register">Register</a>
     </div>
     <nav class="main-nav">
       <ul>
-        {navLinks.map(link => (
-          <li>
-            <a href={link.href}>{link.text}</a>
-          </li>
-        ))}
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.text}</a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
   </div>

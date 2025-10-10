@@ -1,9 +1,9 @@
 ---
-import Header from '../components/Header.astro'; 
+import Header from '../components/Header.astro';
 import '../styles/global.css';
 import '../styles/movies.css';
 interface Props {
-	title: string;
+  title?: string;
 }
 
 const { title } = Astro.props;
@@ -11,19 +11,19 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>{title}</title>
-	</head>
-	<body class="bg-[#0a1929]">
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-[#0a1929]">
+    <slot />
+  </body>
 </html>
 <style is:global>
-    * {
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -35,5 +35,4 @@ const { title } = Astro.props;
     background: #141414;
     color: #fff;
   }
-
 </style>

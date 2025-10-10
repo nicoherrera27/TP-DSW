@@ -6,7 +6,7 @@ GET http://localhost:3000/api/users
 GET http://localhost:3000/api/users/2
 
 ### POST  
-POST http://localhost:3000/api/users
+POST http://localhost:3000/api/users/register
 Content-Type: application/json
 
 {

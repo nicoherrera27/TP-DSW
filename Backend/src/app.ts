@@ -14,7 +14,7 @@ import { movieRouter } from './movie/movie.routes.js'
 const app = express()
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'http://localhost:4321',
   credentials: true // puerto de Astro
 }));
 

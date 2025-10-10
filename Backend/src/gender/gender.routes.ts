@@ -1,5 +1,5 @@
 import { Router } from "express";  
-import { sanitizeGenderInput, findAll2, create2, update2, delete2 } from "./gender.controller.js";
+import { sanitizeGenderInput, findAll2, create2, update2, delete2 } from "./gender.LOCALcontroller.js";
 
 
 export const genderRouter = Router();
