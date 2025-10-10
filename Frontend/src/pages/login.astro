@@ -1,0 +1,12 @@
+---
+import LoginForm from '../components/react/LoginForm';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/astro/Header.astro';
+---
+
+<Layout title="Inicio de sesión - ShowAstro">
+  <Header />
+  <div class="login-container">
+    <LoginForm client:visible />
+  </div>
+</Layout>
