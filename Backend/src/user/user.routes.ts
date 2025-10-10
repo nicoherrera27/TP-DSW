@@ -1,9 +1,10 @@
 import { Router } from "express"
-import { findAll, findOne, create, update, remove } from "./user.controller.js"
+import { findAll, findOne, create, update, remove, login } from "./user.controller.js"
 
 export const userRouter = Router()
 
 userRouter.post('/register',  create)
+userRouter.post('/login',  login)
 
 userRouter.get('/', findAll)
 userRouter.get('/:id', findOne)

@@ -49,13 +49,42 @@ async function create (req: Request, res: Response) {
     user.name = name
     user.surname = surname
     user.email = email
-    user.birthdate = birthdate
+    
+    const date = new Date(birthdate);
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    user.birthdate = date
 
     em.persist(user)
     await em.flush()
 
     res.status(201).json({ message: 'User created', data: user })
   } catch (error: any) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
+async function login (req: Request, res: Response) {
+  const { username, password } = req.body
+  try{
+    
+    const user = await em.findOne(User, {username})
+
+    if (!user) {
+       res.status(401).json({ message: 'Usuario o Contraseña incorrecta' })
+       return
+    }
+
+    const passwordValid = await bcrypt.compare(password, user.password)
+
+    if (!passwordValid) {
+       res.status(401).json({ message: 'Usuario o Contraseña incorrecta' })
+       return
+    }
+
+    res.status(200).json({ message: 'Usuario autenticado correctamente', data: user })
+
+  }
+  catch (error: any) {
     res.status(500).json({ message: error.message })
   }
 }
@@ -88,4 +117,4 @@ async function remove (req: Request, res: Response) {
 }
 
 
-export  { findAll, findOne, create, update, remove }
+export  { findAll, findOne, create, update, remove, login }

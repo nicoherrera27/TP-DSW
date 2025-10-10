@@ -21,8 +21,8 @@ export class User extends BaseEntity {
   @Property({nullable: false, unique: true})
   email!:string
 
-  @Property({nullable: false})
-  birthdate!:string
+  @Property({type: 'date', nullable: false})
+  birthdate!: Date
 
   @OneToMany({entity: () => Sale, mappedBy: 'userSale', cascade: [Cascade.ALL]} )
   sales = new Collection<Sale>(this)
