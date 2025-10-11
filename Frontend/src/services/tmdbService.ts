@@ -76,7 +76,7 @@ export class TMDBService {
     return this.fetchData<TMDBVideoResponse>(`/movie/${movieId}/videos`);
   }
 
-  // Convertir película de TMDB a formato de tu sistema
+  // Convertir película de TMDB a nuestro formato
   movieToLocal(tmdbMovie: TMDBMovieDetail) {
     return {
       tmdb_id: tmdbMovie.id,

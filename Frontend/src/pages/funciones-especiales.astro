@@ -1,8 +1,63 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/astro/Header.astro';
+import { MovieGrid } from '../components/react/MovieGrid.tsx';
+import '../styles/movie-detail.css';
+
+let specialShows = [];
+
+try {
+  const response = await fetch('http://localhost:3000/api/show/specials');
+  
+  if (response.ok) {
+    const json = await response.json();
+
+    if (json.data && Array.isArray(json.data)) {
+      specialShows = json.data;
+    }
+  } else {
+    console.error('Error del servidor:', await response.text());
+  }
+} catch (error) {
+  console.error('Error de conexión:', error);
+}
+
+const moviesForGrid = specialShows.map((show: { id: number; showMovie: { name: string; synopsis: string; url: string; release_date: string; } }) => ({
+  id: show.id,
+  title: show.showMovie.name,
+  overview: show.showMovie.synopsis,
+  poster_path: show.showMovie.url, 
+  release_date: show.showMovie.release_date,
+  vote_average: 0,
+}));
 ---
 
-<Layout title="CineVerse - Funciones Especiales">
+<Layout title="Funciones Especiales - CineVerse">
   <Header />
+  <main class="container">
+    <h1 class="page-title">Funciones Especiales</h1>
+    <p class="page-subtitle">Eventos únicos y proyecciones míticas que no te podés perder.</p>
+
+    {/* 3. Agregamos un mensaje para cuando no hay funciones */}
+    {moviesForGrid.length > 0 ? (
+      <MovieGrid movies={moviesForGrid} basePath="/funciones-especiales" client:load />
+    ) : (
+      <p style="color: white; text-align: center;">No hay funciones especiales disponibles en este momento.</p>
+    )}
+  </main>
 </Layout>
+
+<style>
+  .page-subtitle {
+    font-size: 1.2rem;
+    color: #6b7280; /* Un gris oscuro para el subtítulo */
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+  }
+  .no-movies-message {
+    color: #374151; /* <-- CAMBIO: Un gris oscuro para el texto */
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.1rem;
+  }
+</style>

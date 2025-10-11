@@ -15,7 +15,7 @@ export class Movie extends BaseEntity{
   @Property()
   duration!: number;
 
-  @Property()
+  @Property({type: 'text'})
   synopsis?: string;
 
   @Property()
@@ -23,7 +23,6 @@ export class Movie extends BaseEntity{
 
   @OneToMany({entity: () => Show, mappedBy: 'showMovie', cascade: [Cascade.ALL]})
   shows = new Collection<Show>(this);
-  
   
   //@ManyToMany // ESTO PARA CUANDO SE PASE EL GENERO A ORM
 

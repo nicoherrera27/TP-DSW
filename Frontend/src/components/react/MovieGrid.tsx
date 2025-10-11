@@ -10,9 +10,10 @@ interface Movie {
 
 interface MovieGridProps {
   movies: Movie[];
+  basePath?: string;
 }
 
-export function MovieGrid({ movies }: MovieGridProps) {
+export function MovieGrid({ movies, basePath = '/pelicula' }: MovieGridProps) {
   return (
     <div className="movie-grid">
       {movies.map((movie) => {

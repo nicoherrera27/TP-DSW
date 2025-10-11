@@ -16,6 +16,9 @@ export class Show extends BaseEntity{
   @Property()
   state?:string;
 
+  @Property({type: 'boolean', default: false})
+  isSpecial: boolean = false;
+
   @ManyToOne({entity: () => ShowCategory})
   showCat!: Rel<ShowCategory>;
 

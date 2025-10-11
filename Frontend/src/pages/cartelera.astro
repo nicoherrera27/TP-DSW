@@ -4,12 +4,10 @@ import Header from '../components/astro/Header.astro';
 import { MovieGrid } from '../components/react/MovieGrid.tsx';
 import '../styles/cartelera.css';
 
-// 1. Fetch de las películas desde TU backend
 const response = await fetch('http://localhost:3000/api/movies');
 const localMoviesData = await response.json();
 
-// 2. Mapear los datos de tu backend al formato que espera MovieGrid
-//    Tu API devuelve { message: '...', data: [...] }
+
 const moviesFromDB = localMoviesData.data.map((movie: any) => ({
   id: movie.tmdbId || movie.id, // Usamos tmdbId para enlazar a la página de detalle existente
   title: movie.name,

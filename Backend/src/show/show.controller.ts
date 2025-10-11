@@ -6,7 +6,7 @@ const em = orm.em
 
 async function findAll(req: Request, res: Response){
   try{
-    const shows = await em.find(Show,{})
+    const shows = await em.find(Show, { isSpecial: false }, { populate: ['showMovie'] });
     res.status(200).json({message: 'Shows found: ', data: shows})
   } 
   catch(error: any){
@@ -30,13 +30,15 @@ async function findOne(req: Request, res: Response){
 
 async function create(req: Request, res: Response){
   try{
-    const {date, state, showCat} = req.body
+    const {date, state, showCat, showMovie, isSpecial} = req.body
 
     const show = new Show()
     show.date = date
     show.state = state
     show.showCat = showCat
-
+    show.showMovie = showMovie
+    show.isSpecial = isSpecial
+  
     em.persist(show)
     em.flush()
 
@@ -76,4 +78,13 @@ async function remove(req: Request, res: Response){
 
 }
 
-export { findAll, findOne, create, update, remove }
+async function findSpecials(req: Request, res: Response) {
+  try {
+    const specialShows = await em.find(Show, { isSpecial: true }, { populate: ['showMovie'] });
+    res.status(200).json({ message: 'Funciones especiales encontradas', data: specialShows });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+export { findAll, findOne, create, update, remove, findSpecials }

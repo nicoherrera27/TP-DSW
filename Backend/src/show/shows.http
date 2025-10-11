@@ -9,9 +9,11 @@ POST http://localhost:3000/api/show
 Content-Type: application/json
 
 {
-    "date": "26/07/2025" ,
-    "state": "Disponible",
-    "showCat": 1
+    "date": "2026-05-25",
+    "state": "Próximamente",
+    "showCat": 1,
+    "showMovie": 11,
+    "isSpecial": true
 }
 
 ### PUT (modificacion completa)
