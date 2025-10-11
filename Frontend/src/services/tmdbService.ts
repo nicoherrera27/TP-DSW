@@ -2,15 +2,15 @@ const API_KEY = '4c13d79da36a97c80e70be9f823eb0ac';
 const BASE_URL = 'https://api.themoviedb.org/3';
 export const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 export const BACKDROP_BASE_URL = 'https://image.tmdb.org/t/p/original';
-import type { TMDBResponse, TMDBMovieDetail, TMDBMovie } from "../types/movies";
+import type { TMDBResponse, TMDBMovieDetail, TMDBMovie, TMDBVideoResponse  } from "../types/movies";
 
 
 export class TMDBService {
   private async fetchData<T>(endpoint: string, params: Record<string, string> = {}): Promise<T> {
-    const searchParams = new URLSearchParams({
-      api_key: API_KEY,
-      language: 'es-ES',
-      ...params
+  const searchParams = new URLSearchParams({
+    api_key: API_KEY,
+    language: 'es-MX',
+    ...params
     });
 
     const url = `${BASE_URL}${endpoint}?${searchParams}`;
@@ -69,6 +69,11 @@ export class TMDBService {
       query: query.trim(),
       page: page.toString()
     });
+  }
+
+  // Trailer de yt
+  async getMovieVideos(movieId: number): Promise<TMDBVideoResponse> {
+    return this.fetchData<TMDBVideoResponse>(`/movie/${movieId}/videos`);
   }
 
   // Convertir película de TMDB a formato de tu sistema

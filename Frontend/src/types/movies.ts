@@ -33,3 +33,21 @@ export interface TMDBMovieDetail extends TMDBMovie {
   budget: number;
   revenue: number;
 }
+
+export interface TMDBVideo {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string; 
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: string;
+  id: string;
+}
+
+export interface TMDBVideoResponse {
+  id: number;
+  results: TMDBVideo[];
+}

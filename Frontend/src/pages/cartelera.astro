@@ -7,13 +7,23 @@ import '../styles/cartelera.css';
 
 // Obtener películas en cartelera
 const nowPlayingResponse = await tmdbService.getNowPlayingMovies();
-const upcomingResponse = await tmdbService.getUpcomingMovies();
-
 const nowPlayingMovies = nowPlayingResponse.results;
-const upcomingMovies = upcomingResponse.results;
+
+const upcomingPages = [1, 2, 3];
+const upcomingPromises = upcomingPages.map(page => tmdbService.getUpcomingMovies(page));
+const upcomingResponses = await Promise.all(upcomingPromises);
+const allUpcomingMovies = upcomingResponses.flatMap(response => response.results);
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const futureMovies = allUpcomingMovies.filter(movie => {
+  const releaseDate = new Date(movie.release_date);
+  return releaseDate >= today;
+});
 ---
 
-<Layout title="Cartelera - Showastro">
+<Layout title="Cartelera - CineVerse">
   <Header />
   <main class="cartelera">
     <div class="container">
@@ -44,7 +54,7 @@ const upcomingMovies = upcomingResponse.results;
       <!-- Próximos Estrenos -->
       <section class="movie-section">
         <h2>Próximos Estrenos</h2>
-        <MovieGrid movies={upcomingMovies} client:load />
+        <MovieGrid movies={futureMovies} client:load />
       </section>
     </div>
   </main>

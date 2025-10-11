@@ -15,7 +15,7 @@ export function MovieGrid({ movies }: MovieGridProps) {
           : '/placeholder-movie.png';
 
         return (
-          <div key={movie.id} className="movie-card">
+          <a href={`/movie/${movie.id}`} key={movie.id} className="movie-card">
             <img
               src={posterUrl}
               alt={`Póster de ${movie.title}`}
@@ -28,7 +28,7 @@ export function MovieGrid({ movies }: MovieGridProps) {
                 maxLength={50} 
               />
             </div>
-          </div>
+          </a>
         );
       })}
     </div>

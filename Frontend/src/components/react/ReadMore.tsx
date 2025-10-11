@@ -12,7 +12,8 @@ export function ReadMore({ text, maxLength = 100 }: ReadMoreProps) {
     return <p className="synopsis">{text}</p>;
   }
 
-  const toggleText = () => {
+  const toggleText = (e: React.MouseEvent) => {
+    e.preventDefault();
     setIsExpanded(!isExpanded);
   };
 
