@@ -2,25 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/astro/Header.astro';
 import { MovieGrid } from '../components/react/MovieGrid.tsx';
-import { tmdbService } from '../services/tmdbService';
 import '../styles/cartelera.css';
 
-// Obtener películas en cartelera
-const nowPlayingResponse = await tmdbService.getNowPlayingMovies();
-const nowPlayingMovies = nowPlayingResponse.results;
+// 1. Fetch de las películas desde TU backend
+const response = await fetch('http://localhost:3000/api/movies');
+const localMoviesData = await response.json();
 
-const upcomingPages = [1, 2, 3];
-const upcomingPromises = upcomingPages.map(page => tmdbService.getUpcomingMovies(page));
-const upcomingResponses = await Promise.all(upcomingPromises);
-const allUpcomingMovies = upcomingResponses.flatMap(response => response.results);
-
-const today = new Date();
-today.setHours(0, 0, 0, 0);
-
-const futureMovies = allUpcomingMovies.filter(movie => {
-  const releaseDate = new Date(movie.release_date);
-  return releaseDate >= today;
-});
+// 2. Mapear los datos de tu backend al formato que espera MovieGrid
+//    Tu API devuelve { message: '...', data: [...] }
+const moviesFromDB = localMoviesData.data.map((movie: any) => ({
+  id: movie.tmdbId || movie.id, // Usamos tmdbId para enlazar a la página de detalle existente
+  title: movie.name,
+  overview: movie.synopsis,
+  poster_path: movie.url,
+}));
 ---
 
 <Layout title="Cartelera - CineVerse">
@@ -28,34 +23,25 @@ const futureMovies = allUpcomingMovies.filter(movie => {
   <main class="cartelera">
     <div class="container">
       <header class="cartelera-header">
-        <h1>Cartelera</h1>
+        <h1>Nuestra Cartelera</h1>
         <div class="filters">
+          {
+            /* Los filtros se mantienen por ahora, pero su lógica necesitaría conectarse */
+          }
           <select class="filter-select">
             <option>Todas las películas</option>
-            <option>Acción</option>
-            <option>Comedia</option>
-            <option>Drama</option>
-            <option>Terror</option>
-          </select>
-          <select class="filter-select">
-            <option>Todos los formatos</option>
-            <option>2D</option>
-            <option>3D</option>
           </select>
         </div>
       </header>
 
-      <!-- En Cartelera -->
       <section class="movie-section">
-        <h2>En Cartelera</h2>
-        <MovieGrid movies={nowPlayingMovies} client:load />
+        <MovieGrid movies={moviesFromDB} client:load />
       </section>
 
-      <!-- Próximos Estrenos -->
-      <section class="movie-section">
-        <h2>Próximos Estrenos</h2>
-        <MovieGrid movies={futureMovies} client:load />
-      </section>
+      {
+        /* Por ahora, hemos quitado la sección de "Próximos Estrenos" para simplificar
+          y mostrar solo lo que tienes en tu base de datos. */
+      }
     </div>
   </main>
 </Layout>

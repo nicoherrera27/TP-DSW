@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/astro/Header.astro';
+// Importa el componente con el nuevo nombre
+import AdminMoviePanel from '../../components/react/AdminMoviePanel.tsx';
+---
+
+<Layout title="Panel de Administración - Gestión de Cartelera">
+  <Header />
+  <main class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+    {/* Usa el nuevo componente */}
+    <AdminMoviePanel client:load />
+  </main>
+</Layout>

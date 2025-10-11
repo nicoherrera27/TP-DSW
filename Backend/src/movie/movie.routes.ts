@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { sanitizeMovieInput, findAll, findOne, create, update, remove } from "./movie.controller.js";
+import { sanitizeMovieInput, findAll, findOne, create, update, remove, importFromTmdb } from "./movie.controller.js";
 
 export const movieRouter = Router()
+
+movieRouter.post('/import-from-tmdb', importFromTmdb); 
 
 movieRouter.get('/', findAll)
 movieRouter.get('/:id', findOne)

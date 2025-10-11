@@ -6,6 +6,9 @@ import { Show } from "../show/show.entity.js";
 
 export class Movie extends BaseEntity{
 
+  @Property({unique: true, nullable: true})
+  tmdbId!: number;
+
   @Property()
   name!: string;
 

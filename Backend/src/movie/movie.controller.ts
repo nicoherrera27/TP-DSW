@@ -4,6 +4,8 @@ import { Movie } from "./movie.entity.js";
 import { movieRouter } from "./movie.routes.js";
 import { url } from "inspector";
 
+const API_KEY = '4c13d79da36a97c80e70be9f823eb0ac';
+
 const em = orm.em
 
 function sanitizeMovieInput(req: Request, res: Response, next: NextFunction) {
@@ -25,6 +27,48 @@ function sanitizeMovieInput(req: Request, res: Response, next: NextFunction) {
 
   next()
 }
+async function importFromTmdb(req: Request, res: Response) {
+  try {
+    const { tmdbId } = req.body;
+
+    if (!tmdbId) {
+      return res.status(400).json({ message: 'El ID de TMDB es requerido' });
+    }
+
+    // 1. Verificar si la película ya existe en nuestra BD
+    const existingMovie = await em.findOne(Movie, { tmdbId: tmdbId });
+    if (existingMovie) {
+      return res.status(409).json({ message: 'Esta película ya ha sido importada' });
+    }
+
+    // 2. Obtener detalles de la película desde TMDB
+    const tmdbResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${API_KEY}&language=es-MX`);
+    if (!tmdbResponse.ok) {
+      throw new Error('No se pudo obtener la información de la película desde TMDB');
+    }
+    const movieDetails = await tmdbResponse.json();
+
+    // 3. Mapear datos y crear la nueva entidad
+    const newMovie = new Movie();
+    newMovie.tmdbId = movieDetails.id;
+    newMovie.name = movieDetails.title;
+    newMovie.duration = movieDetails.runtime || 0;
+    newMovie.synopsis = movieDetails.overview;
+    newMovie.url = movieDetails.poster_path 
+      ? `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`
+      : 'URL_POR_DEFECTO_SI_NO_HAY_POSTER';
+
+    // 4. Persistir en la base de datos
+    await em.persistAndFlush(newMovie);
+
+    res.status(201).json({ message: 'Película importada correctamente', data: newMovie });
+
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
 
 async function findAll (req: Request, res: Response) {
   try{
@@ -116,4 +160,4 @@ async function remove(req: Request, res: Response) {
   }
 }
 
-export { sanitizeMovieInput, findAll, findOne, create, update, remove }
+export { sanitizeMovieInput, findAll, findOne, create, update, remove, importFromTmdb }

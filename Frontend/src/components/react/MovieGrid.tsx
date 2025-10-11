@@ -1,20 +1,28 @@
-import { IMAGE_BASE_URL } from '../../services/tmdbService.ts';
-import type { TMDBMovie } from '../../types/movies.ts';
 import { ReadMore } from './ReadMore.tsx';
 
+// Definimos un tipo más genérico para las películas
+interface Movie {
+  id: number | string;
+  title: string;
+  overview: string;
+  poster_path: string | null;
+}
+
 interface MovieGridProps {
-  movies: TMDBMovie[];
+  movies: Movie[];
 }
 
 export function MovieGrid({ movies }: MovieGridProps) {
   return (
     <div className="movie-grid">
       {movies.map((movie) => {
-        const posterUrl = movie.poster_path
-          ? `${IMAGE_BASE_URL}${movie.poster_path}`
-          : '/placeholder-movie.png';
+        // Usamos la URL del póster directamente
+        const posterUrl = movie.poster_path ? movie.poster_path : '/placeholder-movie.png';
 
         return (
+          // El enlace ahora debería apuntar al detalle de la película en TMDB si es necesario,
+          // o a una página de detalle local si la creas.
+          // Por ahora, usaremos el tmdbId si existe para enlazar al detalle que ya tienes.
           <a href={`/movie/${movie.id}`} key={movie.id} className="movie-card">
             <img
               src={posterUrl}
