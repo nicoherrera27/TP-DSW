@@ -1,8 +1,56 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/astro/Header.astro';
+import { MovieGrid } from '../components/react/MovieGrid.tsx';
+import '../styles/movie-detail.css';
+
+let moviesForGrid: any[] = [];
+
+try {
+  const response = await fetch('http://localhost:3000/api/show/specials');
+
+  if (response.ok) {
+    const json = await response.json();
+    const specialShows = json.data;
+
+    if (specialShows && Array.isArray(specialShows)) {
+      moviesForGrid = specialShows
+        .filter((show) => show && show.showMovie && show.showMovie.tmdbId)
+        .map((show) => ({
+          // 1. CORRECCIÓN: Usamos el tmdbId de la película para el enlace
+          id: show.showMovie.tmdbId,
+          title: show.showMovie.name,
+          overview: show.showMovie.synopsis,
+          poster_path: show.showMovie.url,
+          release_date: '',
+          vote_average: 0,
+        }));
+    }
+  } else {
+    console.error('Error del servidor:', await response.text());
+  }
+} catch (error) {
+  console.error('Error de conexión:', error);
+}
 ---
 
-<Layout title="CineVerse - Funciones Especiales">
+<Layout title="Funciones Especiales - CineVerse">
   <Header />
+  <main class="container">
+    <h1 class="page-title">Funciones Especiales</h1>
+    <p class="page-subtitle">
+      Eventos únicos y proyecciones míticas que no te podés perder.
+    </p>
+
+    {
+      moviesForGrid.length > 0 ? (
+        // 2. CORRECCIÓN: Apuntamos al basePath de las películas normales
+        <MovieGrid movies={moviesForGrid} basePath="/movie" client:load />
+      ) : (
+        <p style="color: white; text-align: center;">
+          No hay funciones especiales disponibles en este momento.
+        </p>
+      )
+    }
+  </main>
 </Layout>

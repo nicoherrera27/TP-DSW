@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/astro/Header.astro';
+import AdminShowPanel from '../../components/react/AdminShowPanel.tsx';
+---
+
+<Layout title="Admin - Funciones">
+  <Header />
+  <main class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <AdminShowPanel client:load />
+  </main>
+</Layout>

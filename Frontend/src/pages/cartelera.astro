@@ -4,18 +4,42 @@ import Header from '../components/astro/Header.astro';
 import { MovieGrid } from '../components/react/MovieGrid.tsx';
 import '../styles/cartelera.css';
 
-// 1. Fetch de las películas desde TU backend
-const response = await fetch('http://localhost:3000/api/movies');
-const localMoviesData = await response.json();
+interface Movie {
+  id: number | string;
+  title: string;
+  overview: string;
+  poster_path: string | null;
+}
 
-// 2. Mapear los datos de tu backend al formato que espera MovieGrid
-//    Tu API devuelve { message: '...', data: [...] }
-const moviesFromDB = localMoviesData.data.map((movie: any) => ({
-  id: movie.tmdbId || movie.id, // Usamos tmdbId para enlazar a la página de detalle existente
-  title: movie.name,
-  overview: movie.synopsis,
-  poster_path: movie.url,
-}));
+let moviesFromDB: Movie[] = [];
+
+try {
+  const response = await fetch('http://localhost:3000/api/show/cartelera');
+  const showsData = await response.json();
+
+  if (showsData.data && Array.isArray(showsData.data)) {
+    const uniqueMovies = new Map();
+    showsData.data.forEach((show: any) => {
+      // Nos aseguramos de que la película exista y no la hayamos agregado ya
+      if (show.showMovie && !uniqueMovies.has(show.showMovie.id)) {
+        uniqueMovies.set(show.showMovie.id, show.showMovie);
+      }
+    });
+
+    moviesFromDB = Array.from(uniqueMovies.values())
+      // CORRECCIÓN 1: Filtramos para asegurar que la película tiene un tmdbId
+      .filter((movie: any) => movie && movie.tmdbId)
+      .map((movie: any) => ({
+        // CORRECCIÓN 2: Usamos el tmdbId para el enlace
+        id: movie.tmdbId,
+        title: movie.name,
+        overview: movie.synopsis,
+        poster_path: movie.url,
+      }));
+  }
+} catch (error) {
+  console.error('Error al cargar la cartelera:', error);
+}
 ---
 
 <Layout title="Cartelera - CineVerse">
@@ -25,9 +49,6 @@ const moviesFromDB = localMoviesData.data.map((movie: any) => ({
       <header class="cartelera-header">
         <h1>Nuestra Cartelera</h1>
         <div class="filters">
-          {
-            /* Los filtros se mantienen por ahora, pero su lógica necesitaría conectarse */
-          }
           <select class="filter-select">
             <option>Todas las películas</option>
           </select>
@@ -35,13 +56,16 @@ const moviesFromDB = localMoviesData.data.map((movie: any) => ({
       </header>
 
       <section class="movie-section">
-        <MovieGrid movies={moviesFromDB} client:load />
+        {
+          moviesFromDB.length > 0 ? (
+            <MovieGrid movies={moviesFromDB} client:load />
+          ) : (
+            <p style="color: black; text-align: center; font-size: 1.2rem;">
+              No hay funciones disponibles en la cartelera en este momento.
+            </p>
+          )
+        }
       </section>
-
-      {
-        /* Por ahora, hemos quitado la sección de "Próximos Estrenos" para simplificar
-          y mostrar solo lo que tienes en tu base de datos. */
-      }
     </div>
   </main>
 </Layout>

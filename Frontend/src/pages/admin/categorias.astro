@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/astro/Header.astro';
+import AdminShowCategoryPanel from '../../components/react/AdminShowCategoryPanel.tsx';
+---
+
+<Layout title="Admin - Categorías de Funciones">
+  <Header />
+  <main class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <AdminShowCategoryPanel client:load />
+  </main>
+</Layout>

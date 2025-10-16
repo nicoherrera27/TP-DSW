@@ -8,9 +8,9 @@ const em = orm.em
 function sanitizeMovie_roomInput(req: Request, res: Response, next: NextFunction) {
   // Aca se realizarian las validaciones //
   req.body.sanitizedInput = {
-    name: req.body.number,
+    name: req.body.name,
     capacity: req.body.capacity,
-     id: req.body.id
+    id: req.body.id
   }
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {

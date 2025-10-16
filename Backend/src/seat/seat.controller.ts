@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { orm } from "../shared/db/orm.js";
 import { Seat } from "./seat.entity.js";
-import { seatRouter } from "./seat.routes.js";
 
 const em = orm.em
 
@@ -10,7 +9,8 @@ function sanitizeSeatInput(req: Request, res: Response, next: NextFunction) {
   req.body.sanitizedInput = {
     row: req.body.row,
     number: req.body.number,
-    id: req.body.id
+    id: req.body.id,
+    seatRoom: req.body.seatRoom
   }
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
@@ -25,7 +25,7 @@ function sanitizeSeatInput(req: Request, res: Response, next: NextFunction) {
 
 async function findAll (req: Request, res: Response) {
   try{
-    const seat = await em.find(Seat, {})
+    const seat = await em.find(Seat, {}, { populate: ['seatRoom'] })
     res.status(200).json({message: 'find all seat', data: seat})
   } catch (error: any){
     res.status(500).json({ message:'Not implemented' })

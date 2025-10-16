@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/astro/Header.astro';
+import AdminMovieRoomPanel from '../../components/react/AdminMovieRoomPanel.tsx';
+---
+
+<Layout title="Admin - Salas de Cine">
+  <Header />
+  <main class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <AdminMovieRoomPanel client:load />
+  </main>
+</Layout>

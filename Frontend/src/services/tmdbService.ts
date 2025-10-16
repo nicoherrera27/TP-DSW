@@ -9,7 +9,7 @@ export class TMDBService {
   private async fetchData<T>(endpoint: string, params: Record<string, string> = {}): Promise<T> {
   const searchParams = new URLSearchParams({
     api_key: API_KEY,
-    language: 'es-MX',
+    language: 'en-EN',
     ...params
     });
 

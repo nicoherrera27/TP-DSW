@@ -1,6 +1,6 @@
+import type { FC } from 'react'; // 1. Importar FC (Functional Component)
 import { ReadMore } from './ReadMore.tsx';
 
-// Definimos un tipo más genérico para las películas
 interface Movie {
   id: number | string;
   title: string;
@@ -10,20 +10,19 @@ interface Movie {
 
 interface MovieGridProps {
   movies: Movie[];
+  basePath?: string;
 }
 
-export function MovieGrid({ movies }: MovieGridProps) {
+// 2. Cambiar la definición a una constante tipada con FC
+export const MovieGrid: FC<MovieGridProps> = ({ movies, basePath = '/movie' }) => {
   return (
     <div className="movie-grid">
       {movies.map((movie) => {
-        // Usamos la URL del póster directamente
         const posterUrl = movie.poster_path ? movie.poster_path : '/placeholder-movie.png';
 
         return (
-          // El enlace ahora debería apuntar al detalle de la película en TMDB si es necesario,
-          // o a una página de detalle local si la creas.
-          // Por ahora, usaremos el tmdbId si existe para enlazar al detalle que ya tienes.
-          <a href={`/movie/${movie.id}`} key={movie.id} className="movie-card">
+          // 3. Usar la variable basePath para construir el enlace dinámicamente
+          <a href={`${basePath}/${movie.id}`} key={movie.id} className="movie-card">
             <img
               src={posterUrl}
               alt={`Póster de ${movie.title}`}
@@ -41,4 +40,4 @@ export function MovieGrid({ movies }: MovieGridProps) {
       })}
     </div>
   );
-}
+};

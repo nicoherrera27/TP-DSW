@@ -1,0 +1,72 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/astro/Header.astro';
+
+const adminSections = [
+  {
+    href: '/admin/peliculas',
+    title: 'Gestionar Películas',
+    description:
+      'Importar películas desde TMDB y gestionar la cartelera actual.',
+  },
+  {
+    href: '/admin/categorias',
+    title: 'Gestionar Categorías de Funciones',
+    description:
+      'Crear y eliminar tipos de funciones (ej. 2D, 3D, Subtitulada) y sus precios.',
+  },
+  {
+    href: '/admin/salas',
+    title: 'Gestionar Salas',
+    description:
+      'Añadir o eliminar salas de cine, definiendo su nombre y capacidad.',
+  },
+  {
+    href: '/admin/asientos',
+    title: 'Gestionar Asientos',
+    description:
+      'Añadir o eliminar asientos, asignándolos a una sala existente.',
+  },
+  {
+    href: '/admin/funciones',
+    title: 'Gestionar Funciones',
+    description:
+      'Programar nuevas funciones asignando película, sala y categoría.',
+  },
+  {
+    href: '/admin/horarios',
+    title: 'Gestionar Horarios',
+    description: 'Añadir horarios a las funciones ya creadas.',
+  },
+  {
+    href: '/admin/usuarios',
+    title: 'Ver Usuarios',
+    description: 'Consultar la lista de usuarios registrados en el sistema.',
+  },
+];
+---
+
+<Layout title="Panel de Administración - CineVerse">
+  <Header />
+  <main class="container" style="padding: 2rem;">
+    <h1 style="color: black; font-size: 2.5rem; margin-bottom: 2rem;">
+      Panel de Administración
+    </h1>
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;"
+    >
+      {
+        adminSections.map((section) => (
+          <a href={section.href} style="text-decoration: none; color: inherit;">
+            <div style="background-color: #f0f0f0; padding: 1.5rem; border-radius: 8px; border: 1px solid #ddd; height: 100%;">
+              <h2 style="color: #1a88c7; font-size: 1.5rem; margin-top: 0; margin-bottom: 0.5rem;">
+                {section.title}
+              </h2>
+              <p style="color: #333; font-size: 1rem;">{section.description}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+</Layout>

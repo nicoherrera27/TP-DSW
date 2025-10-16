@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/astro/Header.astro';
+import AdminTimeTablePanel from '../../components/react/AdminTimeTablePanel.tsx';
+---
+
+<Layout title="Admin - Horarios">
+  <Header />
+  <main class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <AdminTimeTablePanel client:load />
+  </main>
+</Layout>

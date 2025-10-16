@@ -15,7 +15,8 @@ function sanitizeMovieInput(req: Request, res: Response, next: NextFunction) {
     duration: req.body.duration,
     synopsis: req.body.synopsis,
     id: req.body.id,
-    url: req.body.url
+    url: req.body.url,
+    genre: req.body.genre
   }
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
@@ -35,30 +36,31 @@ async function importFromTmdb(req: Request, res: Response) {
       return res.status(400).json({ message: 'El ID de TMDB es requerido' });
     }
 
-    // 1. Verificar si la película ya existe en nuestra BD
     const existingMovie = await em.findOne(Movie, { tmdbId: tmdbId });
     if (existingMovie) {
       return res.status(409).json({ message: 'Esta película ya ha sido importada' });
     }
 
-    // 2. Obtener detalles de la película desde TMDB
     const tmdbResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${API_KEY}&language=es-MX`);
     if (!tmdbResponse.ok) {
       throw new Error('No se pudo obtener la información de la película desde TMDB');
     }
     const movieDetails = await tmdbResponse.json();
 
-    // 3. Mapear datos y crear la nueva entidad
     const newMovie = new Movie();
     newMovie.tmdbId = movieDetails.id;
-    newMovie.name = movieDetails.title;
+    // CORRECCIÓN: Añadimos fallbacks para el nombre y la sinopsis
+    newMovie.name = movieDetails.title || movieDetails.original_title || 'Título no disponible';
     newMovie.duration = movieDetails.runtime || 0;
-    newMovie.synopsis = movieDetails.overview;
+    newMovie.synopsis = movieDetails.overview || 'Sin sinopsis disponible.';
     newMovie.url = movieDetails.poster_path 
       ? `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`
       : 'URL_POR_DEFECTO_SI_NO_HAY_POSTER';
 
-    // 4. Persistir en la base de datos
+    if (movieDetails.genres && movieDetails.genres.length > 0) {
+      newMovie.genre = movieDetails.genres.map((g: any) => g.name).join(', ');
+    }
+
     await em.persistAndFlush(newMovie);
 
     res.status(201).json({ message: 'Película importada correctamente', data: newMovie });
