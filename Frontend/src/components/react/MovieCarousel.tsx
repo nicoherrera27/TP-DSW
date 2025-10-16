@@ -21,17 +21,19 @@ export function MovieCarousel() {
   useEffect(() => {
     const fetchUpcomingMovies = async () => {
       try {
-        const response = await tmdbService.getUpcomingMovies();
-        const oneMonthAgo = new Date();
-        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 2);
-        oneMonthAgo.setHours(0, 0, 0, 0);
+        const pagesToFetch = [1, 2, 3];
+        const promises = pagesToFetch.map(page => tmdbService.getUpcomingMovies(page));
+        const responses = await Promise.all(promises);
+        const allUpcomingMovies = responses.flatMap(response => response.results);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-        const filteredMovies = response.results.filter(movie => {
+        const futureMovies = allUpcomingMovies.filter(movie => {
           const releaseDate = new Date(movie.release_date);
-          return releaseDate >= oneMonthAgo;
+          return releaseDate >= today;
         });
 
-        setMovies(filteredMovies.slice(0, 10));
+        setMovies(futureMovies.slice(0, 10));
       } catch (error) {
         console.error('Error fetching upcoming movies:', error);
       } finally {
@@ -69,7 +71,7 @@ export function MovieCarousel() {
     <section className="carousel-section">
       <div className="carousel-container">
         <header className="carousel-header">
-          <h2 className="carousel-title">Estrenos principales</h2>
+          <h2 className="carousel-title">Próximos Estrenos</h2>
         </header>
 
         <div className="carousel-wrapper">

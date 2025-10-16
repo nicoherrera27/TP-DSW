@@ -9,10 +9,10 @@ POST http://localhost:3000/api/movies
 Content-Type: application/json
 
 {
-    "name": "F1 The Movie",
-    "duration": 180,
-    "synopsis": "F1 The Movie is a documentary that takes you behind the scenes of the Formula 1 racing world, showcasing the intense competition and the lives of the drivers.",
-    "url": "https://www.dropbox.com/scl/fi/c7x7n3p4vydlir57jf4ti/MV5BZTYwYjJhNzYtY2ZiZS00ZmYxLWJkZjctYjRlNGIxYjI3ZTU0XkEyXkFqcGc-._V1_FMjpg_UX1000_.jpg?rlkey=tzcvo8fx6dbv23u5l75uvttb2&st=927v85x9&dl=0"
+    "name": "Star Wars: Una Nueva Esperanza (Aniversario)",
+    "duration": 121,
+    "synopsis": "Únete a la celebración del aniversario de la saga que cambió la galaxia. Proyección especial remasterizada de la película original que lo empezó todo. ¡Que la Fuerza te acompañe!",
+    "url": "https://m.media-amazon.com/images/I/71Um2ouHp-L._AC_SY879_.jpg"
 }
 
 ### PUT (modificacion completa)
