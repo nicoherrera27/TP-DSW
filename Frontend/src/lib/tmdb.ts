@@ -9,7 +9,7 @@ export class TMDBApi {
 
     const searchParams = new URLSearchParams({
       api_key: API_KEY,
-      language: 'es-MX',
+      language: 'en-EN',
       ...params
     });
 

@@ -41,7 +41,7 @@ async function importFromTmdb(req: Request, res: Response) {
       return res.status(409).json({ message: 'Esta película ya ha sido importada' });
     }
 
-    const tmdbResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${API_KEY}&language=es-MX`);
+    const tmdbResponse = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${API_KEY}&language=en-EN`);
     if (!tmdbResponse.ok) {
       throw new Error('No se pudo obtener la información de la película desde TMDB');
     }

@@ -1,71 +1,17 @@
 ---
+// src/pages/cartelera.astro
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/astro/Header.astro';
-import { MovieGrid } from '../components/react/MovieGrid.tsx';
+import Billboard from '../components/react/Billboard.tsx'; // Importamos el nuevo componente
 import '../styles/cartelera.css';
-
-interface Movie {
-  id: number | string;
-  title: string;
-  overview: string;
-  poster_path: string | null;
-}
-
-let moviesFromDB: Movie[] = [];
-
-try {
-  const response = await fetch('http://localhost:3000/api/show/cartelera');
-  const showsData = await response.json();
-
-  if (showsData.data && Array.isArray(showsData.data)) {
-    const uniqueMovies = new Map();
-    showsData.data.forEach((show: any) => {
-      // Nos aseguramos de que la película exista y no la hayamos agregado ya
-      if (show.showMovie && !uniqueMovies.has(show.showMovie.id)) {
-        uniqueMovies.set(show.showMovie.id, show.showMovie);
-      }
-    });
-
-    moviesFromDB = Array.from(uniqueMovies.values())
-      // CORRECCIÓN 1: Filtramos para asegurar que la película tiene un tmdbId
-      .filter((movie: any) => movie && movie.tmdbId)
-      .map((movie: any) => ({
-        // CORRECCIÓN 2: Usamos el tmdbId para el enlace
-        id: movie.tmdbId,
-        title: movie.name,
-        overview: movie.synopsis,
-        poster_path: movie.url,
-      }));
-  }
-} catch (error) {
-  console.error('Error al cargar la cartelera:', error);
-}
 ---
 
 <Layout title="Cartelera - CineVerse">
   <Header />
   <main class="cartelera">
     <div class="container">
-      <header class="cartelera-header">
-        <h1>Nuestra Cartelera</h1>
-        <div class="filters">
-          <select class="filter-select">
-            <option>Todas las películas</option>
-          </select>
-        </div>
-      </header>
-
-      <section class="movie-section">
-        {
-          moviesFromDB.length > 0 ? (
-            <MovieGrid movies={moviesFromDB} client:load />
-          ) : (
-            <p style="color: black; text-align: center; font-size: 1.2rem;">
-              No hay funciones disponibles en la cartelera en este momento.
-            </p>
-          )
-        }
-      </section>
+      {/* ¡Toda la lógica ahora vive dentro de este componente! */}
+      <Billboard client:load />
     </div>
   </main>
 </Layout>

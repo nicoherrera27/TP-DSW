@@ -3,21 +3,18 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/astro/Header.astro';
 import { MovieGrid } from '../components/react/MovieGrid.tsx';
 import '../styles/movie-detail.css';
+import '../styles/cartelera.css';
 
 let moviesForGrid: any[] = [];
-
 try {
-  const response = await fetch('http://localhost:3000/api/show/specials');
-
+  const response = await fetch('http://127.0.0.1:3000/api/show/specials');
   if (response.ok) {
     const json = await response.json();
-    const specialShows = json.data;
-
+    const specialShows = json.data || [];
     if (specialShows && Array.isArray(specialShows)) {
       moviesForGrid = specialShows
         .filter((show) => show && show.showMovie && show.showMovie.tmdbId)
         .map((show) => ({
-          // 1. CORRECCIÓN: Usamos el tmdbId de la película para el enlace
           id: show.showMovie.tmdbId,
           title: show.showMovie.name,
           overview: show.showMovie.synopsis,
@@ -36,34 +33,41 @@ try {
 
 <Layout title="Funciones Especiales - CineVerse">
   <Header />
-  <main class="container">
-    <h1 class="page-title">Funciones Especiales</h1>
-    <p class="page-subtitle">
-      Eventos únicos y proyecciones míticas que no te podés perder.
-    </p>
-
-    {
-      moviesForGrid.length > 0 ? (
-        // 2. CORRECCIÓN: Apuntamos al basePath de las películas normales
-        <MovieGrid movies={moviesForGrid} basePath="/movie" client:load />
-      ) : (
-        <p style="color: white; text-align: center;">
-          No hay funciones especiales disponibles en este momento.
+  {/* 2. Usamos la misma estructura y clases que en cartelera.astro */}
+  <main class="cartelera">
+    <div class="container">
+      <header class="cartelera-header">
+        <h1>Funciones Especiales</h1>
+        {/* 3. Agregamos el subtítulo que pediste */}
+        <p class="page-subtitle">
+          Eventos únicos y proyecciones míticas que no te podés perder.
         </p>
-      )
-    }
+      </header>
+      <section class="movie-section">
+        {
+          moviesForGrid.length > 0 ? (
+            <MovieGrid movies={moviesForGrid} basePath="/movie" client:load />
+          ) : (
+            <p class="no-movies-message">
+              No hay funciones especiales disponibles en este momento.
+            </p>
+          )
+        }
+      </section>
+    </div>
   </main>
 </Layout>
 
+{/* 4. Estilos específicos para el subtítulo y el mensaje */}
 <style>
   .page-subtitle {
     font-size: 1.2rem;
-    color: #6b7280; /* Un gris oscuro para el subtítulo */
+    color: #333; /* Color de texto oscuro */
     margin-top: -1rem;
     margin-bottom: 2rem;
   }
   .no-movies-message {
-    color: #374151; /* <-- CAMBIO: Un gris oscuro para el texto */
+    color: #333; /* Color de texto oscuro */
     text-align: center;
     padding: 2rem;
     font-size: 1.1rem;

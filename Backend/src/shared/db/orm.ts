@@ -8,7 +8,7 @@ export const orm = await MikroORM.init({
    entitiesTs: ['./src/**/*.entity.ts'],
    dbName: 'cine_test',
    driver: MySqlDriver,
-   clientUrl: 'mysql://root:2719@localhost:3306/cine_test',
+   clientUrl: 'mysql://root:1864@localhost:3306/cine_test',
    //netadataProvider: TsMorphMetadataProvider,
    highlighter: new SqlHighlighter(),
    debug: true,

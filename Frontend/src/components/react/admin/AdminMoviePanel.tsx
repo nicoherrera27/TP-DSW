@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { tmdbService } from '../../services/tmdbService';
-import type { TMDBMovie } from '../../types/movies';
+import { tmdbService } from '@/services/tmdbService.ts';
+import type { TMDBMovie } from '@/types/movies.ts';
 
 // Definimos un tipo para nuestras películas locales
 interface LocalMovie {

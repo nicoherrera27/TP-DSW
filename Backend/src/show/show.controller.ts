@@ -15,16 +15,26 @@ async function findAll(req: Request, res: Response){
   }
 }
 
-// ... (El resto del archivo no necesita cambios)
-async function findForCartelera(req: Request, res: Response){
-    try{
-      const shows = await em.find(Show, { isSpecial: false }, { populate: ['showMovie', 'showCat', 'showRoom'] });
-      res.status(200).json({message: 'Funciones de cartelera encontradas: ', data: shows})
-    } 
-    catch(error: any){
-      res.status(500).json({message: error.message})
+async function findForCartelera(req: Request, res: Response) {
+  try {
+    const { genre, format, variant } = req.query;
+    const filter: any = { isSpecial: false };
+    if (variant && typeof variant === 'string') {
+      filter.variant = variant;
     }
+    if (format && typeof format === 'string') {
+      filter.showCat = { description: format };
+    }
+    if (genre && typeof genre === 'string') {
+      filter.showMovie = { genre: { $like: `%${genre}%` } };
+    }
+    const shows = await em.find(Show, filter, { populate: ['showMovie', 'showCat', 'showRoom'] });
+    res.status(200).json({ message: 'Funciones de cartelera encontradas', data: shows });
+  } 
+  catch(error: any) {
+    res.status(500).json({ message: error.message });
   }
+}
   
   async function findShowsByMovie(req: Request, res: Response) {
       try {
