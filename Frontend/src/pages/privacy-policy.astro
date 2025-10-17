@@ -1,0 +1,76 @@
+---
+import '../styles/privacy-policy.css';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/astro/Header.astro';
+import Footer from '../components/astro/Footer.astro';
+const privacyPolicy = {
+  lastUpdated: '17 de octubre de 2025',
+  contactEmail: 'info@cineverse.com.ar',
+sections: [
+    {
+      title: '¿Qué Información Recolectamos?',
+      content: `
+        <p><strong>Datos que nos proporcionás:</strong> Recolectamos la información personal que ingresás al registrarte o interactuar con nuestro sitio, como tu nombre, correo electrónico, nombre de usuario y contraseña.</p>
+        <p><strong>Información de Navegación:</strong> De forma automática, recibimos datos técnicos como tu dirección IP, tipo de navegador y las páginas que visitás dentro de CineVerse. Usamos esta información para mejorar nuestro servicio y entender qué es lo más popular.</p>
+        <p><strong>Cookies:</strong> Utilizamos cookies (pequeños archivos de texto) para personalizar tu experiencia, recordar tus preferencias y hacer que tu navegación sea más fluida. Podés configurar tu navegador para rechazarlas si lo preferís.</p>
+      `
+    },
+    {
+      title: '¿Cómo Usamos tu Información?',
+      content: `
+        <p>Usamos tus datos para:</p>
+        <ul>
+          <li>Operar el sitio y brindarte los servicios que solicitás.</li>
+          <li>Informarte sobre estrenos, promociones y novedades de CineVerse.</li>
+          <li>Mejorar la calidad de nuestro sitio y personalizar tu experiencia.</li>
+          <li>Realizar encuestas para conocer tu opinión.</li>
+        </ul>
+        <p><strong>Importante:</strong> Nunca venderemos, alquilaremos ni transferiremos tus datos personales a terceros. Solo compartiremos tu información si una autoridad legal nos lo exige.</p>
+      `
+    },
+    {
+      title: 'Seguridad y Tus Derechos',
+      content: `
+        <p><strong>Seguridad:</strong> Protegemos tu información personal en servidores seguros para evitar el acceso no autorizado.</p>
+        <p><strong>Tus Derechos:</strong> Tenés derecho a acceder a tus datos personales o solicitar su eliminación en cualquier momento. Para hacerlo, simplemente contactanos a través de <strong>${'privacidad@cineverse.com'}</strong>.</p>
+      `
+    },
+    {
+      title: 'Cambios a esta Política',
+      content: `
+        <p>Podemos actualizar esta política de privacidad periódicamente. Te recomendamos revisarla de vez en cuando para mantenerte informado sobre cómo protegemos tu información.</p>
+        <p>El uso de nuestro sitio implica que leíste y aceptaste estos términos.</p>
+      `
+    }
+  ]
+};
+---
+---
+
+<Layout title="CineVerse - Política de Privacidad">
+  <Header />
+  <main class="cartelera">
+    <div class="container">
+      <header class="cartelera-header">
+        <h1>Política de Privacidad</h1>
+        <p class="page-subtitle">Última actualización: {privacyPolicy.lastUpdated}</p>
+      </header>
+
+      <div class="privacy-content">
+        {privacyPolicy.sections.map(section => (
+          <section class="privacy-section">
+            <div style="background-color: #f0f0f0; padding: 1.5rem; border-radius: 8px; border: 1px solid #ddd; height: 100%;">
+            <h2>{section.title}</h2>
+            <Fragment set:html={section.content} />
+            </div>
+          </section>
+        ))}
+        <p class="contact-info">
+          Si tenés alguna duda, podés escribirnos a <a href={`mailto:${privacyPolicy.contactEmail}`}>{privacyPolicy.contactEmail}</a>.
+        </p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+

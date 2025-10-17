@@ -2,6 +2,7 @@
 import LoginForm from '../components/react/LoginForm';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/astro/Header.astro';
+import Footer from '../components/astro/Footer.astro';
 import '../styles/register.css'; // Asegúrate de importar los estilos
 ---
 
@@ -10,4 +11,5 @@ import '../styles/register.css'; // Asegúrate de importar los estilos
   <div class="register-container">
     <LoginForm client:visible />
   </div>
+  <Footer />
 </Layout>

@@ -1,7 +1,7 @@
 ---
-// src/pages/cartelera.astro
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/astro/Header.astro';
+import Footer from '../components/astro/Footer.astro';
 import Billboard from '../components/react/Billboard.tsx'; // Importamos el nuevo componente
 import '../styles/cartelera.css';
 ---
@@ -14,4 +14,5 @@ import '../styles/cartelera.css';
       <Billboard client:load />
     </div>
   </main>
+  <Footer />
 </Layout>
