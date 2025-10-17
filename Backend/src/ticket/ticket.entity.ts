@@ -2,6 +2,7 @@ import { Entity, PrimaryKey, Property, OneToMany, Cascade, Collection, ManyToOne
 import { BaseEntity } from '../shared/db/baseEntity.entity.js'
 import { Sale } from "../sale/sale.entity.js";
 import { Show } from "../show/show.entity.js";
+import { TicketType } from "../ticket_type/ticketType.entity.js";
 
 @Entity()
 export class Ticket extends BaseEntity{
@@ -20,5 +21,8 @@ export class Ticket extends BaseEntity{
 
     @ManyToOne({entity: () => Show})
     showTicket!: Rel<Show>
+
+    @OneToMany({entity: () => TicketType, mappedBy: 'ticket', cascade: [Cascade.ALL]})
+    ticketTypes = new Collection<TicketType>(this)
 
 }

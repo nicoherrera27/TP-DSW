@@ -16,7 +16,6 @@ export class Movie extends BaseEntity{
   duration!: number;
 
   @Property({type: 'text'})
-  @Property({type: 'text'})
   synopsis?: string;
 
   @Property()

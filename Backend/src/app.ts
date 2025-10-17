@@ -9,7 +9,8 @@ import { showCategoryRouter } from './show_category/show_category.routes.js'
 import { showRouter } from './show/show.routes.js'
 import { movieRouter } from './movie/movie.routes.js'
 import { seatRouter } from './seat/seat.routes.js'
-import { timetableRouter } from './time_table/timetable.routes.js'  
+import { timetableRouter } from './time_table/timetable.routes.js' 
+import { ticketTypeRouter } from './ticket_type/ticketType.routes.js' 
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.use('/api/show', showRouter)
 app.use('/api/movies', movieRouter)
 app.use('/api/Seat', seatRouter)
 app.use('/api/timetables', timetableRouter)
+app.use('/api/ticketTypes', ticketTypeRouter)
 
 app.use((_, res) => {
   res.status(404).send({ message: 'Resource not found' })
