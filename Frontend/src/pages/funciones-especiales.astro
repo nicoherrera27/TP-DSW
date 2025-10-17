@@ -1,7 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/astro/Header.astro';
-import Footer from '../components/astro/Footer.astro';
 import { MovieGrid } from '../components/react/MovieGrid.tsx';
 import '../styles/movie-detail.css';
 import '../styles/cartelera.css';
@@ -33,7 +31,6 @@ try {
 ---
 
 <Layout title="Funciones Especiales - CineVerse">
-  <Header />
   {/* 2. Usamos la misma estructura y clases que en cartelera.astro */}
   <main class="cartelera">
     <div class="container">
@@ -57,7 +54,6 @@ try {
       </section>
     </div>
   </main>
-  <Footer />
 </Layout>
 
 {/* 4. Estilos específicos para el subtítulo y el mensaje */}

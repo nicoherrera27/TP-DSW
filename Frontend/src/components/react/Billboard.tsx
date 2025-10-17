@@ -76,7 +76,7 @@ fetch(`http://localhost:3000/api/show/cartelera?${queryParams.toString()}`)
       <header className="cartelera-header">
         <h1>Nuestra Cartelera</h1>
         <div className="filters">
-          {/* Filtro de Formato */}
+          {/*Filtro de Formato*/}
           <select name="format" value={filters.format} onChange={handleFilterChange} className="filter-select">
             <option value="">Todos los Formatos</option>
             <option value="2D">2D</option>
@@ -91,14 +91,16 @@ fetch(`http://localhost:3000/api/show/cartelera?${queryParams.toString()}`)
             <option value="Subtitulada">Subtitulada</option>
           </select>
 
-          {/* Filtro de Género */}
+          {/*Filtro de Genero */}
           <select name="genre" value={filters.genre} onChange={handleFilterChange} className="filter-select">
             <option value="">Todos los Géneros</option>
-            <option value="Acción">Acción</option>
-            <option value="Comedia">Comedia</option>
-            <option value="Terror">Terror</option>
+            <option value="Action">Accion</option>
+            <option value="Comedy">Comedia</option>
+            <option value="Horror">Terror</option>
             <option value="Drama">Drama</option>
-            <option value="Ciencia ficción">Ciencia ficción</option>
+            <option value="Science Fiction">Ciencia ficción</option>
+            <option value="Animation">Animacion</option>
+            <option value="Romance">Romance</option>
           </select>
         </div>
       </header>

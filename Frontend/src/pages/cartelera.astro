@@ -1,18 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/astro/Header.astro';
-import Footer from '../components/astro/Footer.astro';
 import Billboard from '../components/react/Billboard.tsx'; // Importamos el nuevo componente
 import '../styles/cartelera.css';
 ---
 
 <Layout title="Cartelera - CineVerse">
-  <Header />
   <main class="cartelera">
     <div class="container">
-      {/* ¡Toda la lógica ahora vive dentro de este componente! */}
       <Billboard client:load />
     </div>
   </main>
-  <Footer />
 </Layout>

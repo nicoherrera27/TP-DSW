@@ -1,7 +1,14 @@
-.privacy-main-container {
+.privacy-header h1 {
+  font-size: 2.5rem;
+  color: black;
+}
+
+.privacy-box{
   background-color: #f0f0f0; 
-  padding: 3rem 1rem;
-  color: #333;
+  padding: 1.5rem; 
+  border-radius: 8px; 
+  border: 1px solid #ddd; 
+  height: 100%;
 }
 
 .privacy-content-box {
