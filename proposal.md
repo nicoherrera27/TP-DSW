@@ -29,17 +29,17 @@ Sistema web diseñado para facilitar la administración integral de un cine. Per
 Regularidad:
 |Req|Detalle|
 |:-|:-|
-|CRUD simple|1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Genero|
-|CRUD dependiente|1. CRUD Pelicula {depende de} CRUD Genero<br>2. CRUD Funcion {depende de} CRUD Sala|
-|Listado<br>+<br>detalle| 1. Listado de peliculas filtrado por genero, muestra nombre, duracion y funciones disponibles para el dia actual. <br> 2. Listado de entradas vendidas por rango de fecha y pelicula 
-|CUU/Epic|1. Seleccion de promociones de entrada<br>2. Compra de entrada|
+|CRUD simple|1. CRUD Usuario<br>2. CRUD Pelicula|
+|CRUD dependiente|1. CRUD Funcion {depende de Tipo de Funcion}|
+|Listado<br>+<br>detalle| 1. Listado de peliculas filtrado por genero, muestra nombre, duracion y funciones disponibles para el dia actual. 
+|CUU/Epic|1. Venta de entrada|
 
 
 Adicionales para Aprobación
 |Req|Detalle|
 |:-|:-|
-|CRUD |1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Genero<br>4. CRUD Pelicula<br>5. CRUD Compra<br>6. CRUD Entrada<br>7. CRUD Funcion<br>8. CRUD Tipo Funcion<br>9. CRUD Valor Historico|
-|CUU/Epic|1. Seleccion de promociones de entrada<br>2. Compra de entrada<br> 3. Reseñas|
+|CRUD |1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Pelicula<br>4. CRUD Venta<br>5. CRUD Entrada<br>6. CRUD Funcion<br>7. CRUD Tipo Funcion<br>8. CRUD Valor Historico <br> 9. CRUD Horarios <br> 10. CRUD Promociones <br> 11. CRUD Recargos|
+|CUU/Epic|1. Seleccion de promociones de entrada<br>2. Compra de entrada<br> 3. Pago Digital con MP/Stripe <br> 4. Sinopsis|
 
 
 
@@ -49,7 +49,7 @@ Adicionales para Aprobación
 
 |Req|Detalle|
 |:-|:-|
-|Listados |1. Estadía del día filtrado por fecha muestra, cliente, habitaciones y estado <br>2. Reservas filtradas por cliente muestra datos del cliente y de cada reserve fechas, estado cantidad de habitaciones y huespedes|
-|CUU/Epic|1. Sinopsis<br>2. Pago digital con MercadoPago|
+|Listados |1. Listado de horarios por tipo de funcion <br>2. Listado de promociones por dia|
+|CUU/Epic|1. Reseñas<br>|
 |Otros|1. Envío de entrada por email|
 
