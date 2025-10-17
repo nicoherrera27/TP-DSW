@@ -21,6 +21,9 @@ export class Show extends BaseEntity{
   @Property({ nullable: true })
   variant?: string; // "Doblada" o "Subtitulada"
 
+  @Property({ nullable: true})
+  recharge?: number;
+  
   @ManyToOne({entity: () => ShowCategory})
   showCat!: Rel<ShowCategory>;
 

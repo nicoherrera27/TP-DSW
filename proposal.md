@@ -38,7 +38,7 @@ Regularidad:
 Adicionales para Aprobación
 |Req|Detalle|
 |:-|:-|
-|CRUD |1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Pelicula<br>4. CRUD Venta<br>5. CRUD Entrada<br>6. CRUD Funcion<br>7. CRUD Tipo Funcion<br>8. CRUD Valor Historico <br> 9. CRUD Horarios <br> 10. CRUD Promociones <br> 11. CRUD Recargos|
+|CRUD |1. CRUD Usuario<br>2. CRUD Sala<br>3. CRUD Pelicula<br>4. CRUD Venta<br>5. CRUD Entrada<br>6. CRUD Funcion<br>7. CRUD Tipo Funcion<br>8. CRUD Valor Historico <br> 9. CRUD Horarios <br> 10. CRUD Tipo de Entrada|
 |CUU/Epic|1. Seleccion de promociones de entrada<br>2. Compra de entrada<br> 3. Pago Digital con MP/Stripe <br> 4. Sinopsis |
 
 
