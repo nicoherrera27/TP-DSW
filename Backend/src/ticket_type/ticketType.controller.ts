@@ -7,7 +7,7 @@ function sanitizeTicketTypeInput(req: Request, res: Response, next: NextFunction
   // Aca se realizarian las validaciones //
   req.body.sanitizedInput = {
     description: req.body.description,
-    ticket: req.body.ticket
+    bonification: req.body.bonification
   }
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {

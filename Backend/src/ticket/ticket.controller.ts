@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { orm } from "../shared/db/orm.js";
 import { Ticket } from "./ticket.entity.js";
-import { ticketRouter } from "./ticket.routes.js";
 
 const em = orm.em
 
@@ -26,7 +25,7 @@ function sanitizeTicketInput(req: Request, res: Response, next: NextFunction) {
 
 async function findAll (req: Request, res: Response) {
   try{
-    const ticket = await em.find(Ticket, {}, {populate: ['showTicket', 'ticketSale', 'ticketTypes']})
+    const ticket = await em.find(Ticket, {}, {populate: ['showTicket', 'ticketSale']})
     res.status(200).json({message: 'find all ticket', data: ticket})
   } catch (error: any){
     res.status(500).json({ message:'Not implemented' })
@@ -36,7 +35,7 @@ async function findAll (req: Request, res: Response) {
 async function findOne (req: Request, res: Response) {
   try{
     const id = Number.parseInt(req.params.id)
-    const ticket = await em.findOneOrFail(Ticket,  id, {populate: ['showTicket', 'ticketSale', 'ticketTypes']})
+    const ticket = await em.findOneOrFail(Ticket,  id, {populate: ['showTicket', 'ticketSale']})
     res.status(200).json({message: 'found ticket', data: ticket})
   } catch (error: any){
     res.status(500).json({ message: error.message})
