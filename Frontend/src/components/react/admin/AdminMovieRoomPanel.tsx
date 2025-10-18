@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { api } from '@/services/apiClient';
 
 interface MovieRoom {
   id: number;
@@ -17,8 +18,8 @@ const AdminMovieRoomPanel = () => {
   const fetchRooms = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3000/api/halls');
-      if (response.ok) setRooms((await response.json()).data);
+      const response = await api.get<{ data: MovieRoom[] }>('/api/halls');
+      setRooms(response.data);
     } catch (error) {
       setMessage('❌ Error al cargar las salas.');
     } finally {
@@ -34,36 +35,26 @@ const AdminMovieRoomPanel = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:3000/api/halls', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: newRoom.name, capacity: parseInt(newRoom.capacity, 10) }),
+      const data = await api.post<{ data: MovieRoom }>('/api/halls', { 
+        name: newRoom.name, 
+        capacity: parseInt(newRoom.capacity, 10) 
       });
-      const data = await res.json();
-      if (res.ok) {
-        setMessage(`✅ Sala creada: ${data.data.name}`);
-        fetchRooms();
-        setNewRoom({ name: '', capacity: '' });
-      } else {
-        setMessage(`❌ Error: ${data.message}`);
-      }
-    } catch (error) {
-      setMessage('❌ Error de conexión con el backend.');
+      setMessage(`✅ Sala creada: ${data.data.name}`);
+      fetchRooms();
+      setNewRoom({ name: '', capacity: '' });
+    } catch (error: any) {
+      setMessage(`❌ Error: ${error.message}`);
     }
   };
 
   const handleDelete = async (id: number) => {
     if (!confirm('¿Seguro que quieres eliminar esta sala?')) return;
     try {
-      const res = await fetch(`http://localhost:3000/api/halls/${id}`, { method: 'DELETE' });
-      if (res.ok) {
-        setMessage('✅ Sala eliminada.');
-        fetchRooms();
-      } else {
-        setMessage(`❌ Error al eliminar: ${(await res.json()).message}`);
-      }
-    } catch (error) {
-      setMessage('❌ Error de conexión.');
+      await api.delete(`/api/halls/${id}`);
+      setMessage('✅ Sala eliminada.');
+      fetchRooms();
+    } catch (error: any) {
+      setMessage(`❌ Error al eliminar: ${error.message}`);
     }
   };
 
@@ -87,7 +78,7 @@ const AdminMovieRoomPanel = () => {
       )}
       {message && <p style={{ textAlign: 'center', marginTop: '20px', fontWeight: 'bold' }}>{message}</p>}
     </div>
-  );
+);
 };
 
 export default AdminMovieRoomPanel;

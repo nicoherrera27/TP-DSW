@@ -1,6 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import AdminTicketTypePanel from '@/components/react/admin/AdminTicketTypePanel';
+import AdminTicketTypePanel from '@/components/react/admin/AdminTicketTypePanel.tsx';
+import { getAuthenticatedUser } from '../../lib/auth';
+
+// --- GUARDIA DE SEGURIDAD ---
+const user = getAuthenticatedUser(Astro.cookies);
+if (!user || user.role !== 'admin') {
+  return Astro.redirect('/login');
+}
+// --- FIN DEL GUARDIA ---
 ---
 
 <Layout title="Admin - Tipos de Tickets">

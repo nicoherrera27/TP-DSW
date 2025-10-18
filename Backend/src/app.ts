@@ -1,6 +1,7 @@
-import cors from 'cors'
+
 import 'reflect-metadata'
 import express from 'express'
+import cors from 'cors'
 import { userRouter } from './user/user.routes.js'
 import { RequestContext } from '@mikro-orm/mysql'
 import { orm, syncSchema } from './shared/db/orm.js'
@@ -11,6 +12,7 @@ import { movieRouter } from './movie/movie.routes.js'
 import { seatRouter } from './seat/seat.routes.js'
 import { timetableRouter } from './time_table/timetable.routes.js' 
 import { ticketTypeRouter } from './ticket_type/ticketType.routes.js' 
+
 
 const app = express()
 

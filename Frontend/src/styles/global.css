@@ -5,8 +5,8 @@
   --color-secondary: #1a88c7;;
   --color-bg-dark: #0a1929;
   --color-bg-card: #1a2332;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #999999;
+  --color-text-primary: #000000;
+  --color-text-secondary: #e9e6e6;
   --color-border: #2a3545;
 }
 
@@ -22,7 +22,18 @@ body {
   background: var(--color-bg-dark);
   color: var(--color-text-primary);
   line-height: 1.6;
+
+    /* --- CORRECCIONES --- */
+  display: flex;             /* 1. Activa Flexbox */
+  flex-direction: column;    /* 2. Organiza los elementos en columna (Header, Main, Footer) */
+  min-height: 100vh;         /* 3. Asegura que el body ocupe al menos toda la altura de la pantalla */
 }
+
+/* NUEVA REGLA: Hace que el contenido principal se estire */
+main {
+  flex-grow: 1; /* 4. Le dice al <main> que ocupe todo el espacio sobrante */
+}
+
 
 .container {
   max-width: 1400px;

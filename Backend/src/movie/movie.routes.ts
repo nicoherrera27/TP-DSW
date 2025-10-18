@@ -1,13 +1,16 @@
 import { Router } from "express";
 import { sanitizeMovieInput, findAll, findOne, create, update, remove, importFromTmdb } from "./movie.controller.js";
+import { authMiddleware, isAdmin } from "../shared/middleware/auth.js"; // <-- Importar ambos middlewares
 
-export const movieRouter = Router()
+export const movieRouter = Router();
 
-movieRouter.post('/import-from-tmdb', importFromTmdb); 
+// Rutas públicas
+movieRouter.get('/', findAll);
+movieRouter.get('/:id', findOne);
 
-movieRouter.get('/', findAll)
-movieRouter.get('/:id', findOne)
-movieRouter.post('/', sanitizeMovieInput, create)
-movieRouter.put('/:id',sanitizeMovieInput, update)
-movieRouter.patch('/:id', sanitizeMovieInput, update)
-movieRouter.delete('/:id', remove)
+// Rutas protegidas que ahora requieren rol de administrador
+movieRouter.post('/import-from-tmdb', [authMiddleware, isAdmin], importFromTmdb); 
+movieRouter.post('/', [authMiddleware, isAdmin], sanitizeMovieInput, create);
+movieRouter.put('/:id', [authMiddleware, isAdmin], sanitizeMovieInput, update);
+movieRouter.patch('/:id', [authMiddleware, isAdmin], sanitizeMovieInput, update);
+movieRouter.delete('/:id', [authMiddleware, isAdmin], remove);

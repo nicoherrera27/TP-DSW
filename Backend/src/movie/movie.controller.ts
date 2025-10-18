@@ -1,15 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import { orm } from "../shared/db/orm.js";
 import { Movie } from "./movie.entity.js";
-import { movieRouter } from "./movie.routes.js";
-import { url } from "inspector";
 
-const API_KEY = '4c13d79da36a97c80e70be9f823eb0ac';
+// CORRECCIÓN: Leemos la clave de API de forma segura desde las variables de entorno.
+const API_KEY = process.env.TMDB_API_KEY;
 
-const em = orm.em
+const em = orm.em;
 
 function sanitizeMovieInput(req: Request, res: Response, next: NextFunction) {
-  // Aca se realizarian las validaciones //
   req.body.sanitizedInput = {
     name: req.body.name,
     duration: req.body.duration,
@@ -17,23 +15,28 @@ function sanitizeMovieInput(req: Request, res: Response, next: NextFunction) {
     id: req.body.id,
     url: req.body.url,
     genre: req.body.genre
-  }
+  };
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
-    // Sirve para evitar guardar campos vacíos o inválidos en la base de datos
     if (req.body.sanitizedInput[key] === undefined) {
-      delete req.body.sanitizedInput[key]
+      delete req.body.sanitizedInput[key];
     }
-  })
+  });
 
-  next()
+  next();
 }
+
 async function importFromTmdb(req: Request, res: Response) {
   try {
     const { tmdbId } = req.body;
 
     if (!tmdbId) {
       return res.status(400).json({ message: 'El ID de TMDB es requerido' });
+    }
+    
+    // Verificación para asegurar que la API_KEY está cargada.
+    if (!API_KEY) {
+      throw new Error('La clave de API de TMDB no está configurada en el servidor.');
     }
 
     const existingMovie = await em.findOne(Movie, { tmdbId: tmdbId });
@@ -49,7 +52,6 @@ async function importFromTmdb(req: Request, res: Response) {
 
     const newMovie = new Movie();
     newMovie.tmdbId = movieDetails.id;
-    // CORRECCIÓN: Añadimos fallbacks para el nombre y la sinopsis
     newMovie.name = movieDetails.title || movieDetails.original_title || 'Título no disponible';
     newMovie.duration = movieDetails.runtime || 0;
     newMovie.synopsis = movieDetails.overview || 'Sin sinopsis disponible.';
@@ -70,66 +72,38 @@ async function importFromTmdb(req: Request, res: Response) {
   }
 }
 
-
-
 async function findAll (req: Request, res: Response) {
   try{
-    const movie = await em.find(Movie, {})
-    res.status(200).json({message: 'find all movie', data: movie})
+    const movie = await em.find(Movie, {});
+    res.status(200).json({message: 'find all movie', data: movie});
   } catch (error: any){
-    res.status(500).json({ message:'Not implemented' })
+    res.status(500).json({ message:'Not implemented' });
   }
 }
 
 async function findOne (req: Request, res: Response) {
   try{
-    const id = Number.parseInt(req.params.id)
-    const movie = await em.findOneOrFail(Movie,  id )
-    res.status(200).json({message: 'found movie', data: movie})
+    const id = Number.parseInt(req.params.id);
+    const movie = await em.findOneOrFail(Movie,  id );
+    res.status(200).json({message: 'found movie', data: movie});
   } catch (error: any){
-    res.status(500).json({ message: error.message})
+    res.status(500).json({ message: error.message});
   }
 }
 
-
-/*async function create (req: Request, res: Response) {  
-  try{
-
-     const input = req.body.sanitizedInput;
-
-    // Si la URL es de Google Drive, convertirla a formato directo
-    if (input.url) {
-      const driveMatch = input.url.match(/\/file\/d\/([^/]+)\//);
-      if (driveMatch && driveMatch[1]) {
-        const fileId = driveMatch[1];
-        input.url = `https://drive.google.com/uc?export=view&id=${fileId}`;
-      }
-    }
-
-    const movie = em.create(Movie, input) //await no es necesario aca porque es una operacion sincronica
-    await em.flush() //flush es una op asincronica por eso el await aca
-    res.status(201).json({ message: 'movie created', data: movie})
-  } catch (error: any){
-    res.status(500).json({ message: error.message})
-  }
-}*/
 async function create(req: Request, res: Response) {  
   try {
     const input = req.body.sanitizedInput;
 
-    // Si la URL es de Dropbox, convertirla a formato directo
     if (input.url && input.url.includes("dropbox.com")) {
-      // Si tiene ?dl=0, cambiarlo por ?raw=1
       if (input.url.includes("?dl=0")) {
         input.url = input.url.replace("?dl=0", "?raw=1");
-      } 
-      // Opción alternativa: usar el dominio dl.dropboxusercontent.com
-      else {
+      } else {
         input.url = input.url.replace("www.dropbox.com", "dl.dropboxusercontent.com");
       }
     }
 
-    const movie = em.create(Movie, input)
+    const movie = em.create(Movie, input);
     await em.flush();
 
     res.status(201).json({ message: "movie created", data: movie });
@@ -140,26 +114,25 @@ async function create(req: Request, res: Response) {
 
 async function update (req: Request, res: Response) {
   try{
-    const id = Number.parseInt(req.params.id)
-    const movie = em.getReference(Movie, id )
-    em.assign(movie, req.body)
-    await em.flush()
-    res.status(200).json({message: 'movie updated'})
+    const id = Number.parseInt(req.params.id);
+    const movie = em.getReference(Movie, id );
+    em.assign(movie, req.body);
+    await em.flush();
+    res.status(200).json({message: 'movie updated'});
   } catch (error: any){
-    res.status(500).json({ message: error.message})
+    res.status(500).json({ message: error.message});
   }
 }
 
 async function remove(req: Request, res: Response) {
   try{
-    const id = Number.parseInt(req.params.id)
-    const movie = em.getReference(Movie, id)
-    await em.removeAndFlush(movie)
-    //em.nativeDelete(Screening_room, {id}) este es un delete mas poderoso, se usa en operaciones importantes pero no tiene informacion de lo que borra (tener cuidado al usarlo)
-    res.status(200).send({message: 'movie deleted'})
+    const id = Number.parseInt(req.params.id);
+    const movie = em.getReference(Movie, id);
+    await em.removeAndFlush(movie);
+    res.status(200).send({message: 'movie deleted'});
   } catch (error: any){
-    res.status(500).json({ message: error.message})
+    res.status(500).json({ message: error.message});
   }
 }
 
-export { sanitizeMovieInput, findAll, findOne, create, update, remove, importFromTmdb }
+export { sanitizeMovieInput, findAll, findOne, create, update, remove, importFromTmdb };

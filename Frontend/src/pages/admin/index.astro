@@ -1,5 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getAuthenticatedUser } from '../../lib/auth';
+
+// --- GUARDIA DE SEGURIDAD ---
+const user = getAuthenticatedUser(Astro.cookies);
+if (!user || user.role !== 'admin') {
+  return Astro.redirect('/login');
+}
+// --- FIN DEL GUARDIA ---
 
 const adminSections = [
   {
@@ -12,13 +20,19 @@ const adminSections = [
     href: '/admin/categorias',
     title: 'Gestionar Categorías de Funciones',
     description:
-      'Crear y eliminar tipos de funciones (ej. 2D, 3D, Subtitulada) y sus precios.',
+      'Crear y eliminar tipos de funciones (ej. 2D, 3D) y sus precios.',
   },
   {
     href: '/admin/salas',
     title: 'Gestionar Salas',
     description:
       'Añadir o eliminar salas de cine, definiendo su nombre y capacidad.',
+  },
+  {
+    href: '/admin/asientos',
+    title: 'Gestionar Asientos',
+    description:
+      'Añadir o eliminar asientos, asignándolos a una sala existente.',
   },
   {
     href: '/admin/funciones',

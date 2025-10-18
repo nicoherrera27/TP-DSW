@@ -9,19 +9,18 @@ import {
     remove, 
     findSpecials 
 } from "./show.controller.js";
+import { authMiddleware, isAdmin } from "../shared/middleware/auth.js";
 
 export const showRouter = Router();
 
-// Rutas más específicas primero
+// --- Rutas Públicas (para visualización) ---
 showRouter.get('/specials', findSpecials);
 showRouter.get('/cartelera', findForCartelera);
 showRouter.get('/by-movie/:tmdbId', findShowsByMovie);
-
-// Rutas para la colección principal
-showRouter.get('/', findAll);
-showRouter.post('/', create);
-
-// Rutas para un recurso específico (por ID)
+showRouter.get('/', findAll); // Usado por el admin para listar, pero no modifica datos
 showRouter.get('/:id', findOne);
-showRouter.put('/:id', update);
-showRouter.delete('/:id', remove); // <-- Ahora sí funcionará
+
+// --- Rutas Protegidas (Solo Admin) ---
+showRouter.post('/', [authMiddleware, isAdmin], create);
+showRouter.put('/:id', [authMiddleware, isAdmin], update);
+showRouter.delete('/:id', [authMiddleware, isAdmin], remove);

@@ -24,6 +24,9 @@ export class User extends BaseEntity {
   @Property({type: 'date', nullable: false})
   birthdate!: Date
 
+  @Property()
+  role:'admin' | 'client' = 'client';
+
   @OneToMany({entity: () => Sale, mappedBy: 'userSale', cascade: [Cascade.ALL]} )
   sales = new Collection<Sale>(this)
 }

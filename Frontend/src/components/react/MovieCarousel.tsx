@@ -70,9 +70,7 @@ export function MovieCarousel() {
   return (
     <section className="carousel-section">
       <div className="carousel-container">
-        <header className="carousel-header">
           <h2 className="carousel-title">Próximos Estrenos</h2>
-        </header>
 
         <div className="carousel-wrapper">
           <div 

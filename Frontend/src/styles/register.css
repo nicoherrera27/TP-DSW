@@ -33,7 +33,7 @@
 .register-form input {
   width: 100%;
   padding: 0.8rem 1rem;
-  background-color: var(--color-bg-dark, black);
+  background-color: var(--color-text-secondary, black);
   border: 1px solid var(--color-border, white);
   border-radius: 6px;
   color: var(--color-text-primary, #ffffff);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import { api } from '@/services/apiClient';
 
-// Definimos un tipo para nuestras categorías de funciones
 interface ShowCategory {
   id: number;
   description: string;
@@ -8,17 +8,11 @@ interface ShowCategory {
 }
 
 const AdminShowCategoryPanel = () => {
-  // --- Estados para la lista de categorías ---
   const [categories, setCategories] = useState<ShowCategory[]>([]);
   const [loading, setLoading] = useState(true);
-
-  // --- Estados para el formulario ---
   const [newCategory, setNewCategory] = useState({ description: '', price: '' });
-
-  // --- Estado para mensajes ---
   const [message, setMessage] = useState('');
 
-  // --- Cargar categorías al montar el componente ---
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -26,11 +20,8 @@ const AdminShowCategoryPanel = () => {
   const fetchCategories = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3000/api/showCategory');
-      const data = await response.json();
-      if (response.ok) {
-        setCategories(data.data);
-      }
+      const response = await api.get<{ data: ShowCategory[] }>('/api/showCategory');
+      setCategories(response.data);
     } catch (error) {
       setMessage('❌ Error al cargar las categorías.');
     } finally {
@@ -38,7 +29,6 @@ const AdminShowCategoryPanel = () => {
     }
   };
 
-  // --- Funciones para el formulario ---
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNewCategory(prev => ({ ...prev, [name]: value }));
@@ -48,61 +38,38 @@ const AdminShowCategoryPanel = () => {
     e.preventDefault();
     setMessage('Creando categoría...');
     try {
-      const res = await fetch('http://localhost:3000/api/showCategory', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          description: newCategory.description,
-          price: parseFloat(newCategory.price)
-        }),
+      const data = await api.post<{ data: ShowCategory }>('/api/showCategory', {
+        description: newCategory.description,
+        price: parseFloat(newCategory.price)
       });
-      const data = await res.json();
-      if (res.ok) {
-        setMessage(`✅ Categoría creada: ${data.data.description}`);
-        fetchCategories(); // Recargar la lista
-        setNewCategory({ description: '', price: '' }); // Limpiar formulario
-      } else {
-        setMessage(`❌ Error: ${data.message}`);
-      }
-    } catch (error) {
-      setMessage('❌ Error de conexión con el backend.');
+      setMessage(`✅ Categoría creada: ${data.data.description}`);
+      fetchCategories();
+      setNewCategory({ description: '', price: '' });
+    } catch (error: any) {
+      setMessage(`❌ Error: ${error.message}`);
     }
   };
 
   const handleDelete = async (categoryId: number) => {
-    if (!confirm('¿Estás seguro de que quieres eliminar esta categoría?')) {
-      return;
-    }
+    if (!confirm('¿Estás seguro de que quieres eliminar esta categoría?')) return;
     setMessage(`Eliminando categoría ID: ${categoryId}...`);
     try {
-      const res = await fetch(`http://localhost:3000/api/showCategory/${categoryId}`, {
-        method: 'DELETE',
-      });
-      if (res.ok) {
-        setMessage('✅ Categoría eliminada correctamente.');
-        fetchCategories(); // Recargar la lista
-      } else {
-        const data = await res.json();
-        setMessage(`❌ Error al eliminar: ${data.message}`);
-      }
-    } catch (error) {
-      setMessage('❌ Error de conexión con el backend.');
+      await api.delete(`/api/showCategory/${categoryId}`);
+      setMessage('✅ Categoría eliminada correctamente.');
+      fetchCategories();
+    } catch (error: any) {
+      setMessage(`❌ Error al eliminar: ${error.message}`);
     }
   };
-
 
   return (
     <div style={{ color: 'black', maxWidth: '800px', margin: 'auto' }}>
       <h2>Gestionar Categorías de Funciones</h2>
-
-      {/* Formulario para crear nueva categoría */}
       <form onSubmit={handleSubmit} style={{ marginBottom: '30px', display: 'flex', gap: '10px' }}>
         <input type="text" name="description" value={newCategory.description} onChange={handleInputChange} placeholder="Descripción" required style={{ padding: '10px', color: 'black' }} />
         <input type="number" name="price" value={newCategory.price} onChange={handleInputChange} placeholder="Precio" required style={{ padding: '10px', color: 'black' }} />
         <button type="submit" style={{ padding: '10px 20px' }}>Crear</button>
       </form>
-
-      {/* Lista de categorías existentes */}
       {loading ? <p>Cargando...</p> : (
         <div>
           {categories.map((category) => (
@@ -113,7 +80,6 @@ const AdminShowCategoryPanel = () => {
           ))}
         </div>
       )}
-
       {message && <p style={{ textAlign: 'center', marginTop: '20px', fontWeight: 'bold' }}>{message}</p>}
     </div>
   );

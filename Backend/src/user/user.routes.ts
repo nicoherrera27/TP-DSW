@@ -1,12 +1,18 @@
-import { Router } from "express"
-import { findAll, findOne, create, update, remove, login } from "./user.controller.js"
+import { Router } from "express";
+import { findAll, findOne, create, update, remove, login } from "./user.controller.js";
+import { authMiddleware, isAdmin } from "../shared/middleware/auth.js"; // <-- Importar middlewares
 
-export const userRouter = Router()
+export const userRouter = Router();
 
-userRouter.post('/register',  create)
-userRouter.post('/login',  login)
+// Public routes for registration and login
+userRouter.post('/register', create);
+userRouter.post('/login', login);
 
-userRouter.get('/', findAll)
-userRouter.get('/:id', findOne)
-userRouter.put('/:id', update)
-userRouter.delete('/:id', remove)
+// Protected routes below (require a valid token)
+userRouter.use(authMiddleware);
+
+// Admin-only routes (require 'admin' role)
+userRouter.get('/', isAdmin, findAll);
+userRouter.get('/:id', isAdmin, findOne);
+userRouter.put('/:id', isAdmin, update); // <-- RUTA PROTEGIDA
+userRouter.delete('/:id', isAdmin, remove);
