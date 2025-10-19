@@ -11,7 +11,7 @@ export default defineConfig({
   },
 
   // o 'server' si necesitamos SSR
-  output: 'static',
+  output: 'server',
 
   vite: {
     plugins: [tailwindcss()]

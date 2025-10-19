@@ -5,15 +5,20 @@ import '../styles/carousel.css';
 import '../styles/movies.css';
 import '../styles/movie-detail.css';
 import '../styles/register.css';
-// ELIMINADO: No se importa admin.css
 import { Header } from '../components/react/Header.tsx';
 import Footer from '../components/astro/Footer.astro';
+import { getAuthenticatedUser } from '../lib/auth';
 
 interface Props {
   title?: string;
 }
 
 const { title } = Astro.props;
+
+// Decodifica la cookie en el servidor para obtener los datos del usuario
+const user = getAuthenticatedUser(Astro.cookies);
+const isLoggedIn = !!user;
+const userRole = user ? user.role : null;
 ---
 
 <!doctype html>
@@ -26,7 +31,8 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <Header client:load />
+    {/* Pasa el estado de login y el rol al componente Header */}
+    <Header client:load isLoggedIn={isLoggedIn} userRole={userRole} />
     <slot />
     <Footer />
   </body>
