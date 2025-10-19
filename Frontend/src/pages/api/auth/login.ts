@@ -1,20 +1,17 @@
 import type { APIRoute } from 'astro';
 
-export const POST: APIRoute = async ({ request, cookies, redirect }) => {
-  // 1. Leemos el cuerpo de la petición como texto plano primero.
-  const rawBody = await request.text();
-
-  // 2. Verificamos si el cuerpo está vacío. Si lo está, devolvemos un error claro.
-  if (!rawBody) {
-    return new Response(JSON.stringify({ message: "La petición llegó con el cuerpo vacío." }), { status: 400 });
-  }
+export const POST: APIRoute = async ({ request, cookies }) => {
+  console.log("LOGIN API ROUTE: Headers recibidos:", request.headers);
 
   let body;
   try {
-    // 3. Intentamos parsear el texto a JSON.
-    body = JSON.parse(rawBody);
+    // Usa request.json() para parsear el cuerpo
+    body = await request.json();
+    console.log("LOGIN API ROUTE: Cuerpo recibido:", body);
   } catch (error) {
-    return new Response(JSON.stringify({ message: "El formato de la petición no es un JSON válido." }), { status: 400 });
+    console.error("LOGIN API ROUTE: Error al parsear JSON:", error);
+    // Si falla el parseo (cuerpo vacío o mal formato), devolvemos error
+    return new Response(JSON.stringify({ message: "El formato de la petición no es un JSON válido o el cuerpo está vacío." }), { status: 400 });
   }
 
   const { username, password } = body;
@@ -24,31 +21,53 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   }
 
   try {
-    // 4. Continuamos con la lógica normal de autenticación.
-    const response = await fetch('http://localhost:3000/api/users/login', {
+    const backendUrl = 'http://localhost:3000/api/users/login';
+    console.log(`LOGIN API ROUTE: Enviando a backend: ${backendUrl}`);
+    
+    const response = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
     });
 
-    const data = await response.json();
+    console.log(`LOGIN API ROUTE: Respuesta del backend: ${response.status}`);
 
-    if (!response.ok) {
-      return new Response(JSON.stringify({ message: data.message || 'Error de autenticación' }), { status: response.status });
+    // Mejora del manejo de la respuesta del backend
+    const contentType = response.headers.get('content-type');
+    let data;
+    if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+    } else {
+        const text = await response.text();
+        console.error("LOGIN API ROUTE: Backend devolvió respuesta no-JSON:", text);
+        throw new Error("Respuesta inesperada del servidor de autenticación");
     }
 
-    const token = data.data.token;
+    if (!response.ok) {
+      console.error("LOGIN API ROUTE: Error del backend:", data);
+      return new Response(JSON.stringify({ message: data.message || 'Error de autenticación del backend' }), { status: response.status });
+    }
+
+    const token = data.data?.token; // Acceso seguro al token
+    if (!token) {
+        console.error("LOGIN API ROUTE: Token no encontrado en respuesta del backend:", data);
+        return new Response(JSON.stringify({ message: 'No se recibió token del servidor backend' }), { status: 500 });
+    }
+
+    //Aca guardamos la cookie
     cookies.set('authToken', token, {
       path: '/',
-      httpOnly: true,
-      secure: import.meta.env.PROD,
-      maxAge: 60 * 60 * 8, // 8 horas
+      httpOnly: true, 
+      secure: import.meta.env.PROD, 
+      maxAge: 60 * 60 * 8, 
     });
 
-    // Devolvemos una respuesta exitosa, y el frontend se encarga de redirigir.
+    console.log("LOGIN API ROUTE: Cookie establecida. Login exitoso.");
+
     return new Response(JSON.stringify({ message: 'Login exitoso' }), { status: 200 });
 
-  } catch (error) {
-    return new Response(JSON.stringify({ message: "Error de conexión con el servidor de autenticación" }), { status: 500 });
+  } catch (error: any) {
+    console.error("LOGIN API ROUTE: Error de conexión con el backend:", error);
+    return new Response(JSON.stringify({ message: error.message || "Error de conexión con el servidor de autenticación" }), { status: 500 });
   }
 };

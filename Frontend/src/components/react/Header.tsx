@@ -10,23 +10,34 @@ const navLinks = [
 export function Header() {
   const [authChecked, setAuthChecked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState<'client' | 'admin' | null>(null);
+  // Eliminamos userRole ya que no lo estábamos usando realmente aquí
 
   useEffect(() => {
-    // Esta comprobación ahora es solo para mostrar/ocultar los botones correctamente.
-    // La cookie se lee en el servidor para la seguridad real.
-    const tokenExists = document.cookie.includes('authToken=');
+    // --- INICIO DE LA MODIFICACIÓN ---
+    console.log("Header useEffect: Verificando localStorage..."); // Log de depuración
     
-    if (tokenExists) {
+    // 1. Verificamos si existe el token en localStorage
+    const token = localStorage.getItem('authToken');
+    
+    if (token) {
+      console.log("Header useEffect: Token encontrado!"); // Log de depuración
       setIsLoggedIn(true);
-      // Podríamos decodificar el token aquí si necesitáramos el rol para algo visual,
-      // pero por ahora, lo mantenemos simple.
-      // Para saber si es admin, asumimos que si el link /admin es visible, lo es.
+    } else {
+      console.log("Header useEffect: No se encontró token."); // Log de depuración
+      setIsLoggedIn(false);
     }
-    setAuthChecked(true);
-  }, []);
+    setAuthChecked(true); // Marcamos que la comprobación se hizo
+    // --- FIN DE LA MODIFICACIÓN ---
+  }, []); // Se ejecuta solo una vez al cargar el componente
 
-  // ELIMINADO: La función handleLogout ya no es necesaria.
+  // Función para manejar el logout (ahora borra de localStorage)
+  const handleLogout = () => {
+    console.log("Header handleLogout: Borrando token..."); // Log de depuración
+    localStorage.removeItem('authToken');
+    setIsLoggedIn(false);
+    // Redirigimos a la página principal después del logout
+    window.location.href = '/'; 
+  };
 
   return (
     <header className="main-header">
@@ -34,14 +45,15 @@ export function Header() {
         <div className="top-bar">
           <a href="/" className="logo">CineVerse</a>
           <div className="user-actions">
-            {authChecked && (
+            {/* Solo mostramos los botones cuando la comprobación inicial terminó */}
+            {authChecked && ( 
               <>
                 {isLoggedIn ? (
                   <>
-                    {/* El servidor decidirá si el usuario puede ver esta página */}
+                    {/* El link al panel de admin sigue igual */}
                     <a href="/admin">Panel de Admin</a>
-                    {/* CORRECCIÓN: Ahora es un enlace directo a la ruta de logout */}
-                    <a href="/api/auth/logout">Cerrar Sesión</a>
+                    {/* 👇 CAMBIO: Usamos un botón que llama a handleLogout */}
+                    <button onClick={handleLogout} className="logout-button">Cerrar Sesión</button> 
                   </>
                 ) : (
                   <>
@@ -66,3 +78,26 @@ export function Header() {
     </header>
   );
 }
+
+// Opcional: Para que el botón de logout se vea igual que los links,
+// agregá esto a tu archivo "src/styles/header.css"
+/*
+.logout-button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+  background-color: transparent;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.logout-button:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+*/
