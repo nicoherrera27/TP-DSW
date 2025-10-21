@@ -3,6 +3,9 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+
+console.log("Auth Middleware: JWT_SECRET cargado:", process.env.JWT_SECRET ? `${process.env.JWT_SECRET.substring(0, 5)}...` : 'NO CARGADO');
+
 // Extendemos la interfaz para incluir el rol
 interface AuthRequest extends Request {
     user?: { id: number; username: string; role: 'admin' | 'client' };

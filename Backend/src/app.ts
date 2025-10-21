@@ -8,6 +8,9 @@ import { movieRouter } from './movie/movie.routes.js'
 import { saleRouter } from './sale/sale.routes.js'
 import { showRouter } from './show/show.routes.js'
 import { showCategoryRouter } from './show_category/show_category.routes.js'
+import { movie_roomRouter } from './movie_room/movie_room.routes.js'
+import { timetableRouter } from './time_table/timetable.routes.js'
+import { ticketTypeRouter } from './ticket_type/ticketType.routes.js'
 
 const app = express()
 app.use(cors({
@@ -24,8 +27,11 @@ app. use((req, res, next) => {
 app.use('/api/users', userRouter)
 app.use('/api/movies', movieRouter)
 app.use('/api/sales', saleRouter)
-app.use('/api/shows', showRouter)
+app.use('/api/show', showRouter)
 app.use('/api/showCategory', showCategoryRouter)
+app.use('/api/halls', movie_roomRouter)
+app.use('/api/timetables', timetableRouter)
+app.use('/api/ticketTypes', ticketTypeRouter)
 
 app.use((_, res) => {
   res.status(404).send({ message: 'Resource not found' })
