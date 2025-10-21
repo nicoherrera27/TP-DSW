@@ -1,0 +1,93 @@
+.main-header {
+  background: #1a88c7;
+  padding: 1.5rem 0;
+  color: black;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.main-header a:hover {
+  color: black;
+  text-shadow: 0 0 8px gray;
+}
+
+.main-header .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Centra verticalmente */
+  margin-bottom: 1.5rem;
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000000;
+}
+
+/* Nuevo contenedor para los botones de usuario */
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Espacio entre "Iniciar Sesión" y "Registrarse" */
+}
+
+.user-actions a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a,
+.user-actions a {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+  background-color: transparent;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+  }
+
+.main-nav a {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}  
+
+.main-nav a:hover,
+.user-actions a:hover {
+  background-color: rgba(0, 0, 0, 0.15); /* Fondo oscuro semitransparente */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .logo {
+    font-size: 2.5rem;
+  }
+  
+  .main-nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}

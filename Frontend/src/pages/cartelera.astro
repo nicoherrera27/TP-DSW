@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Billboard from '../components/react/Billboard.tsx';
+import '../styles/cartelera.css';
+---
+
+<Layout title="Cartelera - CineVerse">
+  <main class="cartelera">
+    <div class="container">
+      <Billboard client:load />
+    </div>
+  </main>
+</Layout>

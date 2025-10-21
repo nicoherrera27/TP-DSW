@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #fff;
+  --color-secondary: #1a88c7;;
+  --color-bg-dark: #0a1929;
+  --color-bg-card: #1a2332;
+  --color-text-primary: #000000;
+  --color-text-secondary: #e9e6e6;
+  --color-border: #2a3545;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  background: var(--color-bg-dark);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+
+    /* --- CORRECCIONES --- */
+  display: flex;             /* 1. Activa Flexbox */
+  flex-direction: column;    /* 2. Organiza los elementos en columna (Header, Main, Footer) */
+  min-height: 100vh;         /* 3. Asegura que el body ocupe al menos toda la altura de la pantalla */
+}
+
+/* NUEVA REGLA: Hace que el contenido principal se estire */
+main {
+  flex-grow: 1; /* 4. Le dice al <main> que ocupe todo el espacio sobrante */
+}
+
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }

@@ -1,0 +1,54 @@
+  .cartelera {
+    background: #d1d1d1;
+    min-height: 100vh;
+    padding: 2rem 0;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .cartelera-header {
+    margin-bottom: 3rem;
+    color: black;
+    margin-bottom: 1.5rem;
+  }
+
+  .cartelera-header h1 {
+    font-size: 3rem;
+    color: black;
+    margin-bottom: 1.5rem;
+  }
+
+  .filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-select {
+    padding: 0.75rem 1.5rem;
+    background: #1a88c7;
+    color: black;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .movie-section {
+    margin-bottom: 4rem;
+  }
+
+  .movie-section h2 {
+    font-size: 2rem;
+    color: black;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .cartelera-header h1 {
+      font-size: 2rem;
+    }
+  }

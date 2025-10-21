@@ -1,0 +1,11 @@
+---
+import LoginForm from '../components/react/LoginForm';
+import Layout from '../layouts/Layout.astro';
+import '../styles/register.css'; // Asegúrate de importar los estilos
+---
+
+<Layout title="Inicio de sesión - CineVerse">
+  <div class="register-container">
+    <LoginForm client:visible />
+  </div>
+</Layout>

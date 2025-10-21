@@ -1,0 +1,126 @@
+/* Frontend/src/styles/register.css */
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: calc(100vh - 150px);
+}
+
+.register-form {
+  background-color: var(--color-bg-card, white);
+  padding: 2.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border, white);
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.register-form h1 {
+  font-size: 2.5rem;
+  color: var(--color-secondary, #1a88c7);
+  text-align: center;
+  margin-bottom: 1rem;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: var(--color-text-secondary, black);
+  border: 1px solid var(--color-border, white);
+  border-radius: 6px;
+  color: var(--color-text-primary, #ffffff);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.register-form input:focus {
+  outline: none;
+  border-color: var(--color-secondary, #00D1B2);
+  box-shadow: 0 0 0 3px rgba(0, 209, 178, 0.3);
+}
+
+.register-form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.register-form button[type="submit"] {
+  padding: 0.9rem 1.5rem;
+  background-color: var(--color-secondary, #1a88c7);
+  color: black;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+}
+
+.register-form button[type="submit"]:hover {
+  background-color: #1a88c7;
+  transform: translateY(-2px);
+}
+
+.register-message {
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border-radius: 6px;
+}
+
+.register-message.success {
+  color: #1a88c7;
+  background-color: rgba(0, 209, 178, 0.1);
+}
+
+.register-message.error {
+  color: #e50914;
+  background-color: rgba(229, 9, 20, 0.1);
+}
+
+/* --- ESTILOS CORRECTOS PARA EL BOTÓN DE CONTRASEÑA --- */
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 60px; /* Espacio para el botón */
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+  width: 50px;
+  background: var(--color-bg-dark, #0a1929);
+  border: none; /* Sin bordes */
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  background-color: var(--color-border); 
+}
+
+.password-toggle-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--color-text-secondary); 
+}

@@ -1,0 +1,39 @@
+---
+import '../styles/global.css';
+import '../styles/header.css';
+import '../styles/carousel.css';
+import '../styles/movies.css';
+import '../styles/movie-detail.css';
+import '../styles/register.css';
+import { Header } from '../components/react/Header.tsx';
+import Footer from '../components/astro/Footer.astro';
+import { getAuthenticatedUser } from '../lib/auth';
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+
+// Decodifica la cookie en el servidor para obtener los datos del usuario
+const user = getAuthenticatedUser(Astro.cookies);
+const isLoggedIn = !!user;
+const userRole = user ? user.role : null;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    {/* Pasa el estado de login y el rol al componente Header */}
+    <Header client:load isLoggedIn={isLoggedIn} userRole={userRole} />
+    <slot />
+    <Footer />
+  </body>
+</html>

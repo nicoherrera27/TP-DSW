@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { MovieCarousel } from '../components/react/MovieCarousel';
+import '../styles/carousel.css';
+---
+
+<Layout title="CineVerse - Inicio">
+  <main>
+    <MovieCarousel client:visible />
+
+    <section style="padding: 4rem; text-align: center;">
+      <a
+        href="/cartelera"
+        style="color: var(--text-primary); font-size: 1.2rem; border: 1px solid black; padding: 1rem 2rem; border-radius: 8px; text-decoration: none;"
+      >
+        Ver Cartelera Completa
+      </a>
+    </section>
+  </main>
+</Layout>
