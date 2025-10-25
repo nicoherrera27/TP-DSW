@@ -1,6 +1,5 @@
 import { Entity, PrimaryKey, Property, OneToMany, Cascade, Collection, ManyToMany } from "@mikro-orm/mysql";
 import { BaseEntity } from '../shared/db/baseEntity.entity.js'
-import { Seat } from "../seat/seat.entity.js";
 import { Show } from "../show/show.entity.js";
 
 @Entity()
@@ -14,7 +13,4 @@ export class Movie_room extends BaseEntity{
 
     @OneToMany(({entity: () =>   Show, mappedBy: 'showRoom', cascade: [Cascade.ALL]}))
     Shows = new Collection<Show>(this)
-
-    @OneToMany(({entity: () => Seat, mappedBy: 'seatRoom', cascade: [Cascade.ALL]}))
-    Seats = new Collection<Seat>(this)
 }

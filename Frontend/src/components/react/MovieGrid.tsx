@@ -1,5 +1,5 @@
 import type { FC } from 'react'; // 1. Importar FC (Functional Component)
-import { ReadMore } from './ReadMore.tsx';
+import { ReadMore } from './ReadMore';
 
 interface Movie {
   id: number | string;

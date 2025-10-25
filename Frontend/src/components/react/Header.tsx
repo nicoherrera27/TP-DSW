@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 const navLinks = [
   { href: '/cartelera', text: 'Cartelera' },
-  { href: '/promociones', text: 'Promociones' },
-  { href: '/cines', text: 'Cines' },
+  //{ href: '/promociones', text: 'Promociones' },
+  //{ href: '/cines', text: 'Cines' },
   { href: '/funciones-especiales', text: 'Funciones Especiales' },
 ];
 

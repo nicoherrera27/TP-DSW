@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { findAll, findOne, create, update, remove, login } from "./user.controller.js";
+import { create, findAll, findOne, login, remove, update } from "./user.controller.js";
 import { authMiddleware, isAdmin } from "../shared/middleware/auth.js"; // <-- Importar middlewares
 
 export const userRouter = Router();
