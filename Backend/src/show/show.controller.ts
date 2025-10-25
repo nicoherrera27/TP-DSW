@@ -52,7 +52,7 @@ async function findForCartelera(req: Request, res: Response) {
   async function findOne(req: Request, res: Response){
     try{
       const id = Number.parseInt(req.params.id)
-      const showById = await em.findOne(Show, id, { populate: ['showMovie', 'showCat', 'showRoom'] })
+      const showById = await em.findOne(Show, id, { populate: ['showMovie', 'showCat', 'showRoom', 'timetables'] })
       res.status(200).json({message: 'Show found: ', data: showById})
     }
     catch(error: any){

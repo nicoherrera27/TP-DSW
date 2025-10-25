@@ -1,0 +1,120 @@
+---
+// src/pages/purchase/[showId]/[timetableId].astro
+import Layout from '../../../layouts/Layout.astro';
+import TicketSelection from '../../../components/react/TicketSelection.tsx'; // Asegúrate de crear este componente
+
+export const prerender = false; // Importante para páginas dinámicas
+
+const { showId, timetableId } = Astro.params;
+
+// --- VALIDACIÓN BÁSICA ---
+if (
+  !showId ||
+  !timetableId ||
+  isNaN(Number(showId)) ||
+  isNaN(Number(timetableId))
+) {
+  return Astro.redirect('/404'); // O a una página de error
+}
+
+// --- OBTENER DATOS DE LA FUNCIÓN Y HORARIO ---
+// Aquí deberías hacer una llamada a tu backend para obtener detalles
+// de la función (película, sala, fecha, precio base, etc.)
+// y del horario específico.
+// Por ahora, usamos datos de ejemplo.
+let showDetails = null;
+let error = null;
+
+try {
+  const response = await fetch(`http://localhost:3000/api/show/${showId}`); // Asume que esta ruta devuelve los detalles necesarios
+  if (response.ok) {
+    const data = await response.json();
+    // Encuentra el horario específico o valida que exista
+    const timetable = data.data?.timetables?.find(
+      (tt: any) => tt.id === Number(timetableId)
+    );
+    if (data.data && timetable) {
+      showDetails = {
+        movieName: data.data.showMovie?.name || 'Película Desconocida',
+        roomName: data.data.showRoom?.name || 'Sala Desconocida',
+        date: data.data.date,
+        time: timetable.time.substring(0, 5),
+        format: data.data.showCat?.description || '',
+        variant: data.data.variant || '',
+        basePrice: data.data.showCat?.price || 0, // Precio base de la categoría
+        showId: data.data.id,
+        timetableId: timetable.id,
+        // Agrega más datos si son necesarios (ej: capacidad de la sala)
+      };
+    } else {
+      throw new Error('Función u horario no encontrado.');
+    }
+  } else {
+    throw new Error(
+      `Error ${response.status} al obtener detalles de la función.`
+    );
+  }
+} catch (err: any) {
+  console.error('Error fetching show details:', err);
+  error = err.message || 'No se pudieron cargar los detalles de la función.';
+}
+
+// --- OBTENER TIPOS DE TICKET ---
+let ticketTypes = [];
+try {
+  const response = await fetch('http://localhost:3000/api/ticketTypes');
+  if (response.ok) {
+    const data = await response.json();
+    ticketTypes = data.data || []; // Asegúrate que la API devuelva un array en data
+  } else {
+    console.error('Error fetching ticket types:', response.statusText);
+  }
+} catch (err) {
+  console.error('Error fetching ticket types:', err);
+  // Puedes decidir si mostrar un error o continuar sin tipos de ticket especiales
+}
+---
+
+<Layout title="Seleccionar Entradas">
+  <main class="purchase-container container">
+    <h1>Comprar Entradas</h1>
+
+    {error && <p class="error-message">Error: {error}</p>}
+
+    {
+      !error && showDetails && (
+        <TicketSelection
+          client:load
+          showDetails={showDetails}
+          ticketTypes={ticketTypes}
+        />
+      )
+    }
+
+    {
+      !error && !showDetails && !error && (
+        <p>Cargando detalles de la función...</p>
+      )
+    }
+  </main>
+</Layout>
+
+<style>
+  .purchase-container {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    color: black; /* Asegura texto legible sobre fondo claro/gris */
+  }
+  .purchase-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+  }
+  .error-message {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 2rem;
+  }
+  /* Estilos adicionales para el componente TicketSelection irían en su propio archivo o aquí */
+</style>
