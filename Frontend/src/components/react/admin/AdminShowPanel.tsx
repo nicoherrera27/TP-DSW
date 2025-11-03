@@ -85,7 +85,7 @@ const AdminShowPanel = () => {
                 <strong>Importante:</strong> Para crear una función, deben existir previamente una <a href="/admin/peliculas" style={{color: '#1a88c7'}}>Película</a>, una <a href="/admin/categorias" style={{color: '#1a88c7'}}>Categoría</a> y una <a href="/admin/salas" style={{color: '#1a88c7'}}>Sala</a>.
             </div>
             <form onSubmit={handleSubmit} style={{ marginBottom: '30px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
-                <input type="date" name="date" value={newShow.date} onChange={handleChange} required style={{ padding: '8px', color: 'black' }} />
+                <input type="date" name="date" value={newShow.date} onChange={handleChange} required style={{ padding: '8px', color: 'black' }} min={getTodayString()}/>
                 <select name="state" value={newShow.state} onChange={handleChange} style={{ padding: '8px', color: 'black' }}><option>Disponible</option><option>Próximamente</option><option>Agotada</option></select>
                 <select name="variant" value={newShow.variant} onChange={handleChange} style={{ padding: '8px', color: 'black' }}><option>Doblada</option><option>Subtitulada</option></select>
                 <select name="showMovie" value={newShow.showMovie} onChange={handleChange} style={{ padding: '8px', color: 'black' }}>{movies.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}</select>

@@ -1,0 +1,121 @@
+.checkout-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    color: black;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.payment-options h2, .summary-box h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.payment-option {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.payment-option.selected {
+    border-color: #1a88c7;
+    box-shadow: 0 0 0 2px rgba(26, 136, 199, 0.5);
+    border-width: 2px;
+}
+
+.payment-option input[type="radio"] {
+    width: 20px;
+    height: 20px;
+}
+
+.payment-option label {
+    font-weight: 500;
+    font-size: 1.1rem;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.summary-box {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.summary-item, .summary-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.summary-total {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+}
+
+.confirm-button {
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #1a88c7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.confirm-button:hover:not(:disabled) {
+    background-color: #146a9e;
+}
+
+.confirm-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.checkout-message {
+    text-align: center;
+    margin: 1rem 0;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-weight: bold;
+}
+.checkout-message.error {
+    color: #d9534f;
+    background-color: #f2dede;
+}
+.checkout-message.success {
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+    .summary-box {
+        grid-row: 1; /* Mueve el resumen arriba en móviles */
+        margin-bottom: 2rem;
+    }
+}

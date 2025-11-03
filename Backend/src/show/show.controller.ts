@@ -63,7 +63,17 @@ async function findForCartelera(req: Request, res: Response) {
   async function create(req: Request, res: Response){
     try{
       const {date, state = 'Disponible', showCat, showMovie, isSpecial = false, showRoom, variant} = req.body;
-  
+      
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = (now.getMonth() + 1).toString().padStart(2, '0');
+      const day = now.getDate().toString().padStart(2, '0');
+      const todayString = `${year}-${month}-${day}`; // Formato "YYYY-MM-DD"
+
+      if (date < todayString) {
+      return res.status(400).json({ message: 'Error: No se pueden crear funciones en fechas pasadas.' });
+      }
+
       const show = new Show()
       show.date = date
       show.state = state

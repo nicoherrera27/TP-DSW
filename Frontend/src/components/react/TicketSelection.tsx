@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { api } from '@/services/apiClient';
-// Asegúrate que la ruta sea correcta según dónde guardes el CSS
 import '../../styles/ticket-selection.css';
 
 // Tipos para las props
@@ -26,6 +25,13 @@ interface TicketType {
 interface TicketSelectionProps {
     showDetails: ShowDetails;
     ticketTypes: TicketType[];
+}
+
+interface PreparedTicket {
+    typeId: number | null;
+    quantity: number;
+    description: string;
+    unitPrice: number;
 }
 
 const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTypes }) => {
@@ -107,18 +113,60 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
     };
 
     // Calcular el precio total
-    const totalPrice = useMemo(() => {
-        let total = 0;
-        const basePrice = Number(showDetails.basePrice) || 0; // Asegurar que sea número
-        total += (quantities['general'] || 0) * basePrice;
-        ticketTypes.forEach(type => {
-            const quantity = quantities[`type_${type.id}`] || 0;
-            const bonification = Number(type.bonification) || 0; // Asegurar que sea número
-            const price = basePrice * (1 - bonification);
-            total += quantity * price;
-        });
-        return total;
+const ticketsToPurchase = useMemo((): PreparedTicket[] => {
+        // Asegurarse de que quantities esté listo
+        if (Object.keys(quantities).length === 0) return [];
+        
+        return Object.entries(quantities)
+            .filter(([key, quantity]) => quantity > 0)
+            .map(([key, quantity]) => {
+                if (key === 'general') {
+                    return { 
+                        typeId: null, 
+                        quantity, 
+                        description: 'Entrada General',
+                        unitPrice: Number(showDetails.basePrice)
+                    };
+                } else {
+                    const typeId = parseInt(key.replace('type_', ''), 10);
+                    const ticketType = ticketTypes.find(t => t.id === typeId);
+                    const unitPrice = Number(showDetails.basePrice) * (1 - (ticketType?.bonification || 0));
+                    return { 
+                        typeId, 
+                        quantity,
+                        description: ticketType?.description || 'Entrada',
+                        unitPrice: unitPrice 
+                    };
+                }
+            });
     }, [quantities, ticketTypes, showDetails.basePrice]);
+
+    // 2. El 'totalPrice' ahora usa 'ticketsToPurchase' para evitar lógica duplicada
+    const totalPrice = useMemo(() => {
+        return ticketsToPurchase.reduce((sum, ticket) => {
+            return sum + (ticket.unitPrice * ticket.quantity);
+        }, 0);
+    }, [ticketsToPurchase]);
+
+    // ... (el 'formattedDate' useMemo se mantiene igual)
+    const formattedDate = useMemo(() => {
+        // ... (lógica de formateo de fecha)
+        const dateStr = showDetails.date;
+        const dateParts = typeof dateStr === 'string' ? dateStr.split('-') : [];
+        if (dateParts.length === 3) {
+            const year = parseInt(dateParts[0], 10);
+            const month = parseInt(dateParts[1], 10) - 1; 
+            const day = parseInt(dateParts[2], 10);
+            if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
+                const dateObj = new Date(Date.UTC(year, month, day));
+                 return dateObj.toLocaleDateString('es-AR', {
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
+                });
+            }
+        }
+        return dateStr || 'Fecha inválida';
+    }, [showDetails.date]);
+
 
     // Manejar click en "Ir a Pagar"
     const handleProceedToPayment = async () => {
@@ -126,17 +174,7 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
         setMessage('');
         setIsError(false);
 
-        const ticketsToPurchase = Object.entries(quantities)
-            .filter(([key, quantity]) => quantity > 0)
-            .map(([key, quantity]) => {
-                if (key === 'general') {
-                    return { typeId: null, quantity };
-                } else {
-                    const typeId = parseInt(key.replace('type_', ''), 10);
-                    return { typeId, quantity };
-                }
-            });
-
+        // 3. 'ticketsToPurchase' ya está calculado y listo para usar
         if (ticketsToPurchase.length === 0) {
             setMessage('Debes seleccionar al menos una entrada.');
             setIsError(true);
@@ -144,59 +182,35 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
             return;
         }
 
-         // Validar capacidad ANTES de llamar al backend
-         const capacity = Number(showDetails.roomCapacity);
-         if (isNaN(capacity) || currentTotalTickets > capacity) {
+        // 4. La validación de capacidad usa 'currentTotalTickets' (se mantiene)
+        const capacity = Number(showDetails.roomCapacity);
+        if (isNaN(capacity) || currentTotalTickets > capacity) {
              setMessage(`La cantidad total de entradas (${currentTotalTickets}) excede la capacidad de la sala (${capacity}). Ajusta tu selección.`);
              setIsError(true);
              setIsLoading(false);
              return;
-         }
+        }
 
+        // 5. El resto de la lógica para guardar en sessionStorage es la misma
         try {
-            // Llamar al endpoint del backend para crear la preferencia de MP
-            const response = await api.post<{ init_point: string }>('/api/sales/create-preference', {
+            const checkoutData = {
+                showDetails: showDetails,
+                tickets: ticketsToPurchase, // <- Ahora usamos el valor del useMemo
+                totalPrice: totalPrice,     // <- Y el nuevo totalPrice
                 showId: showDetails.showId,
-                timetableId: showDetails.timetableId,
-                tickets: ticketsToPurchase
-            });
-
-            if (response.init_point) {
-                window.location.href = response.init_point;
-            } else {
-                throw new Error('No se recibió la URL de pago desde el servidor.');
-            }
-            // No setIsLoading(false) porque hay redirección
+                timetableId: showDetails.timetableId
+            };
+            
+            sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+            window.location.href = '/checkout';
 
         } catch (error: any) {
-            console.error("Error al crear preferencia de pago:", error);
-            setMessage(`Error al iniciar el proceso de pago: ${error.message}`);
+            console.error("Error al preparar el checkout:", error);
+            setMessage(`Error: ${error.message}`);
             setIsError(true);
             setIsLoading(false);
         }
     };
-
-    // Formatear fecha para mostrarla
-    const formattedDate = useMemo(() => {
-        const dateStr = showDetails.date;
-        // Intentar parsear como YYYY-MM-DD
-        const dateParts = typeof dateStr === 'string' ? dateStr.split('-') : [];
-        if (dateParts.length === 3) {
-            const year = parseInt(dateParts[0], 10);
-            const month = parseInt(dateParts[1], 10) - 1; // Meses son 0-indexados
-            const day = parseInt(dateParts[2], 10);
-            if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
-                // Crear fecha en UTC para evitar problemas de zona horaria local
-                const dateObj = new Date(Date.UTC(year, month, day));
-                 return dateObj.toLocaleDateString('es-AR', {
-                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
-                });
-            }
-        }
-        // Fallback si el formato no es el esperado
-        return dateStr || 'Fecha inválida';
-    }, [showDetails.date]);
-
 
     return (
         <div className="ticket-selection-container">

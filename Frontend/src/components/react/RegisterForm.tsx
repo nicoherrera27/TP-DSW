@@ -4,6 +4,7 @@ const RegisterForm = () => {
     const [formData, setFormData] = useState ({
         username:'',
         password:'',
+        confirmPassword: '',
         name:'',
         surname:'',
         email:'',
@@ -30,6 +31,35 @@ const RegisterForm = () => {
         e.preventDefault();
         setIsError(false);
         setMessage('');
+
+        if (formData.password !== formData.confirmPassword) {
+            setMessage('Error: Las contraseñas no coinciden.');
+            setIsError(true);
+            return;
+        }
+
+        const { password } = formData;
+
+        if (password.length < 8) {
+            setMessage('Error: La contraseña debe tener al menos 8 caracteres.');
+            setIsError(true);
+            return;
+        }
+
+        const hasUpperCase = /[A-Z]/.test(password);
+        if (!hasUpperCase) {
+            setMessage('Error: La contraseña debe contener al menos una letra mayúscula.');
+            setIsError(true);
+            return;
+        }
+
+        const hasNumber = /\d/.test(password); // \d representa que tiene que ir un numero 0-9
+        if (!hasNumber) {
+            setMessage('Error: La contraseña debe contener al menos un número.');
+            setIsError(true);
+            return;
+        }
+
         try{
             const res = await fetch('http://localhost:3000/api/users/register', {
                 method: 'POST',
@@ -41,7 +71,7 @@ const RegisterForm = () => {
             if (res.ok){
                 setMessage('Usuario registrado con éxito');
                 setIsError(false);
-                setFormData({ username:'', password:'', name:'', surname:'', email:'', birthdate:'' });
+                setFormData({ username:'', password:'', confirmPassword: '', name:'', surname:'', email:'', birthdate:'' });
             } else {
                 setMessage(`Error: ${data.message}`);
                 setIsError(true);
@@ -63,6 +93,21 @@ const RegisterForm = () => {
                     name='password' 
                     placeholder='Contraseña' 
                     value={formData.password} 
+                    onChange={handleChange} 
+                    required
+                    autoComplete="new-password" 
+                />
+                <button type="button" onClick={togglePasswordVisibility} className="password-toggle-btn">
+                    {showPassword ? eyeOffIcon : eyeIcon}
+                </button>
+            </div>
+
+            <div className="password-wrapper">
+                <input 
+                    type={showPassword ? "text" : "password"} 
+                    name='confirmPassword' 
+                    placeholder='Confirmar Contraseña' 
+                    value={formData.confirmPassword} 
                     onChange={handleChange} 
                     required
                     autoComplete="new-password" 
