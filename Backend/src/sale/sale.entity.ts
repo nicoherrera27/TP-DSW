@@ -16,9 +16,15 @@ export class Sale extends BaseEntity{
   dateTime!: Date
 
   @ManyToOne({entity: () => User})
-  userSale!: Rel<User>
+  userSale?: Rel<User>
     
   @OneToMany({entity: () => Ticket, mappedBy: 'ticketSale', cascade: [Cascade.ALL]})
   tickets = new Collection<Ticket>(this)
+
+  @Property({ nullable: true, unique: true }) // ID de pago de MP
+  mpPaymentId?: string;
+
+  @Property({ nullable: true, index: true }) // Referencia externa que enviaste a MP
+  mpExternalReference?: string;
   
 }

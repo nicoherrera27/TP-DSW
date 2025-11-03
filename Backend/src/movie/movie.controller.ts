@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { orm } from "../shared/db/orm.js";
 import { Movie } from "./movie.entity.js";
 
-// CORRECCIÓN: Leemos la clave de API de forma segura desde las variables de entorno.
 const API_KEY = process.env.TMDB_API_KEY;
 
 const em = orm.em;
@@ -34,9 +33,9 @@ async function importFromTmdb(req: Request, res: Response) {
       return res.status(400).json({ message: 'El ID de TMDB es requerido' });
     }
     
-    // Verificación para asegurar que la API_KEY está cargada.
+    // Validacion que la api key este cargada
     if (!API_KEY) {
-      throw new Error('La clave de API de TMDB no está configurada en el servidor.');
+      console.log('La clave de API de TMDB no está configurada en el servidor.');
     }
 
     const existingMovie = await em.findOne(Movie, { tmdbId: tmdbId });
@@ -91,18 +90,10 @@ async function findOne (req: Request, res: Response) {
   }
 }
 
-async function create(req: Request, res: Response) {  
+/* async function create(req: Request, res: Response) {  
   try {
     const input = req.body.sanitizedInput;
-
-    if (input.url && input.url.includes("dropbox.com")) {
-      if (input.url.includes("?dl=0")) {
-        input.url = input.url.replace("?dl=0", "?raw=1");
-      } else {
-        input.url = input.url.replace("www.dropbox.com", "dl.dropboxusercontent.com");
-      }
-    }
-
+    
     const movie = em.create(Movie, input);
     await em.flush();
 
@@ -110,7 +101,7 @@ async function create(req: Request, res: Response) {
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
-}
+} */
 
 async function update (req: Request, res: Response) {
   try{
@@ -135,4 +126,4 @@ async function remove(req: Request, res: Response) {
   }
 }
 
-export { sanitizeMovieInput, findAll, findOne, create, update, remove, importFromTmdb };
+export { sanitizeMovieInput, findAll, findOne, /*create,*/ update, remove, importFromTmdb };

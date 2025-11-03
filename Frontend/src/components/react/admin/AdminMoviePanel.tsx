@@ -37,7 +37,6 @@ const AdminMoviePanel = () => {
     };
     
     const handleSearch = async (e: React.FormEvent) => {
-        // ... (esta función no cambia porque usa tmdbService)
         e.preventDefault();
         if (!query.trim()) return;
         setSearchLoading(true);
@@ -55,7 +54,6 @@ const AdminMoviePanel = () => {
     const handleImport = async (tmdbId: number) => {
         setMessage(`Importando película ID: ${tmdbId}...`);
         try {
-            // CORRECCIÓN: Usamos api.post para la petición protegida
             const data = await api.post<{ data: { name: string } }>('/api/movies/import-from-tmdb', { tmdbId });
             setMessage(`✅ Película importada: ${data.data.name}`);
             fetchLocalMovies();
@@ -69,7 +67,6 @@ const AdminMoviePanel = () => {
         
         setMessage(`Eliminando película ID: ${movieId}...`);
         try {
-            // CORRECCIÓN: Usamos api.delete para la petición protegida
             await api.delete(`/api/movies/${movieId}`);
             setMessage('✅ Película eliminada correctamente.');
             fetchLocalMovies();
@@ -77,8 +74,7 @@ const AdminMoviePanel = () => {
             setMessage(`❌ Error al eliminar: ${error.message}`);
         }
     };
-
-    // ... (El JSX del return se mantiene igual)
+    
 return (
         <div style={{ color: 'black', maxWidth: '1000px', margin: 'auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
             <div>

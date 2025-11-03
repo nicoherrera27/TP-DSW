@@ -2,6 +2,7 @@ import { Entity, Property, ManyToOne, Rel } from "@mikro-orm/mysql";
 import { BaseEntity } from '../shared/db/baseEntity.entity.js'
 import { Sale } from "../sale/sale.entity.js";
 import { Show } from "../show/show.entity.js";
+import { Timetable } from "../time_table/timetable.entity.js";
 import { TicketType } from "../ticket_type/ticketType.entity.js";
 
 @Entity()
@@ -24,5 +25,10 @@ export class Ticket extends BaseEntity{
 
     @ManyToOne({ entity: () => TicketType, nullable: true })
     ticketType?: Rel<TicketType>;
+
+    // --- NUEVA RELACIÓN ---
+    @ManyToOne({ entity: () => Timetable }) // Asociar ticket a un horario específico
+    timetable!: Rel<Timetable>;
+    // --- FIN NUEVA RELACIÓN ---
 
 }
