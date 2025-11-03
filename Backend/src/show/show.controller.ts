@@ -6,7 +6,6 @@ const em = orm.em
 
 async function findAll(req: Request, res: Response){
   try{
-    // CORRECCIÓN: Añadimos 'timetables' para que siempre se carguen los horarios
     const shows = await em.find(Show, {}, { populate: ['showMovie', 'showCat', 'showRoom', 'timetables'] });
     res.status(200).json({message: 'Todas las funciones encontradas: ', data: shows})
   } 
@@ -53,6 +52,10 @@ async function findForCartelera(req: Request, res: Response) {
     try{
       const id = Number.parseInt(req.params.id)
       const showById = await em.findOne(Show, id, { populate: ['showMovie', 'showCat', 'showRoom', 'timetables'] })
+      
+      if (!showById) {
+        return res.status(404).json({ message: 'Show not found' });
+      }
       res.status(200).json({message: 'Show found: ', data: showById})
     }
     catch(error: any){

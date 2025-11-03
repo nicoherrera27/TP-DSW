@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { api } from '@/services/apiClient';
 import '../../styles/ticket-selection.css';
 
-// Tipos para las props
 interface ShowDetails {
     movieName: string;
     roomName: string;
@@ -13,7 +11,7 @@ interface ShowDetails {
     basePrice: number;
     showId: number;
     timetableId: number;
-    roomCapacity: number; // <-- Capacidad añadida
+    availableCapacity: number;
 }
 
 interface TicketType {
@@ -51,70 +49,59 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
 
     // Calcular total de tickets seleccionados actualmente
     const currentTotalTickets = useMemo(() => {
-        // Asegurarse de que quantities esté inicializado antes de calcular
         if (Object.keys(quantities).length === 0) return 0;
         return Object.values(quantities).reduce((sum, quantity) => sum + (quantity || 0), 0);
     }, [quantities]);
 
-    // Calcular si se pueden añadir más entradas
+    // Verificamos si se pueden agregar más tickets según la capacidad disponible
     const canAddMoreTickets = useMemo(() => {
-         // Asegurarse de que roomCapacity es un número válido
-         const capacity = Number(showDetails.roomCapacity);
+         const capacity = Number(showDetails.availableCapacity);
          return !isNaN(capacity) && currentTotalTickets < capacity;
-    }, [currentTotalTickets, showDetails.roomCapacity]);
+    }, [currentTotalTickets, showDetails.availableCapacity]); 
 
-
-    // Función para aumentar/disminuir cantidad
     const handleQuantityChange = (key: string, delta: number) => {
-        // Validar antes de intentar añadir
+        const capacity = Number(showDetails.availableCapacity);
+        
         if (delta > 0 && !canAddMoreTickets) {
-            setMessage(`Se alcanzó la capacidad máxima de la sala (${showDetails.roomCapacity} asientos).`);
+            const messageText = `Se alcanzó la capacidad máxima (${capacity} asientos disponibles).`;
+            setMessage(messageText);
             setIsError(true);
-            // Borrar el mensaje después de 3 segundos
             setTimeout(() => {
-                 // Solo borrar si el mensaje actual es el de capacidad
-                 setMessage(prev => prev === `Se alcanzó la capacidad máxima de la sala (${showDetails.roomCapacity} asientos).` ? '' : prev);
-                 // No reseteamos isError aquí para que el estilo de error permanezca si hay otro error
+                 setMessage(prev => prev === messageText ? '' : prev);
             }, 3000);
-            return; // Detener ejecución
+            return; 
         }
 
         setQuantities(prev => {
             const currentQuantity = prev[key] || 0;
-            const newQuantity = Math.max(0, currentQuantity + delta); // No permitir negativos
-
-            // Calcular el total *propuesto* si se aplicara el cambio
+            const newQuantity = Math.max(0, currentQuantity + delta);
             const proposedTotal = Object.entries(prev)
                               .reduce((sum, [k, q]) => sum + (k === key ? newQuantity : (q || 0)), 0);
 
             // Verificar si el total propuesto excede la capacidad
-            const capacity = Number(showDetails.roomCapacity);
             if (!isNaN(capacity) && proposedTotal > capacity) {
-                 // Si se excediera, no actualiza y muestra mensaje
-                setMessage(`Se alcanzó la capacidad máxima de la sala (${capacity} asientos).`);
+                 const messageText = `Se alcanzó la capacidad máxima (${capacity} asientos disponibles).`;
+                setMessage(messageText);
                  setIsError(true);
                  setTimeout(() => {
-                    setMessage(prev => prev === `Se alcanzó la capacidad máxima de la sala (${capacity} asientos).` ? '' : prev);
+                    setMessage(prev => prev === messageText ? '' : prev);
                  }, 3000);
-                 return prev; // Devuelve el estado anterior sin aplicar el cambio
+                 return prev; 
             }
-            // Si no excede, aplica el cambio
             return { ...prev, [key]: newQuantity };
         });
 
-        // Limpiar mensaje si la acción fue válida y era un mensaje de error PREVIO
          setMessage(prevMessage => {
              if (prevMessage && isError) {
-                 setIsError(false); // Resetea el estado de error
-                 return ''; // Limpia el mensaje
+                 setIsError(false);
+                 return ''; 
              }
-             return prevMessage; // Mantiene cualquier otro mensaje
+             return prevMessage;
         });
     };
 
     // Calcular el precio total
 const ticketsToPurchase = useMemo((): PreparedTicket[] => {
-        // Asegurarse de que quantities esté listo
         if (Object.keys(quantities).length === 0) return [];
         
         return Object.entries(quantities)
@@ -140,17 +127,13 @@ const ticketsToPurchase = useMemo((): PreparedTicket[] => {
                 }
             });
     }, [quantities, ticketTypes, showDetails.basePrice]);
-
-    // 2. El 'totalPrice' ahora usa 'ticketsToPurchase' para evitar lógica duplicada
     const totalPrice = useMemo(() => {
         return ticketsToPurchase.reduce((sum, ticket) => {
             return sum + (ticket.unitPrice * ticket.quantity);
         }, 0);
     }, [ticketsToPurchase]);
 
-    // ... (el 'formattedDate' useMemo se mantiene igual)
     const formattedDate = useMemo(() => {
-        // ... (lógica de formateo de fecha)
         const dateStr = showDetails.date;
         const dateParts = typeof dateStr === 'string' ? dateStr.split('-') : [];
         if (dateParts.length === 3) {
@@ -174,29 +157,28 @@ const ticketsToPurchase = useMemo((): PreparedTicket[] => {
         setMessage('');
         setIsError(false);
 
-        // 3. 'ticketsToPurchase' ya está calculado y listo para usar
         if (ticketsToPurchase.length === 0) {
             setMessage('Debes seleccionar al menos una entrada.');
             setIsError(true);
             setIsLoading(false);
             return;
         }
-
-        // 4. La validación de capacidad usa 'currentTotalTickets' (se mantiene)
-        const capacity = Number(showDetails.roomCapacity);
+        const capacity = Number(showDetails.availableCapacity); 
         if (isNaN(capacity) || currentTotalTickets > capacity) {
-             setMessage(`La cantidad total de entradas (${currentTotalTickets}) excede la capacidad de la sala (${capacity}). Ajusta tu selección.`);
+             setMessage(`La cantidad total de entradas (${currentTotalTickets}) excede la capacidad disponible (${capacity}). Ajusta tu selección.`);
              setIsError(true);
              setIsLoading(false);
              return;
         }
 
-        // 5. El resto de la lógica para guardar en sessionStorage es la misma
         try {
             const checkoutData = {
-                showDetails: showDetails,
-                tickets: ticketsToPurchase, // <- Ahora usamos el valor del useMemo
-                totalPrice: totalPrice,     // <- Y el nuevo totalPrice
+                showDetails: { 
+                    ...showDetails, 
+                    roomCapacity: showDetails.availableCapacity 
+                },
+                tickets: ticketsToPurchase,
+                totalPrice: totalPrice,    
                 showId: showDetails.showId,
                 timetableId: showDetails.timetableId
             };
@@ -211,6 +193,21 @@ const ticketsToPurchase = useMemo((): PreparedTicket[] => {
             setIsLoading(false);
         }
     };
+    // Si la capacidad disponible es 0, no mostramos el selector.
+    if (showDetails.availableCapacity === 0) {
+        return (
+            <div className="ticket-selection-container">
+                <div className="show-info">
+                    <h2>{showDetails.movieName}</h2>
+                    <p><strong>Sala:</strong> {showDetails.roomName}</p>
+                    <p><strong>Hora:</strong> {showDetails.time}</p>
+                </div>
+                <div className="summary">
+                    <p className="message" style={{color: '#d9534f'}}>Función agotada. No quedan asientos disponibles.</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="ticket-selection-container">
@@ -221,6 +218,7 @@ const ticketsToPurchase = useMemo((): PreparedTicket[] => {
                 <p><strong>Hora:</strong> {showDetails.time}</p>
                 <p><strong>Formato:</strong> {showDetails.format} ({showDetails.variant})</p>
                 <p><strong>Precio Base por Entrada:</strong> ${Number(showDetails.basePrice).toFixed(2) || 'N/A'}</p>
+                <p style={{marginTop: '0.5rem', fontWeight: 'bold'}}><strong>Asientos disponibles: {showDetails.availableCapacity}</strong></p>
             </div>
 
             <div className="ticket-section">
@@ -258,13 +256,11 @@ const ticketsToPurchase = useMemo((): PreparedTicket[] => {
             </div>
 
             <div className="summary">
-                 {/* Mensaje de estado/error */}
-                {message && <p className={`message ${isError ? '' : 'success'}`}>{message}</p>}
+                {message && <p className={`message ${isError ? 'error' : 'success'}`}>{message}</p>}
                 <h3>Total a Pagar: ${totalPrice.toFixed(2)}</h3>
                 <button
                     className="pay-button"
                     onClick={handleProceedToPayment}
-                    // Deshabilitar si está cargando, si no hay $ total, o si no hay tickets seleccionados
                     disabled={isLoading || totalPrice <= 0 || currentTotalTickets === 0}
                 >
                     {isLoading ? 'Procesando...' : 'Ir a Pagar con Mercado Pago'}

@@ -3,23 +3,33 @@ import { orm } from "../shared/db/orm.js";
 import { Ticket } from "./ticket.entity.js";
 
 const em = orm.em
+//Obtenemos la cantidad de tickets vendidos para una funcion con un horario en especifico
+async function getSoldCountByTimetable(req: Request, res: Response) {
+  try {
+    const { timetableId } = req.params;
+    if (!timetableId) {
+      return res.status(400).json({ message: 'Timetable ID is required' });
+    }
+    const count = await em.count(Ticket, { timetable: Number(timetableId) });
+    res.status(200).json({ data: { soldTicketsCount: count } });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 
 function sanitizeTicketInput(req: Request, res: Response, next: NextFunction) {
-  // Aca se realizarian las validaciones //
   req.body.sanitizedInput = {
     type: req.body.type,
     row: req.body.row,
     column: req.body.column,
     id: req.body.id
   }
-
   Object.keys(req.body.sanitizedInput).forEach((key) => {
-    // Sirve para evitar guardar campos vacíos o inválidos en la base de datos
     if (req.body.sanitizedInput[key] === undefined) {
       delete req.body.sanitizedInput[key]
     }
   })
-
   next()
 }
 
@@ -45,8 +55,8 @@ async function findOne (req: Request, res: Response) {
 
 async function create (req: Request, res: Response) {  
   try{
-    const ticket = em.create(Ticket, req.body.sanitizedInput) //await no es necesario aca porque es una operacion sincronica
-    await em.flush() //flush es una op asincronica por eso el await aca
+    const ticket = em.create(Ticket, req.body.sanitizedInput)
+    await em.flush()
     res.status(201).json({ message: 'ticket created', data: ticket})
   } catch (error: any){
     res.status(500).json({ message: error.message})
@@ -70,11 +80,10 @@ async function remove(req: Request, res: Response) {
     const id = Number.parseInt(req.params.id)
     const ticket = em.getReference(Ticket, id)
     await em.removeAndFlush(ticket)
-    //em.nativeDelete(Screening_room, {id}) este es un delete mas poderoso, se usa en operaciones importantes pero no tiene informacion de lo que borra (tener cuidado al usarlo)
     res.status(200).send({message: 'ticket deleted'})
   } catch (error: any){
     res.status(500).json({ message: error.message})
   }
 }
 
-export { sanitizeTicketInput, findAll, findOne, create, update, remove }
+export { sanitizeTicketInput, findAll, findOne, create, update, remove, getSoldCountByTimetable }

@@ -1,5 +1,4 @@
 ---
-// src/pages/movie/[id].astro
 import '../../styles/movie-id.css';
 import Layout from '../../layouts/Layout.astro';
 import { tmdbService } from '../../services/tmdbService';
@@ -28,58 +27,45 @@ const backdropUrl = movie.backdrop_path
   ? tmdbService.getImageUrl(movie.backdrop_path, 'large')
   : '';
 
-// --- MODIFICACIÓN AQUÍ ---
-// Estructura para almacenar horarios agrupados por formato/variante,
-// incluyendo showId y timetableId
-interface TimeInfo {
-  time: string;
-  timetableId: number;
+function getFormattedDate(dateStr: string) {
+  try {
+    const dateObj = new Date(`${dateStr}T12:00:00Z`);
+    const formatted = dateObj.toLocaleDateString('es-AR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      timeZone: 'UTC',
+    });
+    return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  } catch (e) {
+    return dateStr;
+  }
 }
-interface ShowGroup {
-  showId: number; // ID de la función (Show)
-  times: TimeInfo[];
-}
-let groupedShows: { [key: string]: ShowGroup } = {};
+
+let groupedShowsByDate = new Map<string, any[]>();
 
 try {
-  // Asegúrate que la URL del backend sea correcta
   const showsResponse = await fetch(
     `http://localhost:3000/api/show/by-movie/${id}`
   );
   if (showsResponse.ok) {
     const showsData = await showsResponse.json();
-    showsData.data.forEach((show: any) => {
-      // Asegúrate que show.timetables exista y sea un array
+
+    const sortedShows = (showsData.data || []).sort((a: any, b: any) =>
+      a.date.localeCompare(b.date)
+    );
+
+    sortedShows.forEach((show: any) => {
       if (
         show.timetables &&
         Array.isArray(show.timetables) &&
         show.timetables.length > 0
       ) {
-        // Asegúrate que show.showCat y show.variant existan
-        const categoryDesc =
-          show.showCat?.description || 'Categoría Desconocida';
-        const variantDesc = show.variant || 'Idioma Desconocido';
-        const groupKey = `${categoryDesc} - ${variantDesc}`;
-
-        if (!groupedShows[groupKey]) {
-          // Inicializa el grupo con el showId y un array vacío de horarios
-          groupedShows[groupKey] = { showId: show.id, times: [] };
+        const dateKey = getFormattedDate(show.date);
+        if (!groupedShowsByDate.has(dateKey)) {
+          groupedShowsByDate.set(dateKey, []);
         }
-
-        // Añade cada horario con su ID al array 'times' del grupo
-        show.timetables.forEach((tt: any) => {
-          // Verifica que tt.id y tt.time existan
-          if (tt && tt.id !== undefined && tt.time !== undefined) {
-            groupedShows[groupKey].times.push({
-              time: tt.time.substring(0, 5), // Formato HH:MM
-              timetableId: tt.id,
-            });
-          }
-        });
-        // Opcional: Ordenar los horarios cronológicamente
-        groupedShows[groupKey].times.sort((a, b) =>
-          a.time.localeCompare(b.time)
-        );
+        groupedShowsByDate.get(dateKey)!.push(show);
       }
     });
   } else {
@@ -88,7 +74,6 @@ try {
 } catch (error) {
   console.error('Error fetching or processing shows:', error);
 }
-// --- FIN DE LA MODIFICACIÓN ---
 ---
 
 <Layout title={movie.title}>
@@ -156,28 +141,53 @@ try {
     <div class="showtimes-container">
       <h2>Horarios Disponibles</h2>
       {
-        Object.keys(groupedShows).length > 0 ? (
+        groupedShowsByDate.size > 0 ? (
           <div class="cinema-section">
             <h3>CineVerse Rosario</h3>
-            {/* --- MODIFICACIÓN AQUÍ --- */}
-            {Object.entries(groupedShows).map(([group, showGroup]) => (
-              <div class="format-section">
-                <h4>{group}</h4>
-                <div class="times-grid">
-                  {/* Itera sobre los objetos timeInfo que ahora contienen time y timetableId */}
-                  {showGroup.times.map((timeInfo) => (
-                    // Construye la URL con showId y timetableId
-                    <a
-                      href={`/purchase/${showGroup.showId}/${timeInfo.timetableId}`}
-                      class="time-button"
-                    >
-                      {timeInfo.time}
-                    </a>
-                  ))}
+
+            {Array.from(groupedShowsByDate.entries()).map(
+              ([date, showsOnThisDate]) => (
+                <div
+                  class="date-group"
+                  style="border-bottom: 1px solid #e0e0e0; padding-bottom: 0.5rem; margin-bottom: 0.5rem;"
+                >
+                  <h5 style="color: #666; font-weight: 600; font-size: 0.9rem; margin: 0.75rem 0; text-transform: uppercase; letter-spacing: 0.5px;">
+                    {date}
+                  </h5>
+
+                  {showsOnThisDate.map((show) => {
+                    const format = show.showCat?.description || 'Formato';
+                    const variant = show.variant || 'Idioma';
+
+                    return (
+                      <div
+                        class="format-section"
+                        style="padding: 0.25rem 0 0.75rem 0; border: none;"
+                      >
+                        <h4 style="color: #333; font-weight: normal; margin-bottom: 0.75rem;">
+                          {format} - {variant}
+                        </h4>
+
+                        <div class="times-grid">
+                          {show.timetables
+                            .sort((a: any, b: any) =>
+                              a.time.localeCompare(b.time)
+                            )
+                            .map((tt: any) => (
+                              <a
+                                href={`/purchase/${show.id}/${tt.id}`}
+                                class="time-button"
+                              >
+                                {tt.time.substring(0, 5)}
+                              </a>
+                            ))}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              </div>
-            ))}
-            {/* --- FIN DE LA MODIFICACIÓN --- */}
+              )
+            )}
           </div>
         ) : (
           <p>No hay funciones programadas para esta película.</p>

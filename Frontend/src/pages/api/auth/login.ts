@@ -5,12 +5,12 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
   let body;
   try {
-    // Usa request.json() para parsear el cuerpo
+
     body = await request.json();
     console.log("LOGIN API ROUTE: Cuerpo recibido:", body);
   } catch (error) {
     console.error("LOGIN API ROUTE: Error al parsear JSON:", error);
-    // Si falla el parseo (cuerpo vacío o mal formato), devolvemos error
+
     return new Response(JSON.stringify({ message: "El formato de la petición no es un JSON válido o el cuerpo está vacío." }), { status: 400 });
   }
 
@@ -32,7 +32,6 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     console.log(`LOGIN API ROUTE: Respuesta del backend: ${response.status}`);
 
-    // Mejora del manejo de la respuesta del backend
     const contentType = response.headers.get('content-type');
     let data;
     if (contentType && contentType.includes('application/json')) {
@@ -64,7 +63,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     console.log("LOGIN API ROUTE: Cookie establecida. Login exitoso.");
 
-    return new Response(JSON.stringify({ message: 'Login exitoso' }), { status: 200 });
+   return new Response(JSON.stringify(data), { status: 200 });
 
   } catch (error: any) {
     console.error("LOGIN API ROUTE: Error de conexión con el backend:", error);

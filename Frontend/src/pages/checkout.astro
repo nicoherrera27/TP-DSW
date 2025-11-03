@@ -2,6 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import CheckoutSimulated from '../components/react/CheckoutSimulated.tsx';
 import '../styles/checkout.css';
+import { getAuthenticatedUser } from '../lib/auth';
+
+const user = getAuthenticatedUser(Astro.cookies);
+if (!user) {
+  const returnUrl = Astro.url.pathname + Astro.url.search;
+  return Astro.redirect(`/login?returnUrl=${encodeURIComponent(returnUrl)}`);
+}
 ---
 
 <Layout title="Confirmar Compra">

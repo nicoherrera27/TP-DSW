@@ -1,30 +1,32 @@
 ---
-// src/pages/purchase/[showId]/[timetableId].astro
 import Layout from '../../../layouts/Layout.astro';
-import TicketSelection from '../../../components/react/TicketSelection.tsx'; // Asegúrate de que la ruta sea correcta
+import TicketSelection from '../../../components/react/TicketSelection.tsx';
+import { getAuthenticatedUser } from '../../../lib/auth';
 
-export const prerender = false; // Importante para páginas dinámicas
+export const prerender = false;
+
+const user = getAuthenticatedUser(Astro.cookies);
+if (!user) {
+  const returnUrl = Astro.url.pathname + Astro.url.search;
+  return Astro.redirect(`/login?returnUrl=${encodeURIComponent(returnUrl)}`);
+}
 
 const { showId, timetableId } = Astro.params;
 
-// --- VALIDACIÓN BÁSICA ---
 if (
   !showId ||
   !timetableId ||
   isNaN(Number(showId)) ||
   isNaN(Number(timetableId))
 ) {
-  // Podrías redirigir a una página 404 personalizada si la tienes
   return new Response('IDs inválidos o faltantes', { status: 400 });
 }
 
-// --- OBTENER DATOS DE LA FUNCIÓN Y HORARIO ---
 let showDetails = null;
 let error = null;
-let ticketTypes = []; // Inicializar ticketTypes
+let ticketTypes = [];
 
 try {
-  // Primero, obtener tipos de ticket (no dependen del showId/timetableId)
   try {
     const typesResponse = await fetch('http://localhost:3000/api/ticketTypes');
     if (typesResponse.ok) {
@@ -32,82 +34,86 @@ try {
       ticketTypes = typesData.data || [];
     } else {
       console.error('Error fetching ticket types:', typesResponse.statusText);
-      // Decide si esto es un error fatal o puedes continuar sin tipos especiales
     }
   } catch (err) {
     console.error('Error fetching ticket types:', err);
-    // Decide cómo manejar este error
   }
 
-  // Luego, obtener detalles de la función
   const showResponse = await fetch(`http://localhost:3000/api/show/${showId}`);
-  if (showResponse.ok) {
-    const showData = await showResponse.json();
-
-    // Verificar que data.data exista antes de acceder a sus propiedades
-    if (!showData.data) {
-      throw new Error(
-        'Respuesta del servidor no contiene datos de la función.'
-      );
-    }
-
-    const currentShow = showData.data;
-    // Buscar el timetable específico DENTRO de la función obtenida
-    const timetable = currentShow.timetables?.find(
-      (tt: any) => tt.id === Number(timetableId)
+  if (!showResponse.ok) {
+    const errorData = await showResponse.json().catch(() => ({}));
+    throw new Error(
+      errorData.message ||
+        `Error ${showResponse.status} al obtener detalles de la función.`
     );
+  }
 
-    // Verificar que existan los datos necesarios, incluyendo la capacidad
-    if (
-      timetable &&
-      currentShow.showRoom &&
-      currentShow.showRoom.capacity !== undefined &&
-      currentShow.showCat &&
-      currentShow.showMovie
-    ) {
-      showDetails = {
-        movieName: currentShow.showMovie.name || 'Película Desconocida',
-        roomName: currentShow.showRoom.name || 'Sala Desconocida',
-        date: currentShow.date,
-        time: timetable.time.substring(0, 5),
-        format: currentShow.showCat.description || '',
-        variant: currentShow.variant || '',
-        basePrice: currentShow.showCat.price || 0,
-        showId: currentShow.id,
-        timetableId: timetable.id,
-        roomCapacity: currentShow.showRoom.capacity, // <-- Pasar capacidad
-      };
+  const showData = await showResponse.json();
+  if (!showData.data) {
+    throw new Error('Respuesta del servidor no contiene datos de la función.');
+  }
+  const currentShow = showData.data;
+
+  let soldTickets = 0;
+  try {
+    const countResponse = await fetch(
+      `http://localhost:3000/api/tickets/count/by-timetable/${timetableId}`
+    );
+    if (countResponse.ok) {
+      const countData = await countResponse.json();
+      soldTickets = countData.data?.soldTicketsCount ?? 0;
     } else {
-      // Si falta algún dato crucial, lanza error
-      let missingData = [];
-      if (!timetable) missingData.push('horario específico');
-      if (!currentShow.showRoom) missingData.push('información de la sala');
-      if (currentShow.showRoom && currentShow.showRoom.capacity === undefined)
-        missingData.push('capacidad de la sala');
-      if (!currentShow.showCat) missingData.push('categoría de la función');
-      if (!currentShow.showMovie)
-        missingData.push('información de la película');
+      console.warn('No se pudo obtener el conteo de tickets vendidos.');
+    }
+  } catch (err) {
+    console.error('Error fetching ticket count:', err);
+  }
 
-      throw new Error(`Datos incompletos: falta ${missingData.join(', ')}.`);
-    }
+  // Calculo de asientos disponibles a la hora de seleccionar cantidad de entradas
+  const timetable = currentShow.timetables?.find(
+    (tt: any) => tt.id === Number(timetableId)
+  );
+
+  const totalCapacity = currentShow.showRoom?.capacity;
+  let availableCapacity = 0;
+
+  if (typeof totalCapacity === 'number' && totalCapacity > 0) {
+    availableCapacity = Math.max(0, totalCapacity - soldTickets);
+  }
+
+  if (
+    timetable &&
+    currentShow.showRoom &&
+    totalCapacity !== undefined &&
+    currentShow.showCat &&
+    currentShow.showMovie
+  ) {
+    showDetails = {
+      movieName: currentShow.showMovie.name || 'Película Desconocida',
+      roomName: currentShow.showRoom.name || 'Sala Desconocida',
+      date: currentShow.date,
+      time: timetable.time.substring(0, 5),
+      format: currentShow.showCat.description || '',
+      variant: currentShow.variant || '',
+      basePrice: currentShow.showCat.price || 0,
+      showId: currentShow.id,
+      timetableId: timetable.id,
+      availableCapacity: availableCapacity,
+    };
   } else {
-    // Capturar mensaje de error del backend si existe
-    let errorMsg = `Error ${showResponse.status} al obtener detalles de la función.`;
-    try {
-      const errorData = await showResponse.json();
-      if (errorData.message) {
-        errorMsg = errorData.message;
-      }
-    } catch (jsonError) {
-      // Si no es JSON, usa el statusText
-      errorMsg = showResponse.statusText;
-    }
-    throw new Error(errorMsg);
+    let missingData = [];
+    if (!timetable) missingData.push('horario específico');
+    if (!currentShow.showRoom) missingData.push('información de la sala');
+    if (currentShow.showRoom && totalCapacity === undefined)
+      missingData.push('capacidad de la sala');
+    if (!currentShow.showCat) missingData.push('categoría de la función');
+    if (!currentShow.showMovie) missingData.push('información de la película');
+
+    throw new Error(`Datos incompletos: falta ${missingData.join(', ')}.`);
   }
 } catch (err: any) {
   console.error('Error en purchase page:', err);
   error = err.message || 'No se pudieron cargar los detalles de la función.';
-  // Evitar renderizar TicketSelection si hay error
   showDetails = null;
 }
 ---
@@ -115,13 +121,9 @@ try {
 <Layout title="Seleccionar Entradas">
   <main class="purchase-container container">
     <h1>Comprar Entradas</h1>
-
-    {/* Mostrar error si ocurrió */}
     {error && <p class="error-message">Error: {error}</p>}
-
-    {/* Mostrar componente solo si NO hay error Y tenemos showDetails */}
     {
-      !error && showDetails && (
+      !error && showDetails && showDetails.availableCapacity > 0 && (
         <TicketSelection
           client:load
           showDetails={showDetails}
@@ -129,8 +131,13 @@ try {
         />
       )
     }
-
-    {/* Mensaje de carga si no hay error y aún no hay detalles */}
+    {
+      !error && showDetails && showDetails.availableCapacity === 0 && (
+        <p class="error-message" style="margin-top: 2rem;">
+          ¡Lo sentimos! Esta función ya no tiene asientos disponibles.
+        </p>
+      )
+    }
     {
       !error && !showDetails && !error && (
         <p>Cargando detalles de la función...</p>
@@ -151,9 +158,9 @@ try {
     font-size: 2.5rem;
   }
   .error-message {
-    color: #d9534f; /* Rojo */
-    background-color: #f2dede; /* Fondo rojo claro */
-    border: 1px solid #ebccd1; /* Borde rojo */
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
     padding: 1rem;
     border-radius: 4px;
     text-align: center;
@@ -161,5 +168,4 @@ try {
     margin: 2rem auto;
     max-width: 700px;
   }
-  /* Estilos adicionales irían en TicketSelection.css */
 </style>
