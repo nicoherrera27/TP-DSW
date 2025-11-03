@@ -39,8 +39,6 @@ export class TMDBService {
     }
   }
 
-  // --- NINGUNO DE LOS MÉTODOS DE AQUÍ PARA ABAJO NECESITA CAMBIOS ---
-
   async getMovieDetails(movieId: number): Promise<TMDBMovieDetail> {
     return this.fetchData<TMDBMovieDetail>(`/movie/${movieId}`);
   }
