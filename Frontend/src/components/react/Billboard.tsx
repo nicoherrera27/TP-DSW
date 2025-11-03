@@ -53,7 +53,7 @@ fetch(`http://localhost:3000/api/show/cartelera?${queryParams.toString()}`)
         .finally(() => {
         setLoading(false);
       });
-  }, [filters]); // El array de dependencias
+  }, [filters]); // array de dependencias
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -65,7 +65,7 @@ fetch(`http://localhost:3000/api/show/cartelera?${queryParams.toString()}`)
 
   // Mapeamos los datos para que MovieGrid los entienda
   const moviesForGrid = movies.map(movie => ({
-    id: movie.tmdbId, // O show.id si prefieres
+    id: movie.tmdbId,
     title: movie.name,
     overview: movie.synopsis,
     poster_path: movie.url,

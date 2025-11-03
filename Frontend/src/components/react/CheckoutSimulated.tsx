@@ -30,12 +30,10 @@ const CheckoutSimulated = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        // Al cargar, lee los datos de la compra desde sessionStorage
         const storedData = sessionStorage.getItem('checkoutData');
         if (storedData) {
             setData(JSON.parse(storedData));
         } else {
-            // Si no hay datos, es un error (quizás recargó la página)
             setMessage('No se encontraron datos de la compra. Vuelva a intentarlo.');
             setIsError(true);
         }
@@ -49,7 +47,7 @@ const CheckoutSimulated = () => {
         setMessage('');
 
         try {
-            // Llamamos al nuevo endpoint del backend que sí guarda la venta
+            // Llamamos a un endpoint del backend que guarda la venta
             const response = await api.post<{ message: string, saleId: number }>('/api/sales/create-sale-simulated', {
                 showId: data.showId,
                 timetableId: data.timetableId,
@@ -57,12 +55,11 @@ const CheckoutSimulated = () => {
                 totalPrice: data.totalPrice
             });
             
-            // ¡Éxito!
             setMessage(`¡Compra confirmada! (ID de Venta: ${response.saleId}). Redirigiendo...`);
             setIsError(false);
-            sessionStorage.removeItem('checkoutData'); // Limpiamos la sesión
+            sessionStorage.removeItem('checkoutData');
 
-            // Redirigimos al inicio después de 3 segundos
+            // Redirigimos a la HomePage después de 3 segundos
             setTimeout(() => {
                 window.location.href = '/';
             }, 3000);
