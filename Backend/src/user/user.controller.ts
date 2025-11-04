@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken';
 const em = orm.em;
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// ... (findAll, findOne, create se mantienen igual, pero create ahora asignará el rol por defecto 'client') ...
 async function findAll (req: Request, res: Response) {
     try{
       const users = await em.find(User, {})
@@ -82,12 +81,10 @@ async function login(req: Request, res: Response) {
         if (!passwordValid) {
             return res.status(401).json({ message: 'Usuario o Contraseña incorrecta' });
         }
-
-        // CORRECCIÓN: Añadimos el rol al payload del token
         const tokenPayload = {
             id: user.id,
             username: user.username,
-            role: user.role // <-- AÑADIR ESTA LÍNEA
+            role: user.role
         };
 
         const token = jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: '8h' });
@@ -99,7 +96,6 @@ async function login(req: Request, res: Response) {
     }
 }
 
-// ... (update y remove se mantienen igual) ...
 async function update (req: Request, res: Response) {
     try{
       const id = Number.parseInt(req.params.id)

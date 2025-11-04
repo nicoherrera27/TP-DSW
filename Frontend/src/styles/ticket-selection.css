@@ -1,5 +1,3 @@
-/* src/styles/TicketSelection.css */
-
 .ticket-selection-container {
     max-width: 700px;
     margin: auto;
@@ -46,7 +44,7 @@
 }
 
 .discount-text {
-    color: #008000; /* Verde */
+    color: #008000; 
     font-weight: bold;
     font-size: 0.9em;
     margin-left: 0.5rem;
@@ -102,7 +100,7 @@
     padding: 0.9rem 2.5rem;
     font-size: 1.2rem;
     font-weight: bold;
-    background-color: #009ee3; /* Color Mercado Pago */
+    background-color: #009ee3; 
     color: white;
     border: none;
     border-radius: 6px;
@@ -111,7 +109,7 @@
 }
 
 .pay-button:hover:not(:disabled) {
-    background-color: #007bb5; /* Tono más oscuro al pasar el mouse */
+    background-color: #007bb5; 
 }
 
 .pay-button:disabled {
@@ -123,11 +121,11 @@
 
 .message {
     margin-top: 1.5rem;
-    color: #d9534f; /* Rojo para errores */
+    color: #d9534f; 
     font-weight: bold;
     font-size: 1.1em;
 }
 
-.message.success { /* Clase opcional para mensajes de éxito */
-    color: #5cb85c; /* Verde */
+.message.success { 
+    color: #5cb85c; 
 }

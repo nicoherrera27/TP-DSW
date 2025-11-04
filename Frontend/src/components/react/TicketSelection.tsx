@@ -101,7 +101,7 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
     };
 
     // Calcular el precio total
-const ticketsToPurchase = useMemo((): PreparedTicket[] => {
+    const ticketsToPurchase = useMemo((): PreparedTicket[] => {
         if (Object.keys(quantities).length === 0) return [];
         
         return Object.entries(quantities)

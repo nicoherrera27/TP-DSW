@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { api } from '@/services/apiClient'; // Import the secure API client
-
-// La interfaz de usuario se mantiene igual
+import { api } from '@/services/apiClient'; 
 interface User {
   id: number;
   username: string;
@@ -32,7 +30,6 @@ const AdminUserPanel = () => {
     }
   };
 
-  // Función para manejar cambios de rol (modificar)
   const handleRoleChange = async (userId: number, newRole: 'admin' | 'client') => {
     setMessage('');
     try {
@@ -49,7 +46,6 @@ const AdminUserPanel = () => {
     }
   };
 
-  // --- NUEVA FUNCIÓN PARA ELIMINAR USUARIOS ---
   const handleDelete = async (userId: number) => {
     if (!confirm('¿Estás seguro de que quieres eliminar este usuario? Esta acción es irreversible.')) {
       return;
@@ -57,7 +53,6 @@ const AdminUserPanel = () => {
     setMessage('');
     try {
       await api.delete(`/api/users/${userId}`);
-      // Actualiza el estado para remover el usuario de la lista sin recargar la página
       setUsers(currentUsers => currentUsers.filter(user => user.id !== userId));
       setMessage('✅ Usuario eliminado correctamente.');
     } catch (error: any) {

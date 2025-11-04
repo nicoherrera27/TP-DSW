@@ -19,7 +19,7 @@ export class Show extends BaseEntity{
   isSpecial: boolean = false;
   
   @Property({ nullable: true })
-  variant?: string; // "Doblada" o "Subtitulada"
+  variant?: string; 
 
   @Property({ nullable: true})
   recharge?: number;

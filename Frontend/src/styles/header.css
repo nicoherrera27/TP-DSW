@@ -19,7 +19,7 @@
 .top-bar {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Centra verticalmente */
+  align-items: center; 
   margin-bottom: 1.5rem;
 }
 
@@ -31,11 +31,10 @@
   color: #000000;
 }
 
-/* Nuevo contenedor para los botones de usuario */
 .user-actions {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Espacio entre "Iniciar Sesión" y "Registrarse" */
+  gap: 0.5rem;
 }
 
 .user-actions a:hover {
@@ -69,11 +68,11 @@
 
 .main-nav a:hover,
 .user-actions a:hover {
-  background-color: rgba(0, 0, 0, 0.15); /* Fondo oscuro semitransparente */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  background-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
   .top-bar {
     flex-direction: column;

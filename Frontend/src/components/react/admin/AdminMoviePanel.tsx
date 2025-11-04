@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { tmdbService } from '@/services/tmdbService';
 import type { TMDBMovie } from '@/types/movies';
-import { api } from '@/services/apiClient'; // <-- Importar nuestro nuevo cliente de API
-
-// ... (la interfaz LocalMovie se mantiene igual)
+import { api } from '@/services/apiClient';
 interface LocalMovie {
     id: number;
     name: string;
@@ -11,7 +9,6 @@ interface LocalMovie {
 }
 
 const AdminMoviePanel = () => {
-    // ... (los estados se mantienen igual)
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<TMDBMovie[]>([]);
     const [searchLoading, setSearchLoading] = useState(false);
@@ -23,10 +20,10 @@ const AdminMoviePanel = () => {
         fetchLocalMovies();
     }, []);
 
+    // Trae las peliculas de la bbdd para mostrarlas en el panel
     const fetchLocalMovies = async () => {
         setLocalLoading(true);
         try {
-            // Usamos api.get para la petición pública
             const data = await api.get<{ data: LocalMovie[] }>('/api/movies');
             setLocalMovies(data.data);
         } catch (error) {
@@ -36,8 +33,8 @@ const AdminMoviePanel = () => {
         }
     };
     
+    // Trae las peliculas de tmdb segun la busqueda
     const handleSearch = async (e: React.FormEvent) => {
-        // ... (esta función no cambia porque usa tmdbService)
         e.preventDefault();
         if (!query.trim()) return;
         setSearchLoading(true);
@@ -52,10 +49,10 @@ const AdminMoviePanel = () => {
         }
     };
 
+    // Importa una pelicula desde tmdb a la bbdd local
     const handleImport = async (tmdbId: number) => {
         setMessage(`Importando película ID: ${tmdbId}...`);
         try {
-            // CORRECCIÓN: Usamos api.post para la petición protegida
             const data = await api.post<{ data: { name: string } }>('/api/movies/import-from-tmdb', { tmdbId });
             setMessage(`✅ Película importada: ${data.data.name}`);
             fetchLocalMovies();
@@ -64,12 +61,12 @@ const AdminMoviePanel = () => {
         }
     };
 
+    // Elimina una pelicula de la bbdd local
     const handleDelete = async (movieId: number) => {
         if (!confirm('¿Estás seguro de que quieres eliminar esta película?')) return;
         
         setMessage(`Eliminando película ID: ${movieId}...`);
         try {
-            // CORRECCIÓN: Usamos api.delete para la petición protegida
             await api.delete(`/api/movies/${movieId}`);
             setMessage('✅ Película eliminada correctamente.');
             fetchLocalMovies();
@@ -78,7 +75,6 @@ const AdminMoviePanel = () => {
         }
     };
 
-    // ... (El JSX del return se mantiene igual)
 return (
         <div style={{ color: 'black', maxWidth: '1000px', margin: 'auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
             <div>

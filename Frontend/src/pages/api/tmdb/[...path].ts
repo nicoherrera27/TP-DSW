@@ -1,6 +1,5 @@
 import type { APIRoute } from 'astro';
 
-// CORRECCIÓN: Esta línea le dice a Astro que esta ruta debe ejecutarse en el servidor y no generarse estáticamente.
 export const prerender = false;
 
 const API_KEY = import.meta.env.TMDB_API_KEY;

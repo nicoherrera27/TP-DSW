@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { orm } from "../shared/db/orm.js";
 import { Movie } from "./movie.entity.js";
 
-// CORRECCIÓN: Leemos la clave de API de forma segura desde las variables de entorno.
 const API_KEY = process.env.TMDB_API_KEY;
 
 const em = orm.em;
@@ -34,7 +33,6 @@ async function importFromTmdb(req: Request, res: Response) {
       return res.status(400).json({ message: 'El ID de TMDB es requerido' });
     }
     
-    // Verificación para asegurar que la API_KEY está cargada.
     if (!API_KEY) {
       throw new Error('La clave de API de TMDB no está configurada en el servidor.');
     }

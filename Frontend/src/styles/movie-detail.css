@@ -98,7 +98,6 @@ body{
     margin-bottom: 0.25rem;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
     .detail-grid {
         grid-template-columns: 1fr;

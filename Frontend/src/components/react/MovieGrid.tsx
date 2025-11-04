@@ -1,4 +1,4 @@
-import type { FC } from 'react'; // 1. Importar FC (Functional Component)
+import type { FC } from 'react';
 import { ReadMore } from './ReadMore';
 
 interface Movie {
@@ -13,7 +13,6 @@ interface MovieGridProps {
   basePath?: string;
 }
 
-// 2. Cambiar la definición a una constante tipada con FC
 export const MovieGrid: FC<MovieGridProps> = ({ movies, basePath = '/movie' }) => {
   return (
     <div className="movie-grid">
@@ -21,7 +20,6 @@ export const MovieGrid: FC<MovieGridProps> = ({ movies, basePath = '/movie' }) =
         const posterUrl = movie.poster_path ? movie.poster_path : '/placeholder-movie.png';
 
         return (
-          // 3. Usar la variable basePath para construir el enlace dinámicamente
           <a href={`${basePath}/${movie.id}`} key={movie.id} className="movie-card">
             <img
               src={posterUrl}

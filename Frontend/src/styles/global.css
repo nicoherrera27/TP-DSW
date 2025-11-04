@@ -22,18 +22,15 @@ body {
   background: var(--color-bg-dark);
   color: var(--color-text-primary);
   line-height: 1.6;
-
-    /* --- CORRECCIONES --- */
-  display: flex;             /* 1. Activa Flexbox */
-  flex-direction: column;    /* 2. Organiza los elementos en columna (Header, Main, Footer) */
-  min-height: 100vh;         /* 3. Asegura que el body ocupe al menos toda la altura de la pantalla */
+  display: flex;             
+  flex-direction: column;    
+  min-height: 100vh;         
 }
 
-/* NUEVA REGLA: Hace que el contenido principal se estire */
+
 main {
-  flex-grow: 1; /* 4. Le dice al <main> que ocupe todo el espacio sobrante */
+  flex-grow: 1;
 }
-
 
 .container {
   max-width: 1400px;
@@ -51,7 +48,6 @@ button {
   font-family: inherit;
 }
 
-/* Utility Classes */
 .text-center {
   text-align: center;
 }

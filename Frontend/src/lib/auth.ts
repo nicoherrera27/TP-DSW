@@ -16,7 +16,6 @@ export function getAuthenticatedUser(cookies: AstroCookies): UserPayload | null 
 
   try {
     // Verificamos el token con el mismo secreto que usa el backend.
-    // Asegúrate de tener JWT_SECRET en tu .env del frontend.
     const decoded = jwt.verify(token, import.meta.env.JWT_SECRET) as UserPayload;
     return decoded;
   } catch (error) {

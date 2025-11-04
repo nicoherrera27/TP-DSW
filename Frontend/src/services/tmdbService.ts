@@ -12,8 +12,6 @@ export class TMDBService {
     });
 
     const relativeUrl = `${PROXY_BASE_URL}${endpoint}?${searchParams}`;
-    
-    // CORRECCIÓN: Determinamos la URL final dependiendo del entorno (servidor o cliente).
     let finalUrl: string;
 
     if (import.meta.env.SSR) {

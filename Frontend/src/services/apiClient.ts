@@ -1,4 +1,4 @@
-// Función para obtener el token de localStorage
+// Se obtiene el token de localStorage
 function getAuthToken() {
     if (typeof window !== 'undefined') {
         return localStorage.getItem('authToken');

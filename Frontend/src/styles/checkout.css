@@ -109,13 +109,13 @@
     background-color: #dff0d8;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .checkout-grid {
         grid-template-columns: 1fr;
     }
     .summary-box {
-        grid-row: 1; /* Mueve el resumen arriba en móviles */
+        grid-row: 1;
         margin-bottom: 2rem;
     }
 }

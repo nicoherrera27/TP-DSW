@@ -33,7 +33,6 @@ export interface TMDBMovieDetail extends TMDBMovie {
   budget: number;
   revenue: number;
 }
-
 export interface TMDBVideo {
   iso_639_1: string;
   iso_3166_1: string;

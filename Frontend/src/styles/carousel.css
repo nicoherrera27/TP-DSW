@@ -3,7 +3,6 @@
 }
 
 .carousel-container {
-  /* Eliminamos un color de fondo que ya no se usa para mantener la consistencia */
   padding: 2rem;
   border-radius: 12px;
   max-width: 1400px;
@@ -25,7 +24,7 @@
 .carousel-title {
   font-size: 2rem;
   font-weight: bold;
-  color: var(--color-text-primary); /* Título "Próximos Estrenos" en blanco */
+  color: var(--color-text-primary); 
   font-family: 'Bebas Neue', sans-serif;
 }
 
@@ -42,7 +41,7 @@
 .carousel-slide {
   flex: 0 0 calc(100% / 3);
   padding: 0 0.75rem;
-  text-decoration: none; /* Asegurarse de que el slide no tenga subrayado */
+  text-decoration: none; 
 }
 
 .carousel-card {
@@ -90,7 +89,7 @@
 
 .release-date {
   font-weight: bold;
-  color: white; /* Fecha de estreno en blanco sobre la imagen */
+  color: white;
 }
 
 .carousel-card-info {
@@ -99,7 +98,6 @@
 }
 
 .movie-title {
-  /* CORRECCIÓN: Cambiamos el color del título a negro para que sea visible */
   color: #000000;
   font-weight: 600;
   font-size: 1.1rem;

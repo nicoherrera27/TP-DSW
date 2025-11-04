@@ -3,12 +3,10 @@ import Layout from '../../layouts/Layout.astro';
 import AdminMoviePanel from '../../components/react/admin/AdminMoviePanel.tsx';
 import { getAuthenticatedUser } from '../../lib/auth';
 
-// --- GUARDIA DE SEGURIDAD ---
 const user = getAuthenticatedUser(Astro.cookies);
 if (!user || user.role !== 'admin') {
   return Astro.redirect('/login');
 }
-// --- FIN DEL GUARDIA ---
 ---
 
 <Layout title="Admin - Gestión de Películas">

@@ -66,7 +66,6 @@ const CheckoutSimulated = () => {
 
         } catch (error: any) {
             console.error("Error al confirmar la compra:", error);
-            // Mostramos el error del backend (ej. "Capacidad excedida")
             setMessage(`Error: ${error.message || 'No se pudo procesar la compra.'}`);
             setIsError(true);
             setIsLoading(false);
