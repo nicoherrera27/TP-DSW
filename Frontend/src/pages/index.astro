@@ -9,16 +9,7 @@ import promoBanner from '../assets/promo-banner.jpg';
 
 <Layout title="CineVerse - Inicio">
   <main>
-    <BossCarousel client:visible />
-    <section style="padding: 4rem; text-align: center;">
-      <a
-        href="/cartelera"
-        style="color: var(--text-primary); font-size: 1.2rem; border: 1px solid black; padding: 1rem 2rem; border-radius: 8px; text-decoration: none;"
-      >
-        Ver Cartelera Completa
-      </a>
-    </section>
-          <section class="promo-banner-section">
+      <section class="promo-banner-section">
         <a href="/promociones" class="promo-link">
           <Image 
             src={promoBanner}
@@ -30,6 +21,15 @@ import promoBanner from '../assets/promo-banner.jpg';
             quality={80}
           />
         </a>
-      </section>
+      </section>    
+    <BossCarousel client:visible />
+    <section style="padding: 4rem; text-align: center;">
+      <a
+        href="/cartelera"
+        style="color: var(--text-primary); font-size: 1.2rem; border: 1px solid black; padding: 1rem 2rem; border-radius: 8px; text-decoration: none;"
+      >
+        Ver Cartelera Completa
+      </a>
+    </section>
   </main>
 </Layout>
