@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const navLinks = [
   { href: '/cartelera', text: 'Cartelera' },
-  //{ href: '/promociones', text: 'Promociones' },
+  { href: '/promociones', text: 'Promociones' },
   { href: '/funciones-especiales', text: 'Funciones Especiales' },
 ];
 

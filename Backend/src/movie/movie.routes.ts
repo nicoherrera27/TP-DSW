@@ -1,10 +1,13 @@
 import { Router } from "express";
-import { sanitizeMovieInput, findAll, findOne, create, update, remove, importFromTmdb } from "./movie.controller.js";
+import { sanitizeMovieInput, findAll, findOne, create, update, remove, importFromTmdb, findTopRated, findUpcoming } from "./movie.controller.js";
 import { authMiddleware, isAdmin } from "../shared/middleware/auth.js"; // <-- Importar ambos middlewares
 
 export const movieRouter = Router();
 
 // Rutas públicas
+movieRouter.get('/top-rated', findTopRated);
+movieRouter.get('/upcoming', findUpcoming);
+
 movieRouter.get('/', findAll);
 movieRouter.get('/:id', findOne);
 

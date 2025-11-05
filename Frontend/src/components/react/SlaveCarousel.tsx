@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
-import type { TMDBMovie } from '../../types/movies';
-import { tmdbService, IMAGE_BASE_URL } from '../../services/tmdbService';
+import { useState } from 'react';
+import type { TMDBMovie } from '../../types/movies'; // Usamos el tipo genérico
 
-export function MovieCarousel() {
-  const [movies, setMovies] = useState<TMDBMovie[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [currentSlide, setCurrentSlide] = useState(0);
+interface SlaveCarouselProps {
+  title: string;
+  movies: TMDBMovie[];
+}
 
-  const formatReleaseDate = (dateString: string): string => {
+const formatReleaseDate = (dateString: string): string => {
+  if (!dateString) return 'Próximamente';
+  try {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
       day: 'numeric',
@@ -16,34 +17,16 @@ export function MovieCarousel() {
       timeZone: 'UTC',
     };
     return new Intl.DateTimeFormat('es-AR', options).format(date).replace('.', '');
-  };
+  } catch (e) { return dateString; }
+};
 
-  useEffect(() => {
-    const fetchUpcomingMovies = async () => {
-      try {
-        const pagesToFetch = [1, 2, 3];
-        const promises = pagesToFetch.map(page => tmdbService.getUpcomingMovies(page));
-        const responses = await Promise.all(promises);
-        const allUpcomingMovies = responses.flatMap(response => response.results);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+export function SlaveCarousel({ title, movies }: SlaveCarouselProps) {
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-        const futureMovies = allUpcomingMovies.filter(movie => {
-          const releaseDate = new Date(movie.release_date);
-          return releaseDate >= today;
-        });
+  if (!movies || movies.length === 0) {
+    return null;
+  }
 
-        setMovies(futureMovies.slice(0, 10));
-      } catch (error) {
-        console.error('Error fetching upcoming movies:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUpcomingMovies();
-  }, []);
-
-  // Se muestran 3 slides a la vez
   const visibleSlides = 3;
   const totalSlides = movies.length > visibleSlides ? movies.length - (visibleSlides - 1) : 1;
 
@@ -59,46 +42,51 @@ export function MovieCarousel() {
     setCurrentSlide(slideIndex);
   };
 
-  if (loading) {
-    return (
-      <div className="carousel-container">
-        <div className="loading-text">Cargando Estrenos...</div>
-      </div>
-    );
-  }
-
   return (
     <section className="carousel-section">
       <div className="carousel-container">
-          <h2 className="carousel-title">Próximos Estrenos</h2>
+        <h2 className="carousel-title">{title}</h2>
 
         <div className="carousel-wrapper">
-          <div 
+          <div
             className="carousel-track"
             style={{ transform: `translateX(-${currentSlide * (100 / visibleSlides)}%)` }}
           >
             {movies.map((movie) => (
-              <div key={movie.id} className="carousel-slide">
+              <a
+                href={`/movie/${movie.id}`}
+                key={movie.id}
+                className="carousel-slide"
+                style={{ textDecoration: 'none' }}
+              >
                 <div className="carousel-card">
                   <div className="carousel-image-container">
-                    <img 
-                      src={movie.poster_path ? `${IMAGE_BASE_URL}${movie.poster_path}` : '/placeholder-movie.png'} 
-                      alt={movie.title} 
+                    <img
+                      src={movie.poster_path ? movie.poster_path : '/placeholder-movie.png'}
+                      alt={movie.title}
                       className="carousel-image"
                     />
                     <div className="carousel-image-gradient"></div>
                     <div className="carousel-image-overlay">
-                      <span className="release-date">🗓️ {formatReleaseDate(movie.release_date)}</span>
+                      <span className="release-date">
+                        {/* Si el título es "Mejores Valoradas", muestra el rating.
+                          Si no, muestra la fecha.
+                        */}
+                        {title.includes('Valoradas')
+                          ? `⭐ ${movie.vote_average.toFixed(1)} / 10`
+                          : `🗓️ ${formatReleaseDate(movie.release_date)}`
+                        }
+                      </span>
                     </div>
                   </div>
                   <div className="carousel-card-info">
                     <h3 className="movie-title">{movie.title}</h3>
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
-          
+
           <button onClick={handlePrev} className="carousel-nav prev">‹</button>
           <button onClick={handleNext} className="carousel-nav next">›</button>
 

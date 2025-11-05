@@ -1,13 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { MovieCarousel } from '../components/react/MovieCarousel';
-import '../styles/carousel.css';
+import { BossCarousel } from '../components/react/BossCarousel'; 
+import { Image } from 'astro:assets';
+import '../styles/homepage.css';
+import promoBanner from '../assets/promo-banner.jpg';
+
 ---
 
 <Layout title="CineVerse - Inicio">
   <main>
-    <MovieCarousel client:visible />
-
+    <BossCarousel client:visible />
     <section style="padding: 4rem; text-align: center;">
       <a
         href="/cartelera"
@@ -16,5 +18,18 @@ import '../styles/carousel.css';
         Ver Cartelera Completa
       </a>
     </section>
+          <section class="promo-banner-section">
+        <a href="/promociones" class="promo-link">
+          <Image 
+            src={promoBanner}
+            alt="¡Las mejores promos están aquí! Explora nuestras ofertas" 
+            class="promo-image"
+            width={1200} 
+            height={25} 
+            format="webp"
+            quality={80}
+          />
+        </a>
+      </section>
   </main>
 </Layout>

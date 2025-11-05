@@ -23,6 +23,12 @@ export class Movie extends BaseEntity{
 
   @Property()
   url!: string;
+  
+  @Property({nullable: true})
+  releaseDate?: string; 
+
+  @Property({ type: 'decimal', precision: 3, scale: 1, nullable: true })
+  rating?: number;
 
   @OneToMany({entity: () => Show, mappedBy: 'showMovie', cascade: [Cascade.ALL]})
   shows = new Collection<Show>(this);
