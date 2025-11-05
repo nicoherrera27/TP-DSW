@@ -1,8 +1,8 @@
 import type { TMDBResponse, TMDBMovieDetail, TMDBMovie, TMDBVideoResponse } from "../types/movies";
 
 const PROXY_BASE_URL = import.meta.env.PUBLIC_API_BASE_URL;
-export const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
-export const BACKDROP_BASE_URL = 'https://image.tmdb.org/t/p/original';
+const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+const BACKDROP_BASE_URL = 'https://image.tmdb.org/t/p/original';
 
 export class TMDBService {
   private async fetchData<T>(endpoint: string, params: Record<string, string> = {}): Promise<T> {
@@ -41,26 +41,6 @@ export class TMDBService {
     return this.fetchData<TMDBMovieDetail>(`/movie/${movieId}`);
   }
 
-  async getPopularMovies(page: number = 1): Promise<TMDBResponse<TMDBMovie>> {
-    return this.fetchData<TMDBResponse<TMDBMovie>>('/movie/popular', { page: page.toString() });
-  }
-
-  async getTopRatedMovies(page: number = 1): Promise<TMDBResponse<TMDBMovie>> {
-    return this.fetchData<TMDBResponse<TMDBMovie>>('/movie/top_rated', { page: page.toString() });
-  }
-
-  async getTrendingMovies(): Promise<TMDBResponse<TMDBMovie>> {
-    return this.fetchData<TMDBResponse<TMDBMovie>>('/trending/movie/day');
-  }
-
-  async getNowPlayingMovies(page: number = 1): Promise<TMDBResponse<TMDBMovie>> {
-    return this.fetchData<TMDBResponse<TMDBMovie>>('/movie/now_playing', { page: page.toString() });
-  }
-
-  async getUpcomingMovies(page: number = 1): Promise<TMDBResponse<TMDBMovie>> {
-    return this.fetchData<TMDBResponse<TMDBMovie>>('/movie/upcoming', { page: page.toString() });
-  }
-
   async searchMovies(query: string, page: number = 1): Promise<TMDBResponse<TMDBMovie>> {
     if (!query?.trim()) {
       return { page: 1, results: [], total_pages: 0, total_results: 0 };
@@ -78,7 +58,10 @@ export class TMDBService {
   getImageUrl(path: string | null, size: 'small' | 'medium' | 'large' = 'medium'): string | null {
     if (!path) return null;
     const sizes = { small: 'w200', medium: 'w500', large: 'original' };
-    return `https://image.tmdb.org/t/p/${sizes[size]}${path}`;
+    const baseUrl = size === 'large' ? BACKDROP_BASE_URL : IMAGE_BASE_URL;
+    if (path.startsWith('http')) return path;
+    const sizePath = sizes[size] || sizes.medium;
+    return `https://image.tmdb.org/t/p/${sizePath}${path}`;
   }
 }
 
