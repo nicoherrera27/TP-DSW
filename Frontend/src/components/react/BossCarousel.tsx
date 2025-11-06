@@ -62,15 +62,15 @@ export function BossCarousel() {
   if (loading) {
     return (
       <div className="carousel-container">
-        <div className="loading-text">Cargando...</div>
+        <div className="loading-text">Loading...</div>
       </div>
     );
   }
 
   return (
     <>
-      <SlaveCarousel title="Mejores Valoradas" movies={topRatedMovies} />
-      <SlaveCarousel title="Próximos Estrenos" movies={upcomingMovies} />
+      <SlaveCarousel title="Featured movies" movies={topRatedMovies} />
+      <SlaveCarousel title="Upcoming Releases" movies={upcomingMovies} />
     </>
   );
 }

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 const navLinks = [
-  { href: '/cartelera', text: 'Cartelera' },
-  { href: '/promociones', text: 'Promociones' },
-  { href: '/funciones-especiales', text: 'Funciones Especiales' },
+  { href: '/cartelera', text: 'Movies' },
+  { href: '/promociones', text: 'Promos' },
+  { href: '/funciones-especiales', text: 'Special Functions' },
 ];
 
 interface HeaderProps {
@@ -29,13 +29,13 @@ export function Header({ isLoggedIn: initialIsLoggedIn, userRole }: HeaderProps)
             {isLoggedIn ? (
               <>
                 {/* Muestra el panel solo si el rol es 'admin' */}
-                {userRole === 'admin' && <a href="/admin">Panel de Admin</a>}
-                <button onClick={handleLogout} className="logout-button">Cerrar Sesión</button> 
+                {userRole === 'admin' && <a href="/admin">Admin Panel</a>}
+                <button onClick={handleLogout} className="logout-button">Logout</button> 
               </>
             ) : (
               <>
-                <a href="/login">Iniciar Sesión</a>
-                <a href="/register">Registrarse</a>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
               </>
             )}
           </div>

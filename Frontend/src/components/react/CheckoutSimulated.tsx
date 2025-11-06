@@ -34,7 +34,7 @@ const CheckoutSimulated = () => {
         if (storedData) {
             setData(JSON.parse(storedData));
         } else {
-            setMessage('No se encontraron datos de la compra. Vuelva a intentarlo.');
+            setMessage('No sale data fetched. Vuelva a intentarlo.');
             setIsError(true);
         }
     }, []);

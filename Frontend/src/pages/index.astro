@@ -1,35 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { BossCarousel } from '../components/react/BossCarousel'; 
+import { BossCarousel } from '../components/react/BossCarousel';
 import { Image } from 'astro:assets';
 import '../styles/homepage.css';
 import promoBanner from '../assets/promo-banner.jpg';
-
 ---
 
-<Layout title="CineVerse - Inicio">
+<Layout title="CineVerse Theatres">
   <main>
-      <section class="promo-banner-section">
-        <a href="/promociones" class="promo-link">
-          <Image 
-            src={promoBanner}
-            alt="¡Las mejores promos están aquí! Explora nuestras ofertas" 
-            class="promo-image"
-            width={1200} 
-            height={25} 
-            format="webp"
-            quality={80}
-          />
-        </a>
-      </section>    
-    <BossCarousel client:visible />
-    <section style="padding: 4rem; text-align: center;">
-      <a
-        href="/cartelera"
-        style="color: var(--text-primary); font-size: 1.2rem; border: 1px solid black; padding: 1rem 2rem; border-radius: 8px; text-decoration: none;"
-      >
-        Ver Cartelera Completa
+    <section class="promo-banner-section">
+      <a href="/promociones" class="promo-link">
+        <Image
+          src={promoBanner}
+          alt="Promotional Banner"
+          class="promo-image"
+          width={1200}
+          height={25}
+          format="webp"
+          quality={100}
+        />
       </a>
     </section>
+    <BossCarousel client:visible />
   </main>
 </Layout>
