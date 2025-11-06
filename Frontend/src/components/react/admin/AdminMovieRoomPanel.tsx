@@ -21,7 +21,7 @@ const AdminMovieRoomPanel = () => {
       const response = await api.get<{ data: MovieRoom[] }>('/api/halls');
       setRooms(response.data);
     } catch (error) {
-      setMessage('❌ Error al cargar las salas.');
+      setMessage('Error loading rooms.');
     } finally {
       setLoading(false);
     }
@@ -39,39 +39,39 @@ const AdminMovieRoomPanel = () => {
         name: newRoom.name, 
         capacity: parseInt(newRoom.capacity, 10) 
       });
-      setMessage(`✅ Sala creada: ${data.data.name}`);
+      setMessage(`Room created: ${data.data.name}`);
       fetchRooms();
       setNewRoom({ name: '', capacity: '' });
     } catch (error: any) {
-      setMessage(`❌ Error: ${error.message}`);
+      setMessage(`Error creating room`);
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('¿Seguro que quieres eliminar esta sala?')) return;
+    if (!confirm('¿Are you sure you want to delete this room?')) return;
     try {
       await api.delete(`/api/halls/${id}`);
-      setMessage('✅ Sala eliminada.');
+      setMessage('Room deleted successfully.');
       fetchRooms();
     } catch (error: any) {
-      setMessage(`❌ Error al eliminar: ${error.message}`);
+      setMessage(`Error deleting room`);
     }
   };
 
   return (
     <div style={{ color: 'black', maxWidth: '800px', margin: 'auto' }}>
-      <h2>Gestionar Salas de Cine</h2>
+      <h2>Manage Movie Rooms</h2>
       <form onSubmit={handleSubmit} style={{ marginBottom: '30px', display: 'flex', gap: '10px' }}>
-        <input type="text" name="name" value={newRoom.name} onChange={handleChange} placeholder="Nombre de la sala" required style={{ padding: '10px', color: 'black' }} />
-        <input type="number" name="capacity" value={newRoom.capacity} onChange={handleChange} placeholder="Capacidad" required style={{ padding: '10px', color: 'black' }} />
-        <button type="submit">Crear Sala</button>
+        <input type="text" name="name" value={newRoom.name} onChange={handleChange} placeholder="Room Name" required style={{ padding: '10px', color: 'black' }} />
+        <input type="number" name="capacity" value={newRoom.capacity} onChange={handleChange} placeholder="Capacity" required style={{ padding: '10px', color: 'black' }} />
+        <button type="submit">Create Room</button>
       </form>
-      {loading ? <p>Cargando...</p> : (
+      {loading ? <p>Loading...</p> : (
         <div>
           {rooms.map((room) => (
             <div key={room.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee', padding: '10px 0' }}>
-              <span>{room.name} (Capacidad: {room.capacity})</span>
-              <button onClick={() => handleDelete(room.id)} style={{ backgroundColor: '#dc3545', color: 'white' }}>Eliminar</button>
+              <span>{room.name} (Capacity: {room.capacity})</span>
+              <button onClick={() => handleDelete(room.id)} style={{ backgroundColor: '#dc3545', color: 'white' }}>Delete</button>
             </div>
           ))}
         </div>

@@ -97,7 +97,7 @@ try {
         {
           trailer && (
             <div class="trailer-container">
-              <h3>Trailer Oficial</h3>
+              <h3>Official Trailer</h3>
               <iframe
                 src={`https://www.youtube.com/embed/${trailer.key}`}
                 title="YouTube video player"
@@ -117,20 +117,20 @@ try {
           class="detail-poster"
         />
         <div class="data-sheet">
-          <h4>Ficha Técnica</h4>
+          <h4>Film Technical Specifications</h4>
           <ul>
-            <li><strong>Título Original:</strong> {movie.original_title}</li>
+            <li><strong>Original Title:</strong> {movie.original_title}</li>
             <li>
-              <strong>Estreno:</strong>
+              <strong>Release Date:</strong>
               {
                 new Date(movie.release_date).toLocaleDateString('es-AR', {
                   timeZone: 'UTC',
                 })
               }
             </li>
-            <li><strong>Duración:</strong> {movie.runtime} min</li>
+            <li><strong>Duration:</strong> {movie.runtime} min</li>
             <li>
-              <strong>Calificación:</strong>
+              <strong>Rating:</strong>
               {movie.vote_average.toFixed(1)} / 10
             </li>
           </ul>
@@ -139,7 +139,7 @@ try {
     </div>
 
     <div class="showtimes-container">
-      <h2>Horarios Disponibles</h2>
+      <h2>Available Showtimes</h2>
       {
         groupedShowsByDate.size > 0 ? (
           <div class="cinema-section">
@@ -190,7 +190,7 @@ try {
             )}
           </div>
         ) : (
-          <p>No hay funciones programadas para esta película.</p>
+          <p>No shows scheduled for this movie.</p>
         )
       }
     </div>

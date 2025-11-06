@@ -37,42 +37,38 @@ const LoginForm = () => {
         const token = data.data?.token;
         if (token) {
             localStorage.setItem('authToken', token);
-            console.log("LoginForm: Token guardado en localStorage.");
-            setMessage('✅ Usuario logueado con éxito. Redirigiendo...');
+            setMessage('User logged in successfully. Redirecting...');
             setIsError(false);
             window.location.href = '/';
         } else {
-             console.error("LoginForm: No se recibió token de /api/auth/login.");
-             throw new Error("No se pudo obtener el token para guardar localmente.");
+             throw new Error("No token received from endpoint.");
         }
 
       } else {
-        setMessage(`❌ Error: ${data.message || 'Credenciales incorrectas'}`);
+        setMessage(`❌ Error: ${data.message || 'Invalid credentials'}`);
         setIsError(true);
       }
     } catch (err) { 
       console.error("LoginForm Error:", err);
       if (err instanceof Error) {
-        setMessage(`❌ Error al conectar con el servidor: ${err.message}`);
-      } else {
-        setMessage(`❌ Error desconocido al conectar con el servidor.`);
-      }
+        setMessage(`Error connecting to server`);
+      } 
       setIsError(true);
     } 
   };
 
   return (
     <form onSubmit={handleSubmit} className="register-form">
-      <h1>Iniciar Sesión</h1>
+      <h1>Login</h1>
 
       {message && <p className={`register-message ${isError ? 'error' : 'success'}`}>{message}</p>}
 
-      <input type="text" name="username" placeholder="Usuario" value={formData.username} onChange={handleChange} required autoComplete="username" />
+      <input type="text" name="username" placeholder="Username" value={formData.username} onChange={handleChange} required autoComplete="username" />
       <div className="password-wrapper">
         <input
             type={showPassword ? "text" : "password"}
             name='password'
-            placeholder='Contraseña'
+            placeholder='Password'
             value={formData.password}
             onChange={handleChange}
             required
@@ -82,7 +78,7 @@ const LoginForm = () => {
             {showPassword ? eyeOffIcon : eyeIcon}
         </button>
       </div>
-      <button type="submit">Ingresar</button>
+      <button type="submit">Login</button>
     </form>
   );
 };

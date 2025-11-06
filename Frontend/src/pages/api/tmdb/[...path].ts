@@ -28,6 +28,6 @@ export const GET: APIRoute = async ({ params, request }) => {
     });
 
   } catch (error) {
-    return new Response(JSON.stringify({ message: 'Error en el servidor proxy' }), { status: 500 });
+    return new Response(JSON.stringify({ message: 'Error on proxy server' }), { status: 500 });
   }
 };

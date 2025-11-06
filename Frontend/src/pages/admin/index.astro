@@ -10,50 +10,48 @@ if (!user || user.role !== 'admin') {
 const adminSections = [
   {
     href: '/admin/peliculas',
-    title: 'Gestionar Películas',
-    description:
-      'Importar películas desde TMDB y gestionar la cartelera actual.',
+    title: 'Manage Movies',
+    description: 'Import movies from TMDB and manage the current schedule.',
   },
   {
     href: '/admin/categorias',
-    title: 'Gestionar Categorías de Funciones',
+    title: 'Manage Show Categories',
     description:
-      'Crear y eliminar tipos de funciones (ej. 2D, 3D) y sus precios.',
+      'Create and delete show categories (e.g. 2D, 3D) and their prices.',
   },
   {
     href: '/admin/salas',
-    title: 'Gestionar Salas',
+    title: 'Manage Rooms',
     description:
-      'Añadir o eliminar salas de cine, definiendo su nombre y capacidad.',
+      'Add or remove cinema rooms, defining their name and capacity.',
   },
   {
     href: '/admin/funciones',
-    title: 'Gestionar Funciones',
-    description:
-      'Programar nuevas funciones asignando película, sala y categoría.',
+    title: 'Manage Shows',
+    description: 'Schedule new shows by assigning movie, room, and category.',
   },
   {
     href: '/admin/horarios',
-    title: 'Gestionar Horarios',
-    description: 'Añadir horarios a las funciones ya creadas.',
+    title: 'Manage Timetables',
+    description: 'Add timetables to existing shows.',
   },
   {
     href: '/admin/usuarios',
-    title: 'Ver Usuarios',
-    description: 'Consultar la lista de usuarios registrados en el sistema.',
+    title: 'Manage Users',
+    description: 'View the list of registered users in the system.',
   },
   {
     href: '/admin/tipos-tickets',
-    title: 'Gestionar Tipos de Tickets',
-    description: 'Crear y eliminar tipos de tickets asociados a las funciones.',
+    title: 'Manage Ticket Types',
+    description: 'Create and delete ticket types associated with shows.',
   },
 ];
 ---
 
-<Layout title="Panel de Administración - CineVerse">
+<Layout title="Administration Panel - CineVerse">
   <main class="container" style="padding: 2rem;">
     <h1 style="color: black; font-size: 2.5rem; margin-bottom: 2rem;">
-      Panel de Administración
+      Administration Panel
     </h1>
     <div
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;"

@@ -7,7 +7,7 @@ interface SlaveCarouselProps {
 }
 
 const formatReleaseDate = (dateString: string): string => {
-  if (!dateString) return 'Próximamente';
+  if (!dateString) return 'Coming soon.';
   try {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -71,8 +71,7 @@ export function SlaveCarousel({ title, movies }: SlaveCarouselProps) {
                     <div className="carousel-image-overlay">
                       <span className="release-date">
                         {/* Si el título es "Featured movies", muestra el rating.
-                          Si no, muestra la fecha.
-                        */}
+                          Si no, muestra la fecha.*/}
                         {title.includes('Featured')
                           ? `⭐ ${movie.vote_average.toFixed(1)} / 10`
                           : `🗓️ ${formatReleaseDate(movie.release_date)}`

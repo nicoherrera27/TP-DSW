@@ -28,12 +28,11 @@ export class TMDBService {
       
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(`Error ${response.status}: ${errorData.status_message || response.statusText}`);
+        throw new Error(`Error fetching TMDB data: ${errorData.message || response.statusText}`);
       }
       return await response.json();
     } catch (error) {
-      console.error('Error fetching data through proxy:', error);
-      throw error;
+      throw new Error('Error fetching data through proxy');
     }
   }
 

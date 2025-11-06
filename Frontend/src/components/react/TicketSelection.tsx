@@ -63,7 +63,7 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
         const capacity = Number(showDetails.availableCapacity);
         
         if (delta > 0 && !canAddMoreTickets) {
-            const messageText = `Se alcanzó la capacidad máxima (${capacity} asientos disponibles).`;
+            const messageText = `Maximum capacity reached (${capacity} seats available).`;
             setMessage(messageText);
             setIsError(true);
             setTimeout(() => {
@@ -75,12 +75,11 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
         setQuantities(prev => {
             const currentQuantity = prev[key] || 0;
             const newQuantity = Math.max(0, currentQuantity + delta);
-            const proposedTotal = Object.entries(prev)
-                              .reduce((sum, [k, q]) => sum + (k === key ? newQuantity : (q || 0)), 0);
+            const proposedTotal = Object.entries(prev).reduce((sum, [k, q]) => sum + (k === key ? newQuantity : (q || 0)), 0);
 
             // Verificar si el total propuesto excede la capacidad
             if (!isNaN(capacity) && proposedTotal > capacity) {
-                 const messageText = `Se alcanzó la capacidad máxima (${capacity} asientos disponibles).`;
+                 const messageText = `Maximum capacity reached (${capacity} seats available).`;
                 setMessage(messageText);
                  setIsError(true);
                  setTimeout(() => {
@@ -111,7 +110,7 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
                     return { 
                         typeId: null, 
                         quantity, 
-                        description: 'Entrada General',
+                        description: 'General ticket',
                         unitPrice: Number(showDetails.basePrice)
                     };
                 } else {
@@ -121,7 +120,7 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
                     return { 
                         typeId, 
                         quantity,
-                        description: ticketType?.description || 'Entrada',
+                        description: ticketType?.description || 'Ticket',
                         unitPrice: unitPrice 
                     };
                 }
@@ -147,7 +146,7 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
                 });
             }
         }
-        return dateStr || 'Fecha inválida';
+        return dateStr || 'Invalid date';
     }, [showDetails.date]);
 
 
@@ -158,14 +157,14 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
         setIsError(false);
 
         if (ticketsToPurchase.length === 0) {
-            setMessage('Debes seleccionar al menos una entrada.');
+            setMessage('You must select at least one ticket to proceed to payment.');
             setIsError(true);
             setIsLoading(false);
             return;
         }
         const capacity = Number(showDetails.availableCapacity); 
         if (isNaN(capacity) || currentTotalTickets > capacity) {
-             setMessage(`La cantidad total de entradas (${currentTotalTickets}) excede la capacidad disponible (${capacity}). Ajusta tu selección.`);
+             setMessage(`The total number of tickets (${currentTotalTickets}) exceeds the available capacity (${capacity}). Please adjust your selection.`);
              setIsError(true);
              setIsLoading(false);
              return;
@@ -187,8 +186,8 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
             window.location.href = '/checkout';
 
         } catch (error: any) {
-            console.error("Error al preparar el checkout:", error);
-            setMessage(`Error: ${error.message}`);
+            console.error();
+            setMessage(`Error preparing checkout`);
             setIsError(true);
             setIsLoading(false);
         }
@@ -199,11 +198,11 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
             <div className="ticket-selection-container">
                 <div className="show-info">
                     <h2>{showDetails.movieName}</h2>
-                    <p><strong>Sala:</strong> {showDetails.roomName}</p>
-                    <p><strong>Hora:</strong> {showDetails.time}</p>
+                    <p><strong>Room:</strong> {showDetails.roomName}</p>
+                    <p><strong>Time:</strong> {showDetails.time}</p>
                 </div>
                 <div className="summary">
-                    <p className="message" style={{color: '#d9534f'}}>Función agotada. No quedan asientos disponibles.</p>
+                    <p className="message" style={{color: '#d9534f'}}>Function sold out. No seats available.</p>
                 </div>
             </div>
         );
@@ -213,19 +212,19 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
         <div className="ticket-selection-container">
             <div className="show-info">
                 <h2>{showDetails.movieName}</h2>
-                <p><strong>Sala:</strong> {showDetails.roomName}</p>
-                <p><strong>Fecha:</strong> {formattedDate}</p>
-                <p><strong>Hora:</strong> {showDetails.time}</p>
-                <p><strong>Formato:</strong> {showDetails.format} ({showDetails.variant})</p>
-                <p><strong>Precio Base por Entrada:</strong> ${Number(showDetails.basePrice).toFixed(2) || 'N/A'}</p>
-                <p style={{marginTop: '0.5rem', fontWeight: 'bold'}}><strong>Asientos disponibles: {showDetails.availableCapacity}</strong></p>
+                <p><strong>Room:</strong> {showDetails.roomName}</p>
+                <p><strong>Date:</strong> {formattedDate}</p>
+                <p><strong>Time:</strong> {showDetails.time}</p>
+                <p><strong>Format:</strong> {showDetails.format} ({showDetails.variant})</p>
+                <p><strong>Base Price per Ticket:</strong> ${Number(showDetails.basePrice).toFixed(2) || 'N/A'}</p>
+                <p style={{marginTop: '0.5rem', fontWeight: 'bold'}}><strong>Available Seats:</strong> {showDetails.availableCapacity}</p>
             </div>
 
             <div className="ticket-section">
 
                 {/* Entrada General */}
                 <div className="ticket-row">
-                    <span className="ticket-description">Entrada General (${Number(showDetails.basePrice).toFixed(2) || 'N/A'})</span>
+                    <span className="ticket-description">General Ticket (${Number(showDetails.basePrice).toFixed(2) || 'N/A'})</span>
                     <div className="quantity-control">
                         <button onClick={() => handleQuantityChange('general', -1)} disabled={(quantities['general'] || 0) <= 0}>-</button>
                         <span>{quantities['general'] || 0}</span>
@@ -257,13 +256,13 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
 
             <div className="summary">
                 {message && <p className={`message ${isError ? 'error' : 'success'}`}>{message}</p>}
-                <h3>Total a Pagar: ${totalPrice.toFixed(2)}</h3>
+                <h3>Total: ${totalPrice.toFixed(2)}</h3>
                 <button
                     className="pay-button"
                     onClick={handleProceedToPayment}
                     disabled={isLoading || totalPrice <= 0 || currentTotalTickets === 0}
                 >
-                    {isLoading ? 'Procesando...' : 'Ir a Pagar con Mercado Pago'}
+                    {isLoading ? 'Processing...' : 'Proceed to Payment with Mercado Pago'}
                 </button>
             </div>
         </div>

@@ -24,7 +24,7 @@ const AdminUserPanel = () => {
       const response = await api.get<{ data: User[] }>('/api/users');
       setUsers(response.data);
     } catch (error: any) {
-      setMessage(`❌ Error al cargar usuarios: ${error.message}`);
+      setMessage(`Error loading users`);
     } finally {
       setLoading(false);
     }
@@ -40,41 +40,41 @@ const AdminUserPanel = () => {
           user.id === userId ? { ...user, role: newRole } : user
         )
       );
-      setMessage('✅ Rol actualizado correctamente.');
+      setMessage('Role updated successfully.');
     } catch (error: any) {
-      setMessage(`❌ Error al actualizar el rol: ${error.message}`);
+      setMessage(`Error updating role`);
     }
   };
 
   const handleDelete = async (userId: number) => {
-    if (!confirm('¿Estás seguro de que quieres eliminar este usuario? Esta acción es irreversible.')) {
+    if (!confirm('¿Are you sure you want to delete this user? This action is irreversible.')) {
       return;
     }
     setMessage('');
     try {
       await api.delete(`/api/users/${userId}`);
       setUsers(currentUsers => currentUsers.filter(user => user.id !== userId));
-      setMessage('✅ Usuario eliminado correctamente.');
+      setMessage('User deleted successfully.');
     } catch (error: any) {
-      setMessage(`❌ Error al eliminar el usuario: ${error.message}`);
+      setMessage(`Error deleting user`);
     }
   };
 
   return (
     <div style={{ color: 'black', maxWidth: '1000px', margin: 'auto' }}>
-      <h2>Lista de Usuarios Registrados</h2>
+      <h2>Registered Users List</h2>
       {message && <p style={{ textAlign: 'center', fontWeight: 'bold', margin: '1rem 0' }}>{message}</p>}
-      {loading ? <p>Cargando...</p> : (
+      {loading ? <p>Loading...</p> : (
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
             <thead>
               <tr style={{ borderBottom: '2px solid #333', textAlign: 'left' }}>
                 <th style={{ padding: '12px' }}>ID</th>
-                <th style={{ padding: '12px' }}>Usuario</th>
+                <th style={{ padding: '12px' }}>Username</th>
                 <th style={{ padding: '12px' }}>Email</th>
-                <th style={{ padding: '12px' }}>Nombre</th>
-                <th style={{ padding: '12px' }}>Rol</th>
-                <th style={{ padding: '12px' }}>Acciones</th>
+                <th style={{ padding: '12px' }}>Name</th>
+                <th style={{ padding: '12px' }}>Role</th>
+                <th style={{ padding: '12px' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -90,7 +90,7 @@ const AdminUserPanel = () => {
                       onChange={(e) => handleRoleChange(user.id, e.target.value as 'admin' | 'client')}
                       style={{ padding: '5px', borderRadius: '4px', color: 'black', border: '1px solid #ccc' }}
                     >
-                      <option value="client">Cliente</option>
+                      <option value="client">Client</option>
                       <option value="admin">Admin</option>
                     </select>
                   </td>
@@ -106,7 +106,7 @@ const AdminUserPanel = () => {
                         cursor: 'pointer'
                       }}
                     >
-                      Eliminar
+                      Delete
                     </button>
                   </td>
                 </tr>

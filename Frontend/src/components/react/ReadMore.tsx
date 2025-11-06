@@ -23,7 +23,7 @@ export function ReadMore({ text, maxLength = 100 }: ReadMoreProps) {
         {isExpanded ? text : `${text.substring(0, maxLength)}...`}
       </p>
       <button onClick={toggleText} className="read-more-btn">
-        {isExpanded ? 'Leer menos' : 'Leer más'}
+        {isExpanded ? 'Collapse' : 'Expand'}
       </button>
     </div>
   );

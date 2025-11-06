@@ -33,7 +33,7 @@ const RegisterForm = () => {
         setMessage('');
 
         if (formData.password !== formData.confirmPassword) {
-            setMessage('Error: Las contraseñas no coinciden.');
+            setMessage('Error: Passwords do not match.');
             setIsError(true);
             return;
         }
@@ -41,21 +41,21 @@ const RegisterForm = () => {
         const { password } = formData;
 
         if (password.length < 8) {
-            setMessage('Error: La contraseña debe tener al menos 8 caracteres.');
+            setMessage('Error: Password must be at least 8 characters long.');
             setIsError(true);
             return;
         }
 
         const hasUpperCase = /[A-Z]/.test(password);
         if (!hasUpperCase) {
-            setMessage('Error: La contraseña debe contener al menos una letra mayúscula.');
+            setMessage('Error: Password must contain at least one uppercase letter.');
             setIsError(true);
             return;
         }
 
         const hasNumber = /\d/.test(password); // \d representa que tiene que ir un numero 0-9
         if (!hasNumber) {
-            setMessage('Error: La contraseña debe contener al menos un número.');
+            setMessage('Error: Password must contain at least one number.');
             setIsError(true);
             return;
         }
@@ -69,7 +69,7 @@ const RegisterForm = () => {
             const data = await res.json();
             
             if (res.ok){
-                setMessage('Usuario registrado con éxito');
+                setMessage('User registered successfully!');
                 setIsError(false);
                 setFormData({ username:'', password:'', confirmPassword: '', name:'', surname:'', email:'', birthdate:'' });
             } else {
@@ -77,21 +77,21 @@ const RegisterForm = () => {
                 setIsError(true);
             }
         } catch(err){
-            setMessage('Error al conectar al servidor');
+            setMessage('Server connection error');
             setIsError(true);
         }
     };
 
     return(
         <form onSubmit={handleSubmit} className="register-form">
-            <h1>Crear Cuenta</h1>
-            <input type="text" name='username' placeholder='Nombre de usuario' value={formData.username} onChange={handleChange} required autoComplete="username" />
+            <h1>Create account</h1>
+            <input type="text" name='username' placeholder='Username' value={formData.username} onChange={handleChange} required autoComplete="username" />
 
             <div className="password-wrapper">
                 <input 
                     type={showPassword ? "text" : "password"} 
                     name='password' 
-                    placeholder='Contraseña' 
+                    placeholder='Password' 
                     value={formData.password} 
                     onChange={handleChange} 
                     required
@@ -106,7 +106,7 @@ const RegisterForm = () => {
                 <input 
                     type={showPassword ? "text" : "password"} 
                     name='confirmPassword' 
-                    placeholder='Confirmar Contraseña' 
+                    placeholder='Confirm Password' 
                     value={formData.confirmPassword} 
                     onChange={handleChange} 
                     required
@@ -117,12 +117,12 @@ const RegisterForm = () => {
                 </button>
             </div>
 
-            <input type="text" name='name' placeholder='Nombre' value={formData.name} onChange={handleChange} required autoComplete="given-name" />
-            <input type="text" name='surname' placeholder='Apellido' value={formData.surname} onChange={handleChange} required autoComplete="family-name" />
+            <input type="text" name='name' placeholder='Name' value={formData.name} onChange={handleChange} required autoComplete="given-name" />
+            <input type="text" name='surname' placeholder='Surname' value={formData.surname} onChange={handleChange} required autoComplete="family-name" />
             <input type="email" name='email' placeholder='E-Mail' value={formData.email} onChange={handleChange} required autoComplete="email" />
-            <input type="date" name='birthdate' placeholder='Fecha de nacimiento' value={formData.birthdate} onChange={handleChange} required autoComplete="bday" />
-            
-            <button type="submit">Registrarse</button>
+            <input type="date" name='birthdate' placeholder='Birthdate' value={formData.birthdate} onChange={handleChange} required autoComplete="bday" />
+
+            <button type="submit">Register</button>
 
             {message && (<p className={`register-message ${isError ? 'error' : 'success'}`}>{message}</p>)}
         </form>

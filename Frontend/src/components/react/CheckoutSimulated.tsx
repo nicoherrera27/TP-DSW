@@ -24,7 +24,7 @@ interface CheckoutData {
 
 const CheckoutSimulated = () => {
     const [data, setData] = useState<CheckoutData | null>(null);
-    const [selectedPayment, setSelectedPayment] = useState('dinero_disponible');
+    const [selectedPayment, setSelectedPayment] = useState('available_money');
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +34,7 @@ const CheckoutSimulated = () => {
         if (storedData) {
             setData(JSON.parse(storedData));
         } else {
-            setMessage('No sale data fetched. Vuelva a intentarlo.');
+            setMessage('No purchase data fetched. Please try again.');
             setIsError(true);
         }
     }, []);
@@ -54,8 +54,8 @@ const CheckoutSimulated = () => {
                 tickets: data.tickets.map(t => ({ typeId: t.typeId, quantity: t.quantity, description: t.description })),
                 totalPrice: data.totalPrice
             });
-            
-            setMessage(`¡Compra confirmada! (ID de Venta: ${response.saleId}). Redirigiendo...`);
+
+            setMessage(`¡Purchase confirmed! (Purchase ID: ${response.saleId}). Redirecting to Home Page...`);
             setIsError(false);
             sessionStorage.removeItem('checkoutData');
 
@@ -65,15 +65,14 @@ const CheckoutSimulated = () => {
             }, 3000);
 
         } catch (error: any) {
-            console.error("Error al confirmar la compra:", error);
-            setMessage(`Error: ${error.message || 'No se pudo procesar la compra.'}`);
+            setMessage(`Error confirming purchase`);
             setIsError(true);
             setIsLoading(false);
         }
     };
 
     if (!data && !isError) {
-        return <p>Cargando resumen de compra...</p>;
+        return <p>Loading purchase summary...</p>;
     }
 
     if (isError && !data) {
@@ -86,36 +85,36 @@ const CheckoutSimulated = () => {
         <div className="checkout-grid">
             {/* Columna Izquierda: Opciones de Pago */}
             <div className="payment-options">
-                <h2>Elegí cómo pagar</h2>
+                <h2>Choose payment method</h2>
                 
                 <div 
-                    className={`payment-option ${selectedPayment === 'dinero_disponible' ? 'selected' : ''}`}
-                    onClick={() => setSelectedPayment('dinero_disponible')}
+                    className={`payment-option ${selectedPayment === 'available_money' ? 'selected' : ''}`}
+                    onClick={() => setSelectedPayment('available_money')}
                 >
-                    <input type="radio" name="paymentMethod" value="dinero_disponible" checked={selectedPayment === 'dinero_disponible'} readOnly />
-                    <label htmlFor="dinero_disponible">Dinero disponible</label>
+                    <input type="radio" name="paymentMethod" value="available_money" checked={selectedPayment === 'available_money'} readOnly />
+                    <label htmlFor="available_money">Available Money</label>
                 </div>
 
                 <div 
-                    className={`payment-option ${selectedPayment === 'credito' ? 'selected' : ''}`}
-                    onClick={() => setSelectedPayment('credito')}
+                    className={`payment-option ${selectedPayment === 'credit_card' ? 'selected' : ''}`}
+                    onClick={() => setSelectedPayment('credit_card')}
                 >
-                    <input type="radio" name="paymentMethod" value="credito" checked={selectedPayment === 'credito'} readOnly />
-                    <label htmlFor="credito">Nueva tarjeta de crédito</label>
+                    <input type="radio" name="paymentMethod" value="credit_card" checked={selectedPayment === 'credit_card'} readOnly />
+                    <label htmlFor="credit_card">New Credit Card</label>
                 </div>
 
                 <div 
-                    className={`payment-option ${selectedPayment === 'debito' ? 'selected' : ''}`}
-                    onClick={() => setSelectedPayment('debito')}
+                    className={`payment-option ${selectedPayment === 'debit_card' ? 'selected' : ''}`}
+                    onClick={() => setSelectedPayment('debit_card')}
                 >
-                    <input type="radio" name="paymentMethod" value="debito" checked={selectedPayment === 'debito'} readOnly />
-                    <label htmlFor="debito">Nueva tarjeta de débito</label>
+                    <input type="radio" name="paymentMethod" value="debit_card" checked={selectedPayment === 'debit_card'} readOnly />
+                    <label htmlFor="debit_card">New Debit Card</label>
                 </div>
             </div>
 
             {/* Columna Derecha: Resumen de Compra */}
             <div className="summary-box">
-                <h2>Resumen de compra</h2>
+                <h2>Purchase summary</h2>
                 
                 {data.tickets.map((ticket, index) => (
                     <div key={index} className="summary-item">
@@ -134,7 +133,7 @@ const CheckoutSimulated = () => {
                     onClick={handleConfirmPurchase}
                     disabled={isLoading}
                 >
-                    {isLoading ? 'Confirmando...' : 'Confirmar Compra'}
+                    {isLoading ? 'Confirming...' : 'Confirm Purchase'}
                 </button>
 
                 {message && (

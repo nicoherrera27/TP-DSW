@@ -74,29 +74,29 @@ fetch(`http://localhost:3000/api/show/cartelera?${queryParams.toString()}`)
   return (
     <>
       <header className="cartelera-header">
-        <h1>Nuestra Cartelera</h1>
+        <h1>Movies</h1>
         <div className="filters">
           <select name="format" value={filters.format} onChange={handleFilterChange} className="filter-select">
-            <option value="">Todos los Formatos</option>
+            <option value="">All formats</option>
             <option value="2D">2D</option>
             <option value="3D">3D</option>
             <option value="4D">4D</option>
           </select>
 
           <select name="variant" value={filters.variant} onChange={handleFilterChange} className="filter-select">
-            <option value="">Todas las Versiones</option>
-            <option value="Doblada">Doblada</option>
-            <option value="Subtitulada">Subtitulada</option>
+            <option value="">All Versions</option>
+            <option value="Doblada">Dubbed</option>
+            <option value="Subtitulada">Subtitled</option>
           </select>
 
           <select name="genre" value={filters.genre} onChange={handleFilterChange} className="filter-select">
-            <option value="">Todos los Géneros</option>
-            <option value="Action">Accion</option>
-            <option value="Comedy">Comedia</option>
-            <option value="Horror">Terror</option>
+            <option value="">All Genres</option>
+            <option value="Action">Action</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Horror">Horror</option>
             <option value="Drama">Drama</option>
-            <option value="Science Fiction">Ciencia ficción</option>
-            <option value="Animation">Animacion</option>
+            <option value="Science Fiction">Science Fiction</option>
+            <option value="Animation">Animation</option>
             <option value="Romance">Romance</option>
           </select>
         </div>
@@ -104,11 +104,11 @@ fetch(`http://localhost:3000/api/show/cartelera?${queryParams.toString()}`)
 
       <section className="movie-section">
         {loading ? (
-          <p style={{ color: 'black', textAlign: 'center' }}>Cargando películas...</p>
+          <p style={{ color: 'black', textAlign: 'center' }}>Loading movies...</p>
         ) : moviesForGrid.length > 0 ? (
           <MovieGrid movies={moviesForGrid} />
         ) : (
-          <p style={{ color: 'black', textAlign: 'center' }}>No se encontraron películas con esos filtros.</p>
+          <p style={{ color: 'black', textAlign: 'center' }}>No movies found with those filters.</p>
         )}
       </section>
     </>

@@ -42,15 +42,12 @@ try {
   const showResponse = await fetch(`http://localhost:3000/api/show/${showId}`);
   if (!showResponse.ok) {
     const errorData = await showResponse.json().catch(() => ({}));
-    throw new Error(
-      errorData.message ||
-        `Error ${showResponse.status} al obtener detalles de la función.`
-    );
+    throw new Error(errorData.message || `Error fetching show details.`);
   }
 
   const showData = await showResponse.json();
   if (!showData.data) {
-    throw new Error('Respuesta del servidor no contiene datos de la función.');
+    throw new Error('Server response does not contain show details.');
   }
   const currentShow = showData.data;
 
@@ -63,7 +60,7 @@ try {
       const countData = await countResponse.json();
       soldTickets = countData.data?.soldTicketsCount ?? 0;
     } else {
-      console.warn('No se pudo obtener el conteo de tickets vendidos.');
+      console.warn('Error fetching sold tickets count.');
     }
   } catch (err) {
     console.error('Error fetching ticket count:', err);
@@ -89,8 +86,8 @@ try {
     currentShow.showMovie
   ) {
     showDetails = {
-      movieName: currentShow.showMovie.name || 'Película Desconocida',
-      roomName: currentShow.showRoom.name || 'Sala Desconocida',
+      movieName: currentShow.showMovie.name || 'Unknown Movie',
+      roomName: currentShow.showRoom.name || 'Unknown Room',
       date: currentShow.date,
       time: timetable.time.substring(0, 5),
       format: currentShow.showCat.description || '',
@@ -102,25 +99,25 @@ try {
     };
   } else {
     let missingData = [];
-    if (!timetable) missingData.push('horario específico');
-    if (!currentShow.showRoom) missingData.push('información de la sala');
+    if (!timetable) missingData.push('Specified timetable');
+    if (!currentShow.showRoom) missingData.push('Showroom information');
     if (currentShow.showRoom && totalCapacity === undefined)
-      missingData.push('capacidad de la sala');
-    if (!currentShow.showCat) missingData.push('categoría de la función');
-    if (!currentShow.showMovie) missingData.push('información de la película');
+      missingData.push('Room capacity');
+    if (!currentShow.showCat) missingData.push('Show category');
+    if (!currentShow.showMovie) missingData.push('Movie information');
 
-    throw new Error(`Datos incompletos: falta ${missingData.join(', ')}.`);
+    throw new Error(`Incomplete data: missing ${missingData.join(', ')}.`);
   }
 } catch (err: any) {
-  console.error('Error en purchase page:', err);
-  error = err.message || 'No se pudieron cargar los detalles de la función.';
+  console.error('Error on purchase page:', err);
+  error = err.message || 'Could not load show details.';
   showDetails = null;
 }
 ---
 
-<Layout title="Seleccionar Entradas">
+<Layout title="Select Tickets">
   <main class="purchase-container container">
-    <h1>Comprar Entradas</h1>
+    <h1>Select Tickets</h1>
     {error && <p class="error-message">Error: {error}</p>}
     {
       !error && showDetails && showDetails.availableCapacity > 0 && (
@@ -134,15 +131,11 @@ try {
     {
       !error && showDetails && showDetails.availableCapacity === 0 && (
         <p class="error-message" style="margin-top: 2rem;">
-          ¡Lo sentimos! Esta función ya no tiene asientos disponibles.
+          ¡We're sorry! This show is no longer available.
         </p>
       )
     }
-    {
-      !error && !showDetails && !error && (
-        <p>Cargando detalles de la función...</p>
-      )
-    }
+    {!error && !showDetails && !error && <p>Loading show details...</p>}
   </main>
 </Layout>
 

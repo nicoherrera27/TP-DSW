@@ -27,7 +27,7 @@ const AdminMoviePanel = () => {
             const data = await api.get<{ data: LocalMovie[] }>('/api/movies');
             setLocalMovies(data.data);
         } catch (error) {
-            setMessage('❌ Error al cargar las películas de la base de datos.');
+            setMessage('Error loading movies from the database.');
         } finally {
             setLocalLoading(false);
         }
@@ -43,7 +43,7 @@ const AdminMoviePanel = () => {
           const response = await tmdbService.searchMovies(query);
           setResults(response.results);
         } catch (error) {
-          setMessage('Error al buscar películas en TMDB.');
+          setMessage('Error searching movies on TMDB.');
         } finally {
           setSearchLoading(false);
         }
@@ -51,56 +51,56 @@ const AdminMoviePanel = () => {
 
     // Importa una pelicula desde tmdb a la bbdd local
     const handleImport = async (tmdbId: number) => {
-        setMessage(`Importando película ID: ${tmdbId}...`);
+        setMessage(`Importing movie ID: ${tmdbId}...`);
         try {
             const data = await api.post<{ data: { name: string } }>('/api/movies/import-from-tmdb', { tmdbId });
-            setMessage(`✅ Película importada: ${data.data.name}`);
+            setMessage(`Movie imported: ${data.data.name}`);
             fetchLocalMovies();
         } catch (error: any) {
-            setMessage(`❌ Error: ${error.message}`);
+            setMessage(`Error importing movie`);
         }
     };
 
     // Elimina una pelicula de la bbdd local
     const handleDelete = async (movieId: number) => {
-        if (!confirm('¿Estás seguro de que quieres eliminar esta película?')) return;
-        
-        setMessage(`Eliminando película ID: ${movieId}...`);
+        if (!confirm('¿Are you sure you want to delete this movie?')) return;
+
+        setMessage(`Deleting movie ID: ${movieId}...`);
         try {
             await api.delete(`/api/movies/${movieId}`);
-            setMessage('✅ Película eliminada correctamente.');
+            setMessage('Movie deleted successfully.');
             fetchLocalMovies();
         } catch (error: any) {
-            setMessage(`❌ Error al eliminar: ${error.message}`);
+            setMessage(`Error deleting movie`);
         }
     };
 
 return (
         <div style={{ color: 'black', maxWidth: '1000px', margin: 'auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px' }}>
             <div>
-                <h2>Importar Películas desde TMDB</h2>
+                <h2>Import movies from TMDB</h2>
                 <form onSubmit={handleSearch} style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-                    <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Buscar por título..." style={{ flexGrow: 1, padding: '10px', color: 'black' }} />
-                    <button type="submit" disabled={searchLoading} style={{ padding: '10px 20px' }}>{searchLoading ? 'Buscando...' : 'Buscar'}</button>
+                    <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search by title..." style={{ flexGrow: 1, padding: '10px', color: 'black' }} />
+                    <button type="submit" disabled={searchLoading} style={{ padding: '10px 20px' }}>{searchLoading ? 'Searching...' : 'Search'}</button>
                 </form>
                 <div>
                     {results.map((movie) => (
                         <div key={movie.id} style={{ display: 'flex', gap: '15px', marginBottom: '10px', alignItems: 'center' }}>
                             <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : ''} alt={movie.title} style={{ width: '50px' }} />
                             <span style={{ flexGrow: 1 }}>{movie.title}</span>
-                            <button onClick={() => handleImport(movie.id)}>Importar</button>
+                            <button onClick={() => handleImport(movie.id)}>Import</button>
                         </div>
                     ))}
                 </div>
             </div>
             <div>
-                <h2>Películas en Cartelera</h2>
-                {localLoading ? <p>Cargando...</p> : (
+                <h2>Movies in Theaters</h2>
+                {localLoading ? <p>Loading...</p> : (
                     <div>
                         {localMovies.map((movie) => (
                             <div key={movie.id} style={{ display: 'flex', gap: '15px', marginBottom: '10px', alignItems: 'center', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>
                                 <strong style={{ flexGrow: 1 }}>{movie.name}</strong>
-                                <button onClick={() => handleDelete(movie.id)} style={{ backgroundColor: '#dc3545', color: 'white' }}>Eliminar</button>
+                                <button onClick={() => handleDelete(movie.id)} style={{ backgroundColor: '#dc3545', color: 'white' }}>Delete</button>
                             </div>
                         ))}
                     </div>

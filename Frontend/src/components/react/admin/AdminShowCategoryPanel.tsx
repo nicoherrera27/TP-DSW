@@ -23,7 +23,7 @@ const AdminShowCategoryPanel = () => {
       const response = await api.get<{ data: ShowCategory[] }>('/api/showCategory');
       setCategories(response.data);
     } catch (error) {
-      setMessage('❌ Error al cargar las categorías.');
+      setMessage('Error loading categories.');
     } finally {
       setLoading(false);
     }
@@ -36,46 +36,46 @@ const AdminShowCategoryPanel = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage('Creando categoría...');
+    setMessage('Creating category...');
     try {
       const data = await api.post<{ data: ShowCategory }>('/api/showCategory', {
         description: newCategory.description,
         price: parseFloat(newCategory.price)
       });
-      setMessage(`✅ Categoría creada: ${data.data.description}`);
+      setMessage(`Category created: ${data.data.description}`);
       fetchCategories();
       setNewCategory({ description: '', price: '' });
     } catch (error: any) {
-      setMessage(`❌ Error: ${error.message}`);
+      setMessage(`Error creating category`);
     }
   };
 
   const handleDelete = async (categoryId: number) => {
-    if (!confirm('¿Estás seguro de que quieres eliminar esta categoría?')) return;
-    setMessage(`Eliminando categoría ID: ${categoryId}...`);
+    if (!confirm('¿Are you sure you want to delete this category?')) return;
+    setMessage(`Deleting category: ${categoryId}...`);
     try {
       await api.delete(`/api/showCategory/${categoryId}`);
-      setMessage('✅ Categoría eliminada correctamente.');
+      setMessage('Category deleted successfully.');
       fetchCategories();
     } catch (error: any) {
-      setMessage(`❌ Error al eliminar: ${error.message}`);
+      setMessage(`Error deleting category`);
     }
   };
 
   return (
     <div style={{ color: 'black', maxWidth: '800px', margin: 'auto' }}>
-      <h2>Gestionar Categorías de Funciones</h2>
+      <h2>Manage Show Categories</h2>
       <form onSubmit={handleSubmit} style={{ marginBottom: '30px', display: 'flex', gap: '10px' }}>
-        <input type="text" name="description" value={newCategory.description} onChange={handleInputChange} placeholder="Descripción" required style={{ padding: '10px', color: 'black' }} />
-        <input type="number" name="price" value={newCategory.price} onChange={handleInputChange} placeholder="Precio" required style={{ padding: '10px', color: 'black' }} />
-        <button type="submit" style={{ padding: '10px 20px' }}>Crear</button>
+        <input type="text" name="description" value={newCategory.description} onChange={handleInputChange} placeholder="Description" required style={{ padding: '10px', color: 'black' }} />
+        <input type="number" name="price" value={newCategory.price} onChange={handleInputChange} placeholder="Price" required style={{ padding: '10px', color: 'black' }} />
+        <button type="submit" style={{ padding: '10px 20px' }}>Create</button>
       </form>
-      {loading ? <p>Cargando...</p> : (
+      {loading ? <p>Loading...</p> : (
         <div>
           {categories.map((category) => (
             <div key={category.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee', padding: '10px 0' }}>
               <span>{category.description} - ${category.price}</span>
-              <button onClick={() => handleDelete(category.id)} style={{ backgroundColor: '#dc3545', color: 'white' }}>Eliminar</button>
+              <button onClick={() => handleDelete(category.id)} style={{ backgroundColor: '#dc3545', color: 'white' }}>Delete</button>
             </div>
           ))}
         </div>

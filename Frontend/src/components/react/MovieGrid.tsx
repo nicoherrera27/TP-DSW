@@ -23,14 +23,14 @@ export const MovieGrid: FC<MovieGridProps> = ({ movies, basePath = '/movie' }) =
           <a href={`${basePath}/${movie.id}`} key={movie.id} className="movie-card">
             <img
               src={posterUrl}
-              alt={`Póster de ${movie.title}`}
+              alt={`Poster of ${movie.title}`}
               className="movie-card-poster"
             />
             <div className="movie-card-info">
               <h3>{movie.title}</h3>
-              <ReadMore 
-                text={movie.overview || 'Sin descripción disponible.'} 
-                maxLength={50} 
+              <ReadMore
+                text={movie.overview || 'No description available.'}
+                maxLength={50}
               />
             </div>
           </a>

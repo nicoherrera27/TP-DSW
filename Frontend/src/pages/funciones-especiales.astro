@@ -23,21 +23,21 @@ try {
         }));
     }
   } else {
-    console.error('Error del servidor:', await response.text());
+    throw new Error('Server error while fetching special shows.');
   }
 } catch (error) {
-  console.error('Error de conexión:', error);
+  throw new Error('Connection error');
 }
 ---
 
-<Layout title="Funciones Especiales - CineVerse">
+<Layout title="CineVerse - Special Shows">
   <main class="cartelera">
     <div class="container">
       <header class="cartelera-header">
-        <h1>Funciones Especiales</h1>
+        <h1>Special Shows</h1>
 
         <p class="page-subtitle">
-          Eventos únicos y proyecciones míticas que no te podés perder.
+          Unique events and legendary screenings you can't miss.
         </p>
       </header>
       <section class="movie-section">
@@ -46,7 +46,7 @@ try {
             <MovieGrid movies={moviesForGrid} basePath="/movie" client:load />
           ) : (
             <p class="no-movies-message">
-              No hay funciones especiales disponibles en este momento.
+              No special shows are available at the moment.
             </p>
           )
         }
