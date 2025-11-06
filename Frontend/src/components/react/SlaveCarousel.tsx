@@ -27,7 +27,8 @@ export function SlaveCarousel({ title, movies }: SlaveCarouselProps) {
     return null;
   }
 
-  const visibleSlides = 3;
+
+  const visibleSlides = 4;
   const totalSlides = movies.length > visibleSlides ? movies.length - (visibleSlides - 1) : 1;
 
   const handlePrev = () => {
@@ -69,10 +70,10 @@ export function SlaveCarousel({ title, movies }: SlaveCarouselProps) {
                     <div className="carousel-image-gradient"></div>
                     <div className="carousel-image-overlay">
                       <span className="release-date">
-                        {/* Si el título es "Mejores Valoradas", muestra el rating.
+                        {/* Si el título es "Featured movies", muestra el rating.
                           Si no, muestra la fecha.
                         */}
-                        {title.includes('Valoradas')
+                        {title.includes('Featured')
                           ? `⭐ ${movie.vote_average.toFixed(1)} / 10`
                           : `🗓️ ${formatReleaseDate(movie.release_date)}`
                         }

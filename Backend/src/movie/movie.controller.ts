@@ -108,7 +108,7 @@ async function findTopRated(req: Request, res: Response) {
       }, 
       { 
         orderBy: { rating: 'DESC' }, 
-        limit: 6
+        limit: 8
       }
     );
     res.status(200).json({ message: 'Películas mejor valoradas encontradas', data: movies });

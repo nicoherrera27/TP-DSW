@@ -69,7 +69,7 @@ export function BossCarousel() {
 
   return (
     <>
-      <SlaveCarousel title="Featured movies" movies={topRatedMovies} />
+      <SlaveCarousel title="Featured Movies" movies={topRatedMovies} />
       <SlaveCarousel title="Upcoming Releases" movies={upcomingMovies} />
     </>
   );
