@@ -30,7 +30,7 @@ export function Header({ isLoggedIn: initialIsLoggedIn, userRole }: HeaderProps)
               <>
                 {/* Muestra el panel solo si el rol es 'admin' */}
                 {userRole === 'admin' && <a href="/admin">Admin Panel</a>}
-                <button onClick={handleLogout} className="logout-button">Logout</button> 
+                <a onClick={handleLogout} className="logout-button">Logout</a> 
               </>
             ) : (
               <>

@@ -129,3 +129,12 @@
 .message.success { 
     color: #5cb85c; 
 }
+
+.seats-info {
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+
+.sold-out-message {
+    color: #d9534f;
+}

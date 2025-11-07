@@ -1,0 +1,47 @@
+.admin-main {
+  padding: 2rem;
+}
+
+.admin-h1 {
+  color: black;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+
+main.admin-main .admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.admin-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.admin-card {
+  background-color: #f0f0f0;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  height: 100%;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.admin-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.admin-card h2 {
+  color: #1a88c7;
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.admin-card p {
+  color: #333;
+  font-size: 1rem;
+}

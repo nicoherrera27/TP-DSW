@@ -104,11 +104,11 @@ fetch(`http://localhost:3000/api/show/cartelera?${queryParams.toString()}`)
 
       <section className="movie-section">
         {loading ? (
-          <p style={{ color: 'black', textAlign: 'center' }}>Loading movies...</p>
+          <p className="cartelera-message">Loading movies...</p>
         ) : moviesForGrid.length > 0 ? (
           <MovieGrid movies={moviesForGrid} />
         ) : (
-          <p style={{ color: 'black', textAlign: 'center' }}>No movies found with those filters.</p>
+          <p className="cartelera-message">No movies found with those filters.</p>
         )}
       </section>
     </>

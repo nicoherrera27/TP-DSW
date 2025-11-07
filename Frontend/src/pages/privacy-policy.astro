@@ -3,55 +3,55 @@ import '../styles/privacy-policy.css';
 import Layout from '../layouts/Layout.astro';
 
 const privacyPolicy = {
-  lastUpdated: '17 de octubre de 2025',
+  lastUpdated: 'October 17, 2025',
   contactEmail: 'info@cineverse.com.ar',
   sections: [
     {
-      title: '¿Qué Información Recolectamos?',
+      title: 'What Information Do We Collect?',
       content: `
-        <p><strong>Datos que nos proporcionás:</strong> Recolectamos la información personal que ingresás al registrarte o interactuar con nuestro sitio, como tu nombre, correo electrónico, nombre de usuario y contraseña.</p>
-        <p><strong>Información de Navegación:</strong> De forma automática, recibimos datos técnicos como tu dirección IP, tipo de navegador y las páginas que visitás dentro de CineVerse. Usamos esta información para mejorar nuestro servicio y entender qué es lo más popular.</p>
-        <p><strong>Cookies:</strong> Utilizamos cookies (pequeños archivos de texto) para personalizar tu experiencia, recordar tus preferencias y hacer que tu navegación sea más fluida. Podés configurar tu navegador para rechazarlas si lo preferís.</p>
+        <p><strong>Information You Provide:</strong> We collect the personal information you enter when you register or interact with our site, such as your name, email address, username, and password.</p>
+        <p><strong>Browsing Information:</strong> We automatically receive technical data such as your IP address, browser type, and the pages you visit within CineVerse. We use this information to improve our service and understand what is most popular.</p>
+        <p><strong>Cookies:</strong> We use cookies (small text files) to personalize your experience, remember your preferences, and make your browsing smoother. You can configure your browser to reject them if you prefer.</p>
       `,
     },
     {
-      title: '¿Cómo Usamos tu Información?',
+      title: 'How Do We Use Your Information?',
       content: `
-        <p>Usamos tus datos para:</p>
+        <p>We use your data to:</p>
         <ul>
-          <li>Operar el sitio y brindarte los servicios que solicitás.</li>
-          <li>Informarte sobre estrenos, promociones y novedades de CineVerse.</li>
-          <li>Mejorar la calidad de nuestro sitio y personalizar tu experiencia.</li>
-          <li>Realizar encuestas para conocer tu opinión.</li>
+          <li>Operate the site and provide you with the services you request.</li>
+          <li>Inform you about premieres, promotions, and news from CineVerse.</li>
+          <li>Improve the quality of our site and personalize your experience.</li>
+          <li>Conduct surveys to know your opinion.</li>
         </ul>
-        <p><strong>Importante:</strong> Nunca venderemos, alquilaremos ni transferiremos tus datos personales a terceros. Solo compartiremos tu información si una autoridad legal nos lo exige.</p>
+        <p><strong>Important:</strong> We will never sell, rent, or transfer your personal data to third parties. We will only share your information if we are legally required to do so by an authority.</p>
       `,
     },
     {
-      title: 'Seguridad y Tus Derechos',
+      title: 'Security and Your Rights',
       content: `
-        <p><strong>Seguridad:</strong> Protegemos tu información personal en servidores seguros para evitar el acceso no autorizado.</p>
-        <p><strong>Tus Derechos:</strong> Tenés derecho a acceder a tus datos personales o solicitar su eliminación en cualquier momento. Para hacerlo, simplemente contactanos a través de <strong>${'privacidad@cineverse.com'}</strong>.</p>
+        <p><strong>Security:</strong> We protect your personal information on secure servers to prevent unauthorized access.</p>
+        <p><strong>Your Rights:</strong> You have the right to access your personal data or request its deletion at any time. To do so, simply contact us at <strong>privacidad@cineverse.com</strong>.</p>
       `,
     },
     {
-      title: 'Cambios a esta Política',
+      title: 'Changes to this Policy',
       content: `
-        <p>Podemos actualizar esta política de privacidad periódicamente. Te recomendamos revisarla de vez en cuando para mantenerte informado sobre cómo protegemos tu información.</p>
-        <p>El uso de nuestro sitio implica que leíste y aceptaste estos términos.</p>
+        <p>We may update this privacy policy periodically. We recommend you review it from time to time to stay informed about how we protect your information.</p>
+        <p>Your use of our site implies that you have read and accepted these terms.</p>
       `,
     },
   ],
 };
 ---
 
-<Layout title="CineVerse - Política de Privacidad">
+<Layout title="CineVerse - Privacy Policy">
   <main class="privacy">
     <div class="container">
       <header class="privacy-header">
-        <h1>Política de Privacidad</h1>
+        <h1>Privacy Policy</h1>
         <p class="page-subtitle">
-          Última actualización: {privacyPolicy.lastUpdated}
+          Latest update: {privacyPolicy.lastUpdated}
         </p>
       </header>
 
@@ -67,7 +67,7 @@ const privacyPolicy = {
           ))
         }
         <p class="contact-info">
-          Si tenés alguna duda, podés escribirnos a <a
+          If you have any questions, you can write to us at <a
             href={`mailto:${privacyPolicy.contactEmail}`}
             >{privacyPolicy.contactEmail}</a
           >.

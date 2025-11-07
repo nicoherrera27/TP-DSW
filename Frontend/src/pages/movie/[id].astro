@@ -3,6 +3,7 @@ import '../../styles/movie-id.css';
 import Layout from '../../layouts/Layout.astro';
 import { tmdbService } from '../../services/tmdbService';
 import type { TMDBVideo } from '../../types/movies';
+import '../../styles/movie-detail.css'
 export const prerender = false;
 
 const { id } = Astro.params;
@@ -30,7 +31,7 @@ const backdropUrl = movie.backdrop_path
 function getFormattedDate(dateStr: string) {
   try {
     const dateObj = new Date(`${dateStr}T12:00:00Z`);
-    const formatted = dateObj.toLocaleDateString('es-AR', {
+    const formatted = dateObj.toLocaleDateString('en-US', {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
@@ -123,7 +124,7 @@ try {
             <li>
               <strong>Release Date:</strong>
               {
-                new Date(movie.release_date).toLocaleDateString('es-AR', {
+                new Date(movie.release_date).toLocaleDateString('en-US', {
                   timeZone: 'UTC',
                 })
               }

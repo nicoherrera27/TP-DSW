@@ -20,6 +20,7 @@
     font-size: 3rem;
     color: black;
     margin-bottom: 1.5rem;
+    font-weight: 400;
   }
 
   .filters {
@@ -51,4 +52,11 @@
     .cartelera-header h1 {
       font-size: 2rem;
     }
+  }
+
+  .page-subtitle {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
   }

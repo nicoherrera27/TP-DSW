@@ -202,7 +202,7 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
                     <p><strong>Time:</strong> {showDetails.time}</p>
                 </div>
                 <div className="summary">
-                    <p className="message" style={{color: '#d9534f'}}>Function sold out. No seats available.</p>
+                    <p className="message sold-out-message">Function sold out. No seats available.</p>
                 </div>
             </div>
         );
@@ -217,7 +217,7 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
                 <p><strong>Time:</strong> {showDetails.time}</p>
                 <p><strong>Format:</strong> {showDetails.format} ({showDetails.variant})</p>
                 <p><strong>Base Price per Ticket:</strong> ${Number(showDetails.basePrice).toFixed(2) || 'N/A'}</p>
-                <p style={{marginTop: '0.5rem', fontWeight: 'bold'}}><strong>Available Seats:</strong> {showDetails.availableCapacity}</p>
+                <p className="seats-info"><strong>Available Seats:</strong> {showDetails.availableCapacity}</p>
             </div>
 
             <div className="ticket-section">

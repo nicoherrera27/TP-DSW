@@ -160,3 +160,10 @@
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
 }
+
+.cartelera-message {
+  color: black;
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 2rem 0;
+}

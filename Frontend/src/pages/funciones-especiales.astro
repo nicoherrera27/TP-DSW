@@ -1,8 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { MovieGrid } from '../components/react/MovieGrid.tsx';
-import '../styles/movie-detail.css';
 import '../styles/cartelera.css';
+import '../styles/movies.css';
 
 let moviesForGrid: any[] = [];
 try {
@@ -54,18 +54,3 @@ try {
     </div>
   </main>
 </Layout>
-
-<style>
-  .page-subtitle {
-    font-size: 1.2rem;
-    color: #333;
-    margin-top: -1rem;
-    margin-bottom: 2rem;
-  }
-  .no-movies-message {
-    color: #333;
-    text-align: center;
-    padding: 2rem;
-    font-size: 1.1rem;
-  }
-</style>
