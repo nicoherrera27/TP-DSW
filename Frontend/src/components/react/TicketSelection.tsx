@@ -141,7 +141,7 @@ const TicketSelection: React.FC<TicketSelectionProps> = ({ showDetails, ticketTy
             const day = parseInt(dateParts[2], 10);
             if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
                 const dateObj = new Date(Date.UTC(year, month, day));
-                 return dateObj.toLocaleDateString('es-AR', {
+                 return dateObj.toLocaleDateString('en-US', {
                     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'
                 });
             }
